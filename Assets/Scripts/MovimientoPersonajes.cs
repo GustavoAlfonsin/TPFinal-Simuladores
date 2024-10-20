@@ -12,10 +12,24 @@ public class MovimientoPersonajes : MonoBehaviour
     private Ray miRayo;
     private RaycastHit infoRayo;
 
+    //para probar cosas
+    public GameObject prefabCliente;
+    public GameObject SpawArea;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        GameObject objetoVacio = new GameObject("grupo_prueba");
+        objetoVacio.transform.position = SpawArea.transform.position;
+        objetoVacio.AddComponent<grupo_cliente>();
+        for (int i = 0; i < 4; i++)
+        {
+            GameObject nuevoCliente = Instantiate(prefabCliente, 
+                                        SpawArea.transform.position, Quaternion.identity);
+            nuevoCliente.transform.parent = objetoVacio.gameObject.transform;
+            objetoVacio.GetComponent<grupo_cliente>().sumarCliente(nuevoCliente);
+        }
+        objetoVacio.GetComponent<grupo_cliente>().conectarClientes();
     }
 
     // Update is called once per frame

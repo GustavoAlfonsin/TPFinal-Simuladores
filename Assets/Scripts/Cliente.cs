@@ -8,10 +8,11 @@ public class Cliente : MonoBehaviour
 {
     private float satisfaccion;
     private bool enMesa;
-    public GameObject Mozo;
+    public GameObject followObject;
     public float followDistance = 2.0f, stoppingDistance = 1.0f;
 
     private NavMeshAgent clientAgent;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -21,19 +22,19 @@ public class Cliente : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Mozo != null && !enMesa)
+        if (followObject != null && !enMesa)
         {
-            seguirMozo();
+            seguir();
         }
     }
 
-    private void seguirMozo()
+    private void seguir()
     {
-        Vector3 targetPosition = Mozo.gameObject.transform.position - 
-                                    Mozo.gameObject.transform.forward * followDistance;
+        Vector3 targetPosition = followObject.gameObject.transform.position - 
+                                    followObject.gameObject.transform.forward * followDistance;
         clientAgent.SetDestination(targetPosition);
         
-        if(Vector3.Distance(transform.position, Mozo.gameObject.transform.position) <= stoppingDistance)
+        if(Vector3.Distance(transform.position, followObject.gameObject.transform.position) <= stoppingDistance)
         {
             clientAgent.isStopped = true;
         }
