@@ -32,7 +32,8 @@ public class Cliente : MonoBehaviour
         Vector3 targetPosition = Mozo.gameObject.transform.position - 
                                     Mozo.gameObject.transform.forward * followDistance;
         clientAgent.SetDestination(targetPosition);
-        if (Vector3.Distance(transform.position, Mozo.gameObject.transform.position) <= stoppingDistance)
+        
+        if(Vector3.Distance(transform.position, Mozo.gameObject.transform.position) <= stoppingDistance)
         {
             clientAgent.isStopped = true;
         }
@@ -41,4 +42,5 @@ public class Cliente : MonoBehaviour
             clientAgent.isStopped = false;
         }
     }
+
 }
