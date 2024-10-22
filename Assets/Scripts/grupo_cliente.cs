@@ -5,11 +5,12 @@ using UnityEngine;
 public class grupo_cliente : MonoBehaviour
 {
     [SerializeField] private GameObject[] clientes = new GameObject[4];
+    public Transform pos;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        pos = transform;
     }
 
     // Update is called once per frame

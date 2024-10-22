@@ -7,7 +7,7 @@ using UnityEngine.AI;
 public class Cliente : MonoBehaviour
 {
     private float satisfaccion;
-    private bool enMesa;
+    public bool enMovimiento;
     public GameObject followObject;
     public float followDistance = 2.0f, stoppingDistance = 1.0f;
 
@@ -22,7 +22,7 @@ public class Cliente : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (followObject != null && !enMesa)
+        if (followObject != null && enMovimiento)
         {
             seguir();
         }

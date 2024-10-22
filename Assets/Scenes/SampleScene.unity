@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 168775695}
   - component: {fileID: 168775696}
+  - component: {fileID: 168775697}
   m_Layer: 0
   m_Name: ControladorNPC
   m_TagString: Untagged
@@ -149,7 +150,7 @@ Transform:
   m_GameObject: {fileID: 168775694}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.1070604, y: 1.9734449, z: 2.0136514}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -162,7 +163,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 168775694}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1d43033a7ac84e1478b8b08f9942d1b5, type: 3}
   m_Name: 
@@ -175,6 +176,24 @@ MonoBehaviour:
   prefabCliente: {fileID: 5913398173083199239, guid: 259a01fff966cd64fa26a271e9cf2adf,
     type: 3}
   SpawArea: {fileID: 619652363}
+--- !u!114 &168775697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 168775694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b62f90c37f1aea8439f332d64c78710d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  capaTransitable:
+    serializedVersion: 2
+    m_Bits: 64
+  prefab: {fileID: 5913398173083199239, guid: 259a01fff966cd64fa26a271e9cf2adf, type: 3}
+  spaw: {fileID: 619652363}
+  clientes: []
 --- !u!1 &312078904
 GameObject:
   m_ObjectHideFlags: 0
@@ -262,6 +281,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1135635353706418052, guid: ae847c4ed77020b43ba983bc207b3875,
+        type: 3}
+      propertyPath: _botonesMesero
+      value: 
+      objectReference: {fileID: 598085141}
     - target: {fileID: 7105726058089559422, guid: ae847c4ed77020b43ba983bc207b3875,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -774,7 +798,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 749543376}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Silla2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -911,7 +935,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 828981381}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Silla3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1245,7 +1269,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1204344358}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Silla4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1479,7 +1503,8 @@ GameObject:
   - component: {fileID: 1403982674}
   - component: {fileID: 1403982673}
   - component: {fileID: 1403982672}
-  m_Layer: 0
+  - component: {fileID: 1403982675}
+  m_Layer: 6
   m_Name: Mesa
   m_TagString: Mesa
   m_Icon: {fileID: 0}
@@ -1499,7 +1524,6 @@ Transform:
   m_LocalScale: {x: 2, y: 1, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1892624850}
   - {fileID: 1899470893}
   - {fileID: 749543376}
   - {fileID: 828981381}
@@ -1577,6 +1601,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1403982670}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1403982675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1403982670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59e8cc95a5db19245b9ba1687a951e91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _botonesMesa: {fileID: 767304759}
 --- !u!1 &1497063338
 GameObject:
   m_ObjectHideFlags: 0
@@ -1910,59 +1947,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1771455314}
   m_CullTransparentMesh: 1
---- !u!1 &1892624849
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1892624850}
-  - component: {fileID: 1892624851}
-  m_Layer: 0
-  m_Name: zonaInteraccion
-  m_TagString: ToqueMesa
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1892624850
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1892624849}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1403982671}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &1892624851
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1892624849}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.25, y: 2, z: 1.25}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1899470892
 GameObject:
   m_ObjectHideFlags: 0
@@ -1972,7 +1956,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1899470893}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Silla1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

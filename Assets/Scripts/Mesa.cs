@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Mesa : MonoBehaviour, IInteractions
 {
-    GameObject _botonesMesa;   
+    public GameObject _botonesMesa;   
     // Start is called before the first frame update
     void Start()
     {
