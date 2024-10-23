@@ -16,7 +16,7 @@ public class Game_Manager : MonoBehaviour
     public GameObject prefab;
     public GameObject spaw;
     private float distancia = 2.0f;
-    private float spawTime = 5.0f;
+    //private float spawTime = 5.0f;
     private int maxClient = 3;
     public List<GameObject> clientes = new List<GameObject>();
 
@@ -24,18 +24,6 @@ public class Game_Manager : MonoBehaviour
     void Start()
     {
         CreateClients();
-        //Vector3[] posiciones = new Vector3[]
-        //{
-        //    spaw.transform.position + Vector3.forward * distancia, // adelante
-        //    spaw.transform.position + Vector3.right * distancia, // a la derecha
-        //    spaw.transform.position + Vector3.left * distancia, // a la izquierda
-        //    spaw.transform.position, //origen del spaw
-        //};
-
-        //foreach (Vector3 pos in posiciones)
-        //{
-        //    Instantiate(prefab, pos, Quaternion.identity);
-        //}
     }
 
     // Update is called once per frame
@@ -83,7 +71,7 @@ public class Game_Manager : MonoBehaviour
             }
             else
             {
-                grupo.transform.position = clientes.Last().transform.position + Vector3.back * 2;
+                grupo.transform.position = clientes.Last().transform.position + Vector3.left * 4;
             }
 
             grupo.AddComponent<grupo_cliente>();
@@ -98,16 +86,17 @@ public class Game_Manager : MonoBehaviour
                 switch (j)
                 {
                     case 0:
-                        nuevoCliente.transform.localPosition = Vector3.zero;
+                        nuevoCliente.transform.localPosition = Vector3.forward * distancia;
                         break;
                     case 1:
                         nuevoCliente.transform.localPosition = Vector3.right * distancia;
                         break;
                     case 2:
-                        nuevoCliente.transform.localPosition = Vector3.left * distancia;
+                        nuevoCliente.transform.localPosition = Vector3.right * distancia + 
+                                                                Vector3.forward * distancia;
                         break;
                     case 3:
-                        nuevoCliente.transform.localPosition = Vector3.back * distancia;
+                        nuevoCliente.transform.localPosition = Vector3.zero;
                         break;
                     default:
                         break;
@@ -115,6 +104,7 @@ public class Game_Manager : MonoBehaviour
             }
             grupo.GetComponent<grupo_cliente>().conectarClientes();
             clientes.Add(grupo);
+            grupo.gameObject.SetActive(false);
         }
     }
 }
