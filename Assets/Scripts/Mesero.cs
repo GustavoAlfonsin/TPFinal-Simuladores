@@ -19,7 +19,8 @@ public class Mesero : MonoBehaviour, IInteractions
 
     public float distancia = 3.0f;
 
-    public bool movimientoLibre = false, conGente = false, sinGente = false;
+    public bool movimientoLibre = false, atendiendo = false, conGente = false, sinGente = false;
+    public bool tomandoPedido = false, entregandoPedido = false, cobrandoMesa = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,9 +34,18 @@ public class Mesero : MonoBehaviour, IInteractions
         {
             mover();
         }
-        else
+        else if (atendiendo)
         {
             MoverMesero();
+        } else if (tomandoPedido)
+        {
+            tomarPedido();
+        } else if (entregandoPedido) 
+        {
+            //entregarPedido();
+        }else if (cobrandoMesa)
+        {
+            //cobrarMesa();
         }
     }
     private void MoverMesero()
@@ -55,18 +65,49 @@ public class Mesero : MonoBehaviour, IInteractions
             _agent.SetDestination(objeto2.transform.position);
             if (Vector3.Distance(_agent.transform.position, objeto2.transform.position) <= distancia)
             {
-                objeto1.GetComponent<grupo_cliente>().sentarse(objeto2);
+                objeto1.SetActive(false);
+                objeto2.GetComponent<Mesa>().ocuparMesa();
                 conGente = false;
+                atendiendo = false;
                 movimientoLibre = true;
                 posicionFinal = objeto2.transform.position + Vector3.left * 5;
             }
         }
     }
 
-    public void mover()
+    private void mover()
     {
         _agent.SetDestination(posicionFinal);
         movimientoLibre = Vector3.Distance(_agent.transform.position, posicionFinal) == 0;
+    }
+
+    private void tomarPedido()
+    {
+        if (Vector3.Distance(_agent.transform.position, objeto1.transform.position) > distancia)
+        {
+            _agent.SetDestination(objeto1.transform.position);
+        }
+        else
+        {
+            // Crear los pedidos de la mesa
+            // Esos pedidos enviarlos a la cocina
+            tomandoPedido = false;
+        }
+    }
+
+    private void cobrarMesa()
+    {
+        if (Vector3.Distance(_agent.transform.position, objeto1.transform.position) > distancia)
+        {
+            _agent.SetDestination(objeto1.transform.position);
+        }
+        else
+        {
+            // Cobrar el pedido
+            // Actualizar la interfaz
+            // Los clientes se tienen que ir y despejar la mesa
+            cobrandoMesa = false;
+        }
     }
     public void mostrarAcciones()
     {
@@ -82,6 +123,7 @@ public class Mesero : MonoBehaviour, IInteractions
         foreach (var button in buttons) 
         {
             button.onClick.RemoveAllListeners();
+            button.GetComponent<ColorBotones>().cabiarColorOut();
         }
     }
 }

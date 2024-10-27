@@ -10,6 +10,9 @@ TagManager:
   - Cliente
   - Suelo
   - Bton_Atender
+  - Bton_tomarPedido
+  - Bton_EntregarPedido
+  - Bton_Cobrar
   layers:
   - Default
   - TransparentFX
