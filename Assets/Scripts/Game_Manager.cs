@@ -4,26 +4,25 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class Game_Manager : MonoBehaviour
 {
     public LayerMask capaTransitable;
+    public LayerMask capaSeleccion;
     private Ray miRayo;
     private RaycastHit infoRayo;
     private GameObject _target;
 
-    public GameObject prefab;
-    public GameObject spaw;
-    private float distancia = 2.0f;
-    //private float spawTime = 5.0f;
-    private int maxClient = 3;
-    public List<GameObject> clientes = new List<GameObject>();
+    private GameObject objeto1;
+    private GameObject objeto2;
+    private bool seleccionando = false;
+    private int objetosSeleccionados = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        CreateClients();
+        
     }
 
     // Update is called once per frame
@@ -36,75 +35,91 @@ public class Game_Manager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            miRayo = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(miRayo, out infoRayo, 150, capaTransitable))
+            if (!seleccionando)
             {
-                Debug.Log(infoRayo.collider.tag);
-                if (infoRayo.collider.CompareTag("Suelo"))
+                ObjetosYMovimiento();
+            }
+            else
+            {
+                seleccionarObjetos();
+            }
+            
+        }
+    }
+
+    private void ObjetosYMovimiento()
+    {
+        miRayo = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(miRayo, out infoRayo, 150, capaTransitable))
+        {
+            Debug.Log(infoRayo.collider.tag);
+            if (infoRayo.collider.CompareTag("Suelo"))
+            {
+                if (_target != null)
                 {
-                    if (_target != null)
+                    if (_target.CompareTag("Player"))
                     {
-                        if (_target.CompareTag("Player"))
-                        {
-                            _target.GetComponent<Mesero>().mover(infoRayo.point);
-                        }
-                        _target.GetComponent<IInteractions>().ocultarAcciones();
+                        _target.GetComponent<Mesero>().posicionFinal = infoRayo.point;
+                        _target.GetComponent<Mesero>().movimientoLibre = true;
                     }
+                    _target.GetComponent<IInteractions>().ocultarAcciones();
                 }
-                else
-                {
-                    _target = infoRayo.collider.gameObject;
-                    _target.GetComponent<IInteractions>().mostrarAcciones();
-                }
+            }
+            else
+            {
+                _target = infoRayo.collider.gameObject;
+                _target.GetComponent<IInteractions>().mostrarAcciones();
+                asignarBotones();
+
             }
         }
     }
 
-    private void CreateClients()
+    private void seleccionarObjetos()
     {
-        for (int i = 1; i <= maxClient; i++)
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, 150, capaSeleccion))
         {
-            GameObject grupo = new GameObject($"Grupo{i}");
-            if(clientes.Count == 0)
+            if (objetosSeleccionados == 0 && hit.collider.CompareTag("Cliente"))
             {
-                grupo.transform.position = spaw.transform.position;
+                objeto1 = hit.collider.gameObject;
+                objetosSeleccionados++;
+                Debug.Log("Objeto 1 seleccionado: " + objeto1.tag);
             }
-            else
+            else if (objetosSeleccionados == 1 && hit.collider.CompareTag("Mesa"))
             {
-                grupo.transform.position = clientes.Last().transform.position + Vector3.left * 4;
+                objeto2 = hit.collider.gameObject;
+                objetosSeleccionados++;
+                seleccionando = false;
+                _target.GetComponent<Mesero>().objeto1 = objeto1;
+                _target.GetComponent<Mesero>().objeto2 = objeto2;
+                _target.GetComponent<Mesero>().sinGente = true;
+                Debug.Log("Objeto 2 seleccionado: " + objeto2.tag);
             }
+        }
+    }
 
-            grupo.AddComponent<grupo_cliente>();
+    public void IniciarSeleccion()
+    {
+        seleccionando = true;
+        objeto1 = null;
+        objeto2 = null;
+        objetosSeleccionados = 0;
+        _target.GetComponent<IInteractions>().ocultarAcciones();
+        Debug.Log("Modo de selección activado. Haz click en dos objetos");
+    }
 
-            for (int j = 0; j < 4; j++) 
-            {
-                GameObject nuevoCliente = Instantiate(prefab, grupo.transform.position
-                                                        ,Quaternion.identity);
-                nuevoCliente.transform.parent = grupo.transform;
-                nuevoCliente.GetComponent<Cliente>().enMovimiento = false;
-                grupo.GetComponent<grupo_cliente>().sumarCliente(nuevoCliente);
-                switch (j)
-                {
-                    case 0:
-                        nuevoCliente.transform.localPosition = Vector3.forward * distancia;
-                        break;
-                    case 1:
-                        nuevoCliente.transform.localPosition = Vector3.right * distancia;
-                        break;
-                    case 2:
-                        nuevoCliente.transform.localPosition = Vector3.right * distancia + 
-                                                                Vector3.forward * distancia;
-                        break;
-                    case 3:
-                        nuevoCliente.transform.localPosition = Vector3.zero;
-                        break;
-                    default:
-                        break;
-                }
-            }
-            grupo.GetComponent<grupo_cliente>().conectarClientes();
-            clientes.Add(grupo);
-            grupo.gameObject.SetActive(false);
+    private void asignarBotones()
+    {
+        if (_target.CompareTag("Player"))
+        {
+            List<Button> botones = _target.GetComponent<Mesero>().buttons;
+            var btonAtender = botones.FirstOrDefault(x => x.CompareTag("Bton_Atender"));
+            btonAtender.onClick.AddListener(IniciarSeleccion);
+        }else if (_target.CompareTag("Mesa"))
+        {
+
         }
     }
 }

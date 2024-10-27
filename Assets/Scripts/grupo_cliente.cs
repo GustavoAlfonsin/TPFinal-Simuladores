@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class grupo_cliente : MonoBehaviour
 {
-    [SerializeField] private GameObject[] clientes = new GameObject[4];
+    public GameObject[] clientes = new GameObject[4];
     public Transform pos;
+    private GameObject mesero;
 
     // Start is called before the first frame update
     void Start()
@@ -19,36 +21,38 @@ public class grupo_cliente : MonoBehaviour
         
     }
 
-    public void sumarCliente(GameObject c)
-    {
-        if (!lleno())
-        {
-            for (int i = 0; i < clientes.Length; i++)
-            {
-                if (clientes[i] == null)
-                {
-                    clientes[i] = c;
-                    return;
-                }
-            }
-        }
-    }
-
-    private bool lleno()
-    {
-        for (int i = 0; i < clientes.Length; i++)
-        {
-            if (clientes[i] == null)
-                return false;
-        }
-        return true;
-    }
-
     public void conectarClientes()
     {
         for(int i = 1;i < clientes.Length; i++)
         {
             clientes[i].GetComponent<Cliente>().followObject = clientes[i-1];
+            clientes[i].GetComponent<Cliente>().enMovimiento = false;
+        }
+    }
+
+    public void asignarMesero(GameObject mesero)
+    {
+        this.mesero = mesero;
+        clientes[0].GetComponent<Cliente>().followObject = mesero;
+    }
+
+    public void aMoverse()
+    {
+        foreach (GameObject go in clientes)
+        {
+            go.GetComponent<Cliente>().enMovimiento = true;
+        }
+    }
+
+    public void sentarse(GameObject mesa)
+    {
+        GameObject[] sillas = mesa.transform.GetComponentsInChildren<GameObject>();
+        int sillaLibre = 0;
+        foreach (GameObject cliente in clientes)
+        {
+            cliente.gameObject.transform.position = sillas[sillaLibre].transform.position;
+            cliente.GetComponent<Cliente>().enMovimiento = false;
+            sillaLibre++;
         }
     }
 }

@@ -172,3 +172,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _botonesMesero: {fileID: 0}
+  player: {fileID: 7801208491510213789}
+  buttons: []
+  posicionFinal: {x: 0, y: 0, z: 0}
+  objeto1: {fileID: 0}
+  objeto2: {fileID: 0}
+  distancia: 3
+  movimientoLibre: 0
+  conGente: 0
+  sinGente: 0

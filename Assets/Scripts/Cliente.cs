@@ -17,6 +17,7 @@ public class Cliente : MonoBehaviour
     void Start()
     {
         clientAgent = GetComponent<NavMeshAgent>();
+        enMovimiento = false;
     }
 
     // Update is called once per frame

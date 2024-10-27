@@ -10,82 +10,63 @@ public class Mesero : MonoBehaviour, IInteractions
 {
     private NavMeshAgent _agent;
     public GameObject _botonesMesero;
+    public GameObject player;
     public List<Button> buttons;
 
-    private GameObject objeto1;
-    private GameObject objeto2;
+    public Vector3 posicionFinal;
+    public GameObject objeto1;
+    public GameObject objeto2;
 
-    public float distancia = 1.0f;
+    public float distancia = 3.0f;
 
-    private bool seleccionando = false;
-    private int objetosSeleccionados = 0;
+    public bool movimientoLibre = false, conGente = false, sinGente = false;
     // Start is called before the first frame update
     void Start()
     {
-        // botonSeleccion.onClick.AddListener(IniciarSeleccion);
         _agent = GetComponent<NavMeshAgent>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (seleccionando)
+        if (movimientoLibre)
         {
-            SeleccionarObjetos();
+            mover();
         }
-
-        if (objeto1 != null && objeto2 != null)
+        else
         {
             MoverMesero();
         }
     }
-    public void IniciarSeleccion()
-    {
-        seleccionando = true;
-        objeto1 = null;
-        objeto2 = null;
-        objetosSeleccionados = 0;
-        Debug.Log("Modo de selección activado. Haz click en dos objetos");
-    }
     private void MoverMesero()
     {
-        if (Vector3.Distance(_agent.transform.position, objeto1.transform.position) > distancia)
+        if (sinGente)
         {
             _agent.SetDestination(objeto1.transform.position);
-        }else if (Vector3.Distance(_agent.transform.position, objeto1.transform.position) <= distancia &&
-                    Vector3.Distance(_agent.transform.position, objeto2.transform.position) > distancia)
+            if (Vector3.Distance(_agent.transform.position, objeto1.transform.position) <= distancia)
+            {
+                sinGente = false;
+                objeto1.GetComponent<grupo_cliente>().asignarMesero(player);
+                objeto1.GetComponent<grupo_cliente>().aMoverse();
+                conGente = true;
+            }
+        }else if (conGente)
         {
             _agent.SetDestination(objeto2.transform.position);
-        }
-    }
-
-    private void SeleccionarObjetos()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
+            if (Vector3.Distance(_agent.transform.position, objeto2.transform.position) <= distancia)
             {
-                if (objetosSeleccionados == 0)
-                {
-                    objeto1 = hit.collider.gameObject;
-                    objetosSeleccionados++;
-                    Debug.Log("Objeto 1 seleccionado: " + objeto1.tag);
-                }else if (objetosSeleccionados == 1)
-                {
-                    objeto2 = hit.collider.gameObject;
-                    objetosSeleccionados++;
-                    seleccionando = false;
-                    Debug.Log("Objeto 2 seleccionado: " + objeto2.tag);
-                }
+                objeto1.GetComponent<grupo_cliente>().sentarse(objeto2);
+                conGente = false;
+                movimientoLibre = true;
+                posicionFinal = objeto2.transform.position + Vector3.left * 5;
             }
         }
     }
 
-    public void mover(Vector3 point)
+    public void mover()
     {
-        _agent.SetDestination(point);
+        _agent.SetDestination(posicionFinal);
+        movimientoLibre = Vector3.Distance(_agent.transform.position, posicionFinal) == 0;
     }
     public void mostrarAcciones()
     {
@@ -98,5 +79,9 @@ public class Mesero : MonoBehaviour, IInteractions
     public void ocultarAcciones()
     {
         _botonesMesero.SetActive(false);
+        foreach (var button in buttons) 
+        {
+            button.onClick.RemoveAllListeners();
+        }
     }
 }

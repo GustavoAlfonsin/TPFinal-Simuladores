@@ -132,8 +132,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 168775695}
-  - component: {fileID: 168775696}
   - component: {fileID: 168775697}
+  - component: {fileID: 168775698}
   m_Layer: 0
   m_Name: ControladorNPC
   m_TagString: Untagged
@@ -156,26 +156,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &168775696
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 168775694}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d43033a7ac84e1478b8b08f9942d1b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  capaTransitable:
-    serializedVersion: 2
-    m_Bits: 64
-  _botonesMozo: {fileID: 598085141}
-  _botonesMesa: {fileID: 767304759}
-  prefabCliente: {fileID: 5913398173083199239, guid: 259a01fff966cd64fa26a271e9cf2adf,
-    type: 3}
-  SpawArea: {fileID: 619652363}
 --- !u!114 &168775697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,7 +171,22 @@ MonoBehaviour:
   capaTransitable:
     serializedVersion: 2
     m_Bits: 64
-  prefab: {fileID: 5913398173083199239, guid: 259a01fff966cd64fa26a271e9cf2adf, type: 3}
+  capaSeleccion:
+    serializedVersion: 2
+    m_Bits: 128
+--- !u!114 &168775698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 168775694}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acba6668c096a13409d7e98bae97a63b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 5645063433957346805, guid: 6ea60b9a080141b46ae7fe0f090c6460, type: 3}
   spaw: {fileID: 619652363}
   clientes: []
 --- !u!1 &312078904
@@ -789,12 +784,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 698241947}
   m_CullTransparentMesh: 1
---- !u!1 &716456482 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7801208491510213789, guid: ae847c4ed77020b43ba983bc207b3875,
-    type: 3}
-  m_PrefabInstance: {fileID: 323373125}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &749543375
 GameObject:
   m_ObjectHideFlags: 0
@@ -804,7 +793,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 749543376}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Silla2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -820,7 +809,7 @@ Transform:
   m_GameObject: {fileID: 749543375}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: -0.4}
+  m_LocalPosition: {x: -0.4, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -941,7 +930,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 828981381}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Silla3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -957,7 +946,7 @@ Transform:
   m_GameObject: {fileID: 828981380}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: 0, z: 0.1}
+  m_LocalPosition: {x: -0.4, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1056,7 +1045,7 @@ GameObject:
   - component: {fileID: 971659227}
   m_Layer: 5
   m_Name: Boton_atender
-  m_TagString: Buttons
+  m_TagString: Bton_Atender
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1124,19 +1113,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 971659228}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 716456482}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &971659228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1287,7 +1264,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1204344358}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Silla4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1303,7 +1280,7 @@ Transform:
   m_GameObject: {fileID: 1204344357}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: 0, z: -0.4}
+  m_LocalPosition: {x: 0.4, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1522,7 +1499,7 @@ GameObject:
   - component: {fileID: 1403982673}
   - component: {fileID: 1403982672}
   - component: {fileID: 1403982675}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Mesa
   m_TagString: Mesa
   m_Icon: {fileID: 0}
@@ -1537,9 +1514,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1403982670}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 4}
-  m_LocalScale: {x: 2, y: 1, z: 4}
+  m_LocalScale: {x: 4, y: 1, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1899470893}
@@ -1547,7 +1524,7 @@ Transform:
   - {fileID: 828981381}
   - {fileID: 1204344358}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &1403982672
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1974,7 +1951,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1899470893}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Silla1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1990,7 +1967,7 @@ Transform:
   m_GameObject: {fileID: 1899470892}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 0.1}
+  m_LocalPosition: {x: 0.4, y: 0, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2094,10 +2071,10 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 410087041}
+  - {fileID: 1108309228}
   - {fileID: 1497063342}
   - {fileID: 2088171191}
   - {fileID: 168775695}
-  - {fileID: 1108309228}
   - {fileID: 819282044}
   - {fileID: 323373125}
   - {fileID: 1403982671}

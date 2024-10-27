@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3124924386231402084}
   - component: {fileID: 1277806201780466559}
   - component: {fileID: 2936914685795547962}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cliente
   m_TagString: Cliente
   m_Icon: {fileID: 0}
@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 5913398173083199239}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.24, y: 1.25, z: -2.68}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -135,8 +135,8 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
-  m_CollisionDetection: 0
+  m_Constraints: 126
+  m_CollisionDetection: 1
 --- !u!195 &1277806201780466559
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -171,6 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d052f95bcfd5c194c97e9db773707296, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enMovimiento: 0
   followObject: {fileID: 0}
-  followDistance: 2
-  stoppingDistance: 1
+  followDistance: 0.5
+  stoppingDistance: 0.5
