@@ -6,10 +6,10 @@ using UnityEngine.AI;
 
 public class Cliente : MonoBehaviour
 {
-    private float satisfaccion;
     public bool enMovimiento;
     public GameObject followObject;
     public float followDistance = 2.0f, stoppingDistance = 1.0f;
+    private Vector3 posInic;
 
     private NavMeshAgent clientAgent;
 
@@ -18,6 +18,7 @@ public class Cliente : MonoBehaviour
     {
         clientAgent = GetComponent<NavMeshAgent>();
         enMovimiento = false;
+        posInic = transform.position;
     }
 
     // Update is called once per frame

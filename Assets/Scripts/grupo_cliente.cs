@@ -43,16 +43,4 @@ public class grupo_cliente : MonoBehaviour
             go.GetComponent<Cliente>().enMovimiento = true;
         }
     }
-
-    public void sentarse(GameObject mesa)
-    {
-        GameObject[] sillas = mesa.transform.GetComponentsInChildren<GameObject>();
-        int sillaLibre = 0;
-        foreach (GameObject cliente in clientes)
-        {
-            cliente.gameObject.transform.position = sillas[sillaLibre].transform.position;
-            cliente.GetComponent<Cliente>().enMovimiento = false;
-            sillaLibre++;
-        }
-    }
 }

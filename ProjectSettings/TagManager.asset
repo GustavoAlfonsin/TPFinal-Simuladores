@@ -6,13 +6,13 @@ TagManager:
   tags:
   - Buttons
   - Mesa
-  - ToqueMesa
   - Cliente
   - Suelo
   - Bton_Atender
   - Bton_tomarPedido
   - Bton_EntregarPedido
   - Bton_Cobrar
+  - Cocina
   layers:
   - Default
   - TransparentFX
