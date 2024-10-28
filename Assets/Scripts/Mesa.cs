@@ -43,23 +43,32 @@ public class Mesa : MonoBehaviour, IInteractions
             _botonesMesa.SetActive(true);
             Vector3 posicion = Input.mousePosition;
             buttons = _botonesMesa.GetComponentsInChildren<Button>().ToList();
-            Button mainOption;
+            Transform[] botones = _botonesMesa.GetComponentsInChildren<Transform>(true);
+
+            foreach (Transform boton in botones)
+            {
+                if (boton != _botonesMesa.transform)
+                {
+                    if (!boton.CompareTag("Untagged"))
+                    {
+                        boton.gameObject.SetActive(false);
+                    }
+                }
+            }
+            
             if (paraOrdenar)
             {
-                mainOption = buttons.FirstOrDefault(x => x.CompareTag("Bton_tomarPedido"));
-            }else if (paraEntregar)
-            {
-                mainOption = buttons.FirstOrDefault(x => x.CompareTag("Bton_EntregarPedido"));
-            }else if (paraCobrar)
-            {
-                mainOption = buttons.FirstOrDefault(x => x.CompareTag("Bton_Cobrar"));
+                _botonesMesa.transform.GetChild(0).gameObject.SetActive(true);
             }
-            else
+            else if (paraEntregar)
             {
-                mainOption = buttons.FirstOrDefault(x => x.CompareTag("Bton_tomarPedido"));
-                mainOption.enabled = false;
+                _botonesMesa.transform.GetChild(1).gameObject.SetActive(true);
             }
-            mainOption.gameObject.SetActive(true);
+            else if (paraCobrar)
+            {
+                _botonesMesa.transform.GetChild(2).gameObject.SetActive(true);
+            }
+           
             _botonesMesa.gameObject.transform.position = posicion;
         }
     }

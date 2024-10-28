@@ -15,6 +15,7 @@ public class SpawClientes : MonoBehaviour
     {
         CreateClients();
         clientes[0].SetActive(true);
+        clientes[1].SetActive(true);
     }
 
     // Update is called once per frame

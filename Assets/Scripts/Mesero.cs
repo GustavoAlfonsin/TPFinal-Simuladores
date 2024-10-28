@@ -19,8 +19,8 @@ public class Mesero : MonoBehaviour, IInteractions
 
     public float distancia = 3.0f;
 
-    public bool movimientoLibre = false, atendiendo = false, conGente = false, sinGente = false;
-    public bool tomandoPedido = false, entregandoPedido = false, cobrandoMesa = false;
+    [HideInInspector]public bool movimientoLibre = false, atendiendo = false, conGente = false, sinGente = false;
+    [HideInInspector]public bool tomandoPedido = false, entregandoPedido = false, cobrandoMesa = false;
     // Start is called before the first frame update
     void Start()
     {
