@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -21,6 +22,8 @@ public class Game_Manager : MonoBehaviour
     // Objetos utilizables cuando se realiza una selección
     private GameObject objeto1;
     private GameObject objeto2;
+    public TextMeshProUGUI txtAyuda;
+    public GameObject panelAyuda;
     private bool seleccionando = false;
     private int objetosSeleccionados = 0;
     // Para poder tocar el boton
@@ -94,6 +97,7 @@ public class Game_Manager : MonoBehaviour
             {
                 objeto1 = infoRayoSecundario.collider.gameObject;
                 objetosSeleccionados++;
+                txtAyuda.text = "Elije la mesa donde quieres llevar a los clientes";
                 Debug.Log("Objeto 1 seleccionado: " + objeto1.tag);
             }
             else if (objetosSeleccionados == 1 && infoRayoSecundario.collider.CompareTag("Mesa"))
@@ -107,6 +111,7 @@ public class Game_Manager : MonoBehaviour
                 _target.GetComponent<Mesero>().sinGente = true;
                 _target.GetComponent<Mesero>().movimientoLibre = false;
                 _target.GetComponent<Mesero>().atendiendo = true;
+                panelAyuda.SetActive(false);
                 Debug.Log("Objeto 2 seleccionado: " + objeto2.tag);
             }
         }
@@ -119,6 +124,8 @@ public class Game_Manager : MonoBehaviour
         objeto2 = null;
         objetosSeleccionados = 0;
         _target.GetComponent<IInteractions>().ocultarAcciones();
+        panelAyuda.SetActive(true);
+        txtAyuda.text = "Elije a los clientes que quieras atender";
         Debug.Log("Modo de selección activado. Haz click en dos objetos");
     }
 
