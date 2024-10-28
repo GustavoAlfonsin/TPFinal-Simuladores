@@ -101,6 +101,7 @@ public class Game_Manager : MonoBehaviour
                 objeto2 = infoRayoSecundario.collider.gameObject;
                 objetosSeleccionados++;
                 seleccionando = false;
+                objeto2.GetComponent<Mesa>().mesero = _target;
                 _target.GetComponent<Mesero>().objeto1 = objeto1;
                 _target.GetComponent<Mesero>().objeto2 = objeto2;
                 _target.GetComponent<Mesero>().sinGente = true;
@@ -123,6 +124,7 @@ public class Game_Manager : MonoBehaviour
 
     public void AtenderMesa()
     {
+        Debug.Log("Estoy apretando el boton");
         GameObject meseroMesa = _target.GetComponent<Mesa>().mesero;
         meseroMesa.GetComponent<Mesero>().objeto1 = _target;
         meseroMesa.GetComponent<Mesero>().tomandoPedido = true;

@@ -12,6 +12,7 @@ public class Mesa : MonoBehaviour, IInteractions
 
     public bool mesaOcupada = false;
     public GameObject mesero;
+    public bool paraOrdenar = false, paraEntregar = false, paraCobrar = false; 
 
 
     // Start is called before the first frame update
@@ -33,13 +34,34 @@ public class Mesa : MonoBehaviour, IInteractions
         {
             c.SetActive(true);
         }
+        paraOrdenar = true;
     }
     public void mostrarAcciones()
     {
-        _botonesMesa.SetActive(true);
-        Vector3 posicion = Input.mousePosition;
-        buttons = _botonesMesa.GetComponentsInChildren<Button>().ToList();
-        _botonesMesa.gameObject.transform.position = posicion;
+        if (mesaOcupada)
+        {
+            _botonesMesa.SetActive(true);
+            Vector3 posicion = Input.mousePosition;
+            buttons = _botonesMesa.GetComponentsInChildren<Button>().ToList();
+            Button mainOption;
+            if (paraOrdenar)
+            {
+                mainOption = buttons.FirstOrDefault(x => x.CompareTag("Bton_tomarPedido"));
+            }else if (paraEntregar)
+            {
+                mainOption = buttons.FirstOrDefault(x => x.CompareTag("Bton_EntregarPedido"));
+            }else if (paraCobrar)
+            {
+                mainOption = buttons.FirstOrDefault(x => x.CompareTag("Bton_Cobrar"));
+            }
+            else
+            {
+                mainOption = buttons.FirstOrDefault(x => x.CompareTag("Bton_tomarPedido"));
+                mainOption.enabled = false;
+            }
+            mainOption.gameObject.SetActive(true);
+            _botonesMesa.gameObject.transform.position = posicion;
+        }
     }
 
     public void ocultarAcciones()
