@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7050504067051715753}
   - component: {fileID: 4391358610037958929}
   - component: {fileID: 1346694694754756731}
-  - component: {fileID: 1135635353706418052}
+  - component: {fileID: 6087110607624995764}
   m_Layer: 7
   m_Name: Jugador
   m_TagString: Player
@@ -159,7 +159,7 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &1135635353706418052
+--- !u!114 &6087110607624995764
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -168,20 +168,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7801208491510213789}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b6996d703c78c834693d25e853b0349d, type: 3}
+  m_Script: {fileID: 11500000, guid: 688aa24f84ea5eb4da6ef4b603db62e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _botonesMesero: {fileID: 0}
-  player: {fileID: 7801208491510213789}
-  buttons: []
-  posicionFinal: {x: 0, y: 0, z: 0}
-  objeto1: {fileID: 0}
-  objeto2: {fileID: 0}
-  distancia: 3
-  movimientoLibre: 0
-  atendiendo: 0
-  conGente: 0
-  sinGente: 0
-  tomandoPedido: 0
-  entregandoPedido: 0
-  cobrandoMesa: 0
+  _distancia: 4
+  <player>k__BackingField: {fileID: 7801208491510213789}
+  <bton_accion>k__BackingField: {fileID: 0}
+  <btonAccion>k__BackingField: {fileID: 0}

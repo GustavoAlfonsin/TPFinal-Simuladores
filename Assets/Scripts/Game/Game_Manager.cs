@@ -11,14 +11,18 @@ public class Game_Manager : MonoBehaviour
 {
     public LayerMask capaTransitable; // capa donde me puedo mover con el personaje
     public LayerMask capaSeleccion; // capa donde estan los objetos que puedo seleccionar
+    
     // Rayo que controla la capa transitable
     private Ray rayoPrincipal;
     private RaycastHit infoRayoPrincipal;
+    
     // Rayo que controla la capa de objetos seleccionables
     private Ray rayoSecundario;
     private RaycastHit infoRayoSecundario;
+    
     // Objeto donde puede impactar el rayo y es interactuable
     [SerializeField] private GameObject _target;
+    
     // Objetos utilizables cuando se realiza una selección
     private GameObject objeto1;
     private GameObject objeto2;
@@ -26,6 +30,7 @@ public class Game_Manager : MonoBehaviour
     public GameObject panelAyuda;
     private bool seleccionando = false;
     private int objetosSeleccionados = 0;
+   
     // Para poder tocar el boton
     public static bool enElBoton;
 
@@ -71,8 +76,15 @@ public class Game_Manager : MonoBehaviour
                     {
                         if (_target.CompareTag("Player"))
                         {
-                            _target.GetComponent<Mesero>().posicionFinal = infoRayoPrincipal.point;
-                            _target.GetComponent<Mesero>().movimientoLibre = true;
+                            if (_target.GetComponent<Camarero>().estado == estadoCamarero.Esperando)
+                            {
+                                Vector3 destino = infoRayoPrincipal.point;
+                                _target.GetComponent<Camarero>().CamareroCamina(destino);
+                            }
+                            else
+                            {
+                                Debug.Log("El camarero esta ocupado");
+                            }
                         }
                         _target.GetComponent<IInteractions>().ocultarAcciones();
                     }
@@ -82,7 +94,7 @@ public class Game_Manager : MonoBehaviour
                 {
                     _target = infoRayoPrincipal.collider.gameObject;
                     _target.GetComponent<IInteractions>().mostrarAcciones();
-                    asignarBotones();
+                    //asignarBotones();
                 }
             }
         }
@@ -154,33 +166,33 @@ public class Game_Manager : MonoBehaviour
         _target.GetComponent<IInteractions>().ocultarAcciones();
     }
 
-    private void asignarBotones()
-    {
-        if (_target.CompareTag("Player"))
-        {
-            List<Button> botones = _target.GetComponent<Mesero>().buttons;
-            var btonAtender = botones.FirstOrDefault(x => x.CompareTag("Bton_Atender"));
-            btonAtender.onClick.AddListener(IniciarSeleccion);
-        }else if (_target.CompareTag("Mesa"))
-        {
-            List<Button> botones = _target.GetComponent<Mesa>().buttons;
-            foreach ( var button in botones)
-            {
-                switch (button.tag)
-                {
-                    case "Bton_tomarPedido":
-                        button.onClick.AddListener(AtenderMesa);
-                        break;
-                    case "Bton_EntregarPedido":
-                        button.onClick.AddListener(EntregarPedido);
-                        break;
-                    case "Bton_Cobrar":
-                        button.onClick.AddListener(CobrarPedido);
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-    }
+    //private void asignarBotones()
+    //{
+    //    if (_target.CompareTag("Player"))
+    //    {
+    //        List<Button> botones = _target.GetComponent<Mesero>().buttons;
+    //        var btonAtender = botones.FirstOrDefault(x => x.CompareTag("Bton_Atender"));
+    //        btonAtender.onClick.AddListener(IniciarSeleccion);
+    //    }else if (_target.CompareTag("Mesa"))
+    //    {
+    //        List<Button> botones = _target.GetComponent<Mesa>().buttons;
+    //        foreach ( var button in botones)
+    //        {
+    //            switch (button.tag)
+    //            {
+    //                case "Bton_tomarPedido":
+    //                    button.onClick.AddListener(AtenderMesa);
+    //                    break;
+    //                case "Bton_EntregarPedido":
+    //                    button.onClick.AddListener(EntregarPedido);
+    //                    break;
+    //                case "Bton_Cobrar":
+    //                    button.onClick.AddListener(CobrarPedido);
+    //                    break;
+    //                default:
+    //                    break;
+    //            }
+    //        }
+    //    }
+    //}
 }

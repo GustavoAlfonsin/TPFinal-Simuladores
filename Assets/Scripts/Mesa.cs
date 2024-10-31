@@ -6,14 +6,15 @@ using UnityEngine.UI;
 
 public class Mesa : MonoBehaviour, IInteractions
 {
-    public GameObject _botonesMesa;
-    public List<Button> buttons;
-    public GameObject[] clientes;
+    public int numeroMesa { get; private set; }
+    [field: SerializeField]
+    public List<Button> botones { get; set; }
 
-    public bool mesaOcupada = false;
-    public GameObject mesero;
-    public bool paraOrdenar = false, paraEntregar = false, paraCobrar = false; 
-
+    [field: SerializeField]
+    public List<GameObject> clientes { get; set; }
+    public GameObject mozo { get; set; }
+    public bool ocupada { get; set; }
+    public estado_mesa estado { get; set; }
 
     // Start is called before the first frame update
     void Start()
@@ -29,57 +30,57 @@ public class Mesa : MonoBehaviour, IInteractions
 
     public void ocuparMesa()
     {
-        mesaOcupada = true;
+        ocupada = true;
         foreach (GameObject c in clientes) 
         {
             c.SetActive(true);
         }
-        paraOrdenar = true;
+        estado = estado_mesa.Pensando;
     }
     public void mostrarAcciones()
     {
-        if (mesaOcupada)
+        if (ocupada)
         {
-            _botonesMesa.SetActive(true);
-            Vector3 posicion = Input.mousePosition;
-            buttons = _botonesMesa.GetComponentsInChildren<Button>().ToList();
-            Transform[] botones = _botonesMesa.GetComponentsInChildren<Transform>(true);
-
-            foreach (Transform boton in botones)
+            Button btonIndicado;
+            switch (estado)
             {
-                if (boton != _botonesMesa.transform)
-                {
-                    if (!boton.CompareTag("Untagged"))
-                    {
-                        boton.gameObject.SetActive(false);
-                    }
-                }
+                case estado_mesa.ParaOrdenar:
+                    btonIndicado = botones.FirstOrDefault(x => x.CompareTag("Bton_tomarPedido"));
+                    break;
+                case estado_mesa.ParaEntregar:
+                    btonIndicado = botones.FirstOrDefault(x => x.CompareTag("Bton_EntregarPedido"));
+                    break;
+                case estado_mesa.ParaCobrar:
+                    btonIndicado = botones.FirstOrDefault(x => x.CompareTag("Bton_Cobrar"));
+                    break;
+                default:
+                    btonIndicado = null;
+                    break;
             }
-            
-            if (paraOrdenar)
-            {
-                _botonesMesa.transform.GetChild(0).gameObject.SetActive(true);
-            }
-            else if (paraEntregar)
-            {
-                _botonesMesa.transform.GetChild(1).gameObject.SetActive(true);
-            }
-            else if (paraCobrar)
-            {
-                _botonesMesa.transform.GetChild(2).gameObject.SetActive(true);
-            }
-           
-            _botonesMesa.gameObject.transform.position = posicion;
+            btonIndicado.gameObject.SetActive(true);
+            Vector3 posicion = Input.mousePosition + (Vector3.up * 3);
+            btonIndicado.gameObject.transform.position = posicion;
+        }
+        else 
+        {
+            Debug.Log("La mesa indicada esta libre");
         }
     }
 
     public void ocultarAcciones()
     {
-        _botonesMesa.SetActive(false);
-        foreach (var button in buttons)
+        foreach (Button bton in botones)
         {
-            button.onClick.RemoveAllListeners();
-            button.GetComponent<ColorBotones>().cabiarColorOut();
+            bton.gameObject.SetActive(false);
+            bton.GetComponent<ColorBotones>().cabiarColorOut();
         }
     }
+}
+
+public enum estado_mesa
+{
+    Pensando,
+    ParaOrdenar,
+    ParaEntregar,
+    ParaCobrar
 }
