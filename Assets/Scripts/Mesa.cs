@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class Mesa : MonoBehaviour, IInteractions
 {
     public int numeroMesa { get; private set; }
+    
     [field: SerializeField]
     public List<Button> botones { get; set; }
 
@@ -57,9 +58,16 @@ public class Mesa : MonoBehaviour, IInteractions
                     btonIndicado = null;
                     break;
             }
-            btonIndicado.gameObject.SetActive(true);
-            Vector3 posicion = Input.mousePosition + (Vector3.up * 3);
-            btonIndicado.gameObject.transform.position = posicion;
+            if (btonIndicado != null)
+            {
+                btonIndicado.gameObject.SetActive(true);
+                Vector3 posicion = Input.mousePosition + (Vector3.up * 3);
+                btonIndicado.gameObject.transform.position = posicion;
+            }
+            else if (estado == estado_mesa.Pensando)
+            {
+                Debug.Log("La mesa seleccionada esta pensando la comida");
+            }
         }
         else 
         {

@@ -94,7 +94,6 @@ public class Game_Manager : MonoBehaviour
                 {
                     _target = infoRayoPrincipal.collider.gameObject;
                     _target.GetComponent<IInteractions>().mostrarAcciones();
-                    //asignarBotones();
                 }
             }
         }
@@ -114,17 +113,19 @@ public class Game_Manager : MonoBehaviour
             }
             else if (objetosSeleccionados == 1 && infoRayoSecundario.collider.CompareTag("Mesa"))
             {
-                objeto2 = infoRayoSecundario.collider.gameObject;
-                objetosSeleccionados++;
-                seleccionando = false;
-                objeto2.GetComponent<Mesa>().mesero = _target;
-                _target.GetComponent<Mesero>().objeto1 = objeto1;
-                _target.GetComponent<Mesero>().objeto2 = objeto2;
-                _target.GetComponent<Mesero>().sinGente = true;
-                _target.GetComponent<Mesero>().movimientoLibre = false;
-                _target.GetComponent<Mesero>().atendiendo = true;
-                panelAyuda.SetActive(false);
-                Debug.Log("Objeto 2 seleccionado: " + objeto2.tag);
+                if (infoRayoSecundario.collider.GetComponent<Mesa>().ocupada)
+                {
+                    txtAyuda.text = "La mesa está ocupada, elija una mesa vacia";
+                }
+                else 
+                {
+                    objeto2 = infoRayoSecundario.collider.gameObject;
+                    objetosSeleccionados++;
+                    seleccionando = false;
+                    _target.GetComponent<Camarero>().atender(objeto1, objeto2);
+                    panelAyuda.SetActive(false);
+                    Debug.Log("Objeto 2 seleccionado: " + objeto2.tag);
+                }
             }
         }
     }
@@ -144,55 +145,17 @@ public class Game_Manager : MonoBehaviour
     public void AtenderMesa()
     {
         Debug.Log("Estoy apretando el boton");
-        GameObject meseroMesa = _target.GetComponent<Mesa>().mesero;
-        meseroMesa.GetComponent<Mesero>().objeto1 = _target;
-        meseroMesa.GetComponent<Mesero>().tomandoPedido = true;
         _target.GetComponent<IInteractions>().ocultarAcciones();
     }
 
     public void EntregarPedido()
     {
-        GameObject meseroMesa = _target.GetComponent<Mesa>().mesero;
-        meseroMesa.GetComponent<Mesero>().objeto1 = _target;
-        meseroMesa.GetComponent<Mesero>().entregandoPedido = true;
         _target.GetComponent<IInteractions>().ocultarAcciones();
     }
 
     public void CobrarPedido()
     {
-        GameObject meseroMesa = _target.GetComponent<Mesa>().mesero;
-        meseroMesa.GetComponent<Mesero>().objeto1 = _target;
-        meseroMesa.GetComponent<Mesero>().cobrandoMesa = true;
         _target.GetComponent<IInteractions>().ocultarAcciones();
     }
 
-    //private void asignarBotones()
-    //{
-    //    if (_target.CompareTag("Player"))
-    //    {
-    //        List<Button> botones = _target.GetComponent<Mesero>().buttons;
-    //        var btonAtender = botones.FirstOrDefault(x => x.CompareTag("Bton_Atender"));
-    //        btonAtender.onClick.AddListener(IniciarSeleccion);
-    //    }else if (_target.CompareTag("Mesa"))
-    //    {
-    //        List<Button> botones = _target.GetComponent<Mesa>().buttons;
-    //        foreach ( var button in botones)
-    //        {
-    //            switch (button.tag)
-    //            {
-    //                case "Bton_tomarPedido":
-    //                    button.onClick.AddListener(AtenderMesa);
-    //                    break;
-    //                case "Bton_EntregarPedido":
-    //                    button.onClick.AddListener(EntregarPedido);
-    //                    break;
-    //                case "Bton_Cobrar":
-    //                    button.onClick.AddListener(CobrarPedido);
-    //                    break;
-    //                default:
-    //                    break;
-    //            }
-    //        }
-    //    }
-    //}
 }

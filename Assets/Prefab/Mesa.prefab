@@ -122,13 +122,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59e8cc95a5db19245b9ba1687a951e91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _botonesMesa: {fileID: 0}
-  clientes:
+  <botones>k__BackingField:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  <clientes>k__BackingField:
   - {fileID: 7814686973766330563}
   - {fileID: 9012449772484170713}
   - {fileID: 5520069409691084562}
   - {fileID: 1316962325466309208}
-  mesaOcupada: 0
 --- !u!1001 &2201035016055701525
 PrefabInstance:
   m_ObjectHideFlags: 0
