@@ -131,6 +131,11 @@ MonoBehaviour:
   - {fileID: 9012449772484170713}
   - {fileID: 5520069409691084562}
   - {fileID: 1316962325466309208}
+  start_time: 0
+  thinking_time: 10
+  order_time: 15
+  wait_time: 45
+  eating_time: 30
 --- !u!1001 &2201035016055701525
 PrefabInstance:
   m_ObjectHideFlags: 0

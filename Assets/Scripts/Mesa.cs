@@ -16,7 +16,8 @@ public class Mesa : MonoBehaviour, IInteractions
     public GameObject mozo { get; set; }
     public bool ocupada { get; set; }
     public estado_mesa estado { get; set; }
-    private float start_time, thinking_time, order_time, wait_time, eating_time;
+
+    [SerializeField]private float start_time, thinking_time, order_time, wait_time, eating_time;
 
     void Start()
     {
@@ -32,7 +33,7 @@ public class Mesa : MonoBehaviour, IInteractions
         numeroMesa = i;
     }
 
-    public void ocuparMesa()
+    public void ocuparMesa(float time)
     {
         ocupada = true;
         foreach (GameObject c in clientes) 
@@ -40,6 +41,7 @@ public class Mesa : MonoBehaviour, IInteractions
             c.SetActive(true);
         }
         estado = estado_mesa.Pensando;
+        start_time = time;
     }
     public void mostrarAcciones()
     {
@@ -90,14 +92,18 @@ public class Mesa : MonoBehaviour, IInteractions
     public void pasarTiempo(float timer)
     {
         float tiempoTranscurrido = timer - start_time;
+        Debug.Log($"Tiempo transcurrido: {tiempoTranscurrido:00} ");
         if (estado == estado_mesa.Pensando)
         {
+            Debug.Log("El cliente esta pensando");
             if (tiempoTranscurrido > thinking_time)
             {
                 estado = estado_mesa.ParaOrdenar;
+                start_time = Time.time;
             }
         }else if (estado == estado_mesa.ParaOrdenar)
         {
+            Debug.Log("El cliente quiere ordenar");
             if (tiempoTranscurrido > order_time)
             {
                 CalcularTardanza(tiempoTranscurrido, order_time);

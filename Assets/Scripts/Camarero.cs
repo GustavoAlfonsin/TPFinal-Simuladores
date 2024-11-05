@@ -81,7 +81,7 @@ public class Camarero : MonoBehaviour, IInteractions
             if (Vector3.Distance(_agente.transform.position, objeto2.transform.position) <= _distancia)
             {
                 objeto1.SetActive(false);
-                objeto2.GetComponent<Mesa>().ocuparMesa();
+                objeto2.GetComponent<Mesa>().ocuparMesa(Time.time);
                 conGente = false;
                 Vector3 destino = objeto2.transform.position + (Vector3.left * 4);
                 CamareroCamina(destino);

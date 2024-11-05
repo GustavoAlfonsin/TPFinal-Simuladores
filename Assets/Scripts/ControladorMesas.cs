@@ -6,6 +6,7 @@ public class ControladorMesas : MonoBehaviour
 {
     [field: SerializeField]
     public List<Mesa> mesas { get; set; }
+    private float timer = 0f;
     void Start()
     {
         asignarNumeros();
@@ -13,7 +14,8 @@ public class ControladorMesas : MonoBehaviour
 
     void Update()
     {
-        
+        timer += Time.deltaTime;
+        aumentarTiempo(timer);
     }
 
     private void asignarNumeros()
@@ -26,5 +28,14 @@ public class ControladorMesas : MonoBehaviour
         }
     }
 
-
+    private void aumentarTiempo(float time)
+    {
+        foreach (Mesa m in mesas)
+        {
+            if (m.ocupada)
+            {
+                m.pasarTiempo(time);
+            }
+        }
+    }
 }
