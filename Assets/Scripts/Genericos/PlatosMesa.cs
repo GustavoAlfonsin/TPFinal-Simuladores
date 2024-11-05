@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlatosMesa
 {
+    public int numero_mesa { get; set; }
     public List<comida> platos { get; set; } = new List<comida>();
 
     public bool listo { get; set; }

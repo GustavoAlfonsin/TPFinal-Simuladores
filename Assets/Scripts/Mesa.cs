@@ -16,17 +16,20 @@ public class Mesa : MonoBehaviour, IInteractions
     public GameObject mozo { get; set; }
     public bool ocupada { get; set; }
     public estado_mesa estado { get; set; }
+    private float start_time, thinking_time, order_time, wait_time, eating_time;
 
-    // Start is called before the first frame update
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         
+    }
+    public void asignarNumero(int i)
+    {
+        numeroMesa = i;
     }
 
     public void ocuparMesa()
@@ -83,12 +86,56 @@ public class Mesa : MonoBehaviour, IInteractions
             bton.GetComponent<ColorBotones>().cabiarColorOut();
         }
     }
+
+    public void pasarTiempo(float timer)
+    {
+        float tiempoTranscurrido = timer - start_time;
+        if (estado == estado_mesa.Pensando)
+        {
+            if (tiempoTranscurrido > thinking_time)
+            {
+                estado = estado_mesa.ParaOrdenar;
+            }
+        }else if (estado == estado_mesa.ParaOrdenar)
+        {
+            if (tiempoTranscurrido > order_time)
+            {
+                CalcularTardanza(tiempoTranscurrido, order_time);
+            }
+        }else if (estado == estado_mesa.Esperando || estado == estado_mesa.ParaEntregar)
+        {
+            if (tiempoTranscurrido > wait_time)
+            {
+                CalcularTardanza(tiempoTranscurrido, wait_time);
+            }
+        }else if (estado == estado_mesa.Comiendo)
+        {
+            if (tiempoTranscurrido > eating_time)
+            {
+                estado = estado_mesa.ParaCobrar;
+            }
+        }
+    }
+
+    private void CalcularTardanza(float tiempoT, float time)
+    {
+        if (tiempoT - time > 15f)
+        {
+            Debug.Log("Se esta tardando mucho");
+        }else if (tiempoT - time > 30f)
+        {
+            Debug.Log("Nos vamos");
+            //funcion para irse del restaurante
+        }
+    }
 }
 
 public enum estado_mesa
 {
     Pensando,
     ParaOrdenar,
+    Esperando,
     ParaEntregar,
+    Comiendo,
     ParaCobrar
 }
