@@ -16,6 +16,8 @@ public class Camarero : MonoBehaviour, IInteractions
     public int ID { get; private set; }
     [field: SerializeField]
     public GameObject player { get; set; }
+    [field: SerializeField]
+    public Cocina _cocina { get; set; }
     public GameObject objeto1 { get; set; }
     public GameObject objeto2 { get; set; }
     [field: SerializeField]
@@ -39,6 +41,9 @@ public class Camarero : MonoBehaviour, IInteractions
         } else if (estado == estadoCamarero.Atendiendo)
         {
             atenderClientes();
+        }else if (estado == estadoCamarero.TomandoPedido)
+        {
+            AtenderMesa();
         }
     }
 
@@ -89,6 +94,25 @@ public class Camarero : MonoBehaviour, IInteractions
         }
     }
 
+    public void Llamando(GameObject mesa)
+    {
+        objeto1 = mesa;
+        estado = estadoCamarero.TomandoPedido;
+    }
+
+    private void AtenderMesa()
+    {
+        if (Vector3.Distance(transform.position, objeto1.transform.position) > _distancia)
+        {
+            _agente.SetDestination(objeto1.transform.position);
+        }
+        else
+        {
+            PlatosMesa encargo = objeto1.GetComponent<Mesa>().pedidos();
+            _cocina.nuevoPlato(encargo);
+            CamareroCamina(_cocina.transform.position);
+        }
+    }
     public void mostrarAcciones()
     {
         bton_accion.gameObject.SetActive(true);

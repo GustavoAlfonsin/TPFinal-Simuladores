@@ -749,6 +749,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6087110607624995764, guid: ae847c4ed77020b43ba983bc207b3875,
         type: 3}
+      propertyPath: <_cocina>k__BackingField
+      value: 
+      objectReference: {fileID: 615612257}
+    - target: {fileID: 6087110607624995764, guid: ae847c4ed77020b43ba983bc207b3875,
+        type: 3}
       propertyPath: <btonAccion>k__BackingField
       value: 
       objectReference: {fileID: 971659225}
@@ -1686,6 +1691,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b35564525a1870149b37ad2b253433d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _position: {fileID: 0}
   cocinando: 0
 --- !u!1 &619652363
 GameObject:
@@ -1726,6 +1732,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 400749212}
     m_Modifications:
+    - target: {fileID: 6087110607624995764, guid: ae847c4ed77020b43ba983bc207b3875,
+        type: 3}
+      propertyPath: <_cocina>k__BackingField
+      value: 
+      objectReference: {fileID: 615612257}
     - target: {fileID: 6087110607624995764, guid: ae847c4ed77020b43ba983bc207b3875,
         type: 3}
       propertyPath: <btonAccion>k__BackingField
@@ -2122,6 +2133,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 400749212}
     m_Modifications:
+    - target: {fileID: 6087110607624995764, guid: ae847c4ed77020b43ba983bc207b3875,
+        type: 3}
+      propertyPath: <_cocina>k__BackingField
+      value: 
+      objectReference: {fileID: 615612257}
     - target: {fileID: 6087110607624995764, guid: ae847c4ed77020b43ba983bc207b3875,
         type: 3}
       propertyPath: <btonAccion>k__BackingField
@@ -3466,7 +3482,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1229893613}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 168775697}
+        m_TargetAssemblyTypeName: Game_Manager, Assembly-CSharp
+        m_MethodName: AtenderMesa
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1229893613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3606,6 +3634,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 400749212}
     m_Modifications:
+    - target: {fileID: 6087110607624995764, guid: ae847c4ed77020b43ba983bc207b3875,
+        type: 3}
+      propertyPath: <_cocina>k__BackingField
+      value: 
+      objectReference: {fileID: 615612257}
     - target: {fileID: 6087110607624995764, guid: ae847c4ed77020b43ba983bc207b3875,
         type: 3}
       propertyPath: <btonAccion>k__BackingField
@@ -4512,6 +4545,11 @@ PrefabInstance:
       propertyPath: bton_accion
       value: 
       objectReference: {fileID: 971659227}
+    - target: {fileID: 6087110607624995764, guid: ae847c4ed77020b43ba983bc207b3875,
+        type: 3}
+      propertyPath: <_cocina>k__BackingField
+      value: 
+      objectReference: {fileID: 615612257}
     - target: {fileID: 6087110607624995764, guid: ae847c4ed77020b43ba983bc207b3875,
         type: 3}
       propertyPath: <btonAccion>k__BackingField

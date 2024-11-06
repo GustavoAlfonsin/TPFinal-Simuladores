@@ -7,6 +7,7 @@ public class Cocina : MonoBehaviour
 {
     public List<PlatosMesa> platosEnPreparacion;
     public List<PlatosMesa> platosListos;
+    public Transform _position;
 
     public bool cocinando;
 
@@ -16,6 +17,7 @@ public class Cocina : MonoBehaviour
         platosEnPreparacion = new List<PlatosMesa>();
         platosListos = new List<PlatosMesa>();
         cocinando = false;
+        _position = this.transform;
     }
 
     // Update is called once per frame

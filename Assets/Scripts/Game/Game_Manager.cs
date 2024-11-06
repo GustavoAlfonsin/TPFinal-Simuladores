@@ -145,6 +145,7 @@ public class Game_Manager : MonoBehaviour
     public void AtenderMesa()
     {
         Debug.Log("Estoy apretando el boton");
+        _target.GetComponent<Mesa>().mozo.GetComponent<Camarero>().Llamando(_target);
         _target.GetComponent<IInteractions>().ocultarAcciones();
     }
 

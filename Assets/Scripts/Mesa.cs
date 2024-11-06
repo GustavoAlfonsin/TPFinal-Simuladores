@@ -71,7 +71,7 @@ public class Mesa : MonoBehaviour, IInteractions
             }
             else if (estado == estado_mesa.Pensando)
             {
-                Debug.Log("La mesa seleccionada esta pensando la comida");
+                Debug.Log("La mesa seleccionada no a hecho ningún llamado");
             }
         }
         else 
@@ -84,8 +84,8 @@ public class Mesa : MonoBehaviour, IInteractions
     {
         foreach (Button bton in botones)
         {
-            bton.gameObject.SetActive(false);
             bton.GetComponent<ColorBotones>().cabiarColorOut();
+            bton.gameObject.SetActive(false);
         }
     }
 
@@ -110,6 +110,7 @@ public class Mesa : MonoBehaviour, IInteractions
             }
         }else if (estado == estado_mesa.Esperando || estado == estado_mesa.ParaEntregar)
         {
+            Debug.Log("Estamos esperando la orden");
             if (tiempoTranscurrido > wait_time)
             {
                 CalcularTardanza(tiempoTranscurrido, wait_time);
@@ -125,7 +126,7 @@ public class Mesa : MonoBehaviour, IInteractions
 
     private void CalcularTardanza(float tiempoT, float time)
     {
-        if (tiempoT - time > 15f)
+        if (tiempoT - time > 15f && tiempoT - time < 30f)
         {
             Debug.Log("Se esta tardando mucho");
         }else if (tiempoT - time > 30f)
@@ -133,6 +134,32 @@ public class Mesa : MonoBehaviour, IInteractions
             Debug.Log("Nos vamos");
             //funcion para irse del restaurante
         }
+    }
+
+    public PlatosMesa pedidos()
+    {
+        List<comida> platos = new List<comida>();
+        for (int i = 0; i < 4; i++)
+        {
+            comida nuevaComida = new comida()
+            {
+                nombre = "Pastas",
+                tiempoDeCoccion = 25f,
+                estado = foodState.cocinandose
+            };
+            platos.Add(nuevaComida);
+        }
+        PlatosMesa nuevoPlato = new PlatosMesa()
+        {
+            numero_mesa = this.numeroMesa,
+            platos = platos,
+            listo = false,
+            startTime = Time.time
+        };
+
+        estado = estado_mesa.Esperando;
+        start_time = Time.time;
+        return nuevoPlato;
     }
 }
 
