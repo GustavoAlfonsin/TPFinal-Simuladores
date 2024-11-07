@@ -34,6 +34,10 @@ public class Game_Manager : MonoBehaviour
     // Para poder tocar el boton
     public static bool enElBoton;
 
+    //otros
+    public static float dineroActual;
+    public TextMeshProUGUI txtDinero;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,6 +48,7 @@ public class Game_Manager : MonoBehaviour
     void Update()
     {
         interaccionesDelMouse();
+        txtDinero.text = "Dinero acumulado: $" + dineroActual;
     }
 
     private void interaccionesDelMouse()
@@ -157,6 +162,7 @@ public class Game_Manager : MonoBehaviour
 
     public void CobrarPedido()
     {
+        _target.GetComponent<Mesa>().mozo.GetComponent<Camarero>().LlamadaParaCobrar(_target);
         _target.GetComponent<IInteractions>().ocultarAcciones();
     }
 

@@ -6,6 +6,7 @@ public class comida
 {
     public string nombre { get; set; }
     public float tiempoDeCoccion { get; set; }
+    public float costo { get; set; }
     public foodState estado { get; set; }
 
     public void cocinar(float time)

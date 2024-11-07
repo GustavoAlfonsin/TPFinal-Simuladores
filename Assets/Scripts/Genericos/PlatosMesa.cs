@@ -1,12 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class PlatosMesa
 {
     public int numero_mesa { get; set; }
     public List<comida> platos { get; set; } = new List<comida>();
+    public float costoTotal { get => platos.Sum(x => x.costo); }
 
     public bool listo { get; set; }
 

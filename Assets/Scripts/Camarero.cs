@@ -43,12 +43,15 @@ public class Camarero : MonoBehaviour, IInteractions
         } else if (estado == estadoCamarero.Atendiendo)
         {
             atenderClientes();
-        }else if (estado == estadoCamarero.TomandoPedido)
+        } else if (estado == estadoCamarero.TomandoPedido)
         {
             AtenderMesa();
-        }else if (estado == estadoCamarero.EntregandoPedido)
+        } else if (estado == estadoCamarero.EntregandoPedido)
         {
             entregandoElPedido();
+        } else if (estado == estadoCamarero.CobrandoMesa)
+        {
+            cobrandoLaMesa();
         }
     }
 
@@ -147,6 +150,27 @@ public class Camarero : MonoBehaviour, IInteractions
         {
             objeto1.GetComponent<Mesa>()._plato = _plato;
             objeto1.GetComponent<Mesa>().estado = estado_mesa.Comiendo;
+            CamareroCamina(_cocina.transform.position);
+            objeto1 = null;
+        }
+    }
+
+    public void LlamadaParaCobrar(GameObject mesa)
+    {
+        objeto1 = mesa;
+        estado = estadoCamarero.CobrandoMesa;
+    }
+
+    private void cobrandoLaMesa()
+    {
+        if (Vector3.Distance(transform.position, objeto1.transform.position) > _distancia)
+        {
+            _agente.SetDestination(objeto1.transform.position);
+        }
+        else
+        {
+            Game_Manager.dineroActual += objeto1.GetComponent<Mesa>()._plato.costoTotal;
+            //desocupar la mesa
             CamareroCamina(_cocina.transform.position);
             objeto1 = null;
         }

@@ -120,6 +120,7 @@ public class Mesa : MonoBehaviour, IInteractions
         {
             if (tiempoTranscurrido > eating_time)
             {
+                Debug.Log("Ya podemos pagar la comida");
                 estado = estado_mesa.ParaCobrar;
             }
         }
@@ -146,7 +147,8 @@ public class Mesa : MonoBehaviour, IInteractions
             {
                 nombre = "Pastas",
                 tiempoDeCoccion = 5f,
-                estado = foodState.cocinandose
+                estado = foodState.cocinandose,
+                costo = 12f
             };
             platos.Add(nuevaComida);
         }
