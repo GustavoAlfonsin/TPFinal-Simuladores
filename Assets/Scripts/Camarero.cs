@@ -13,6 +13,7 @@ public class Camarero : MonoBehaviour, IInteractions
     private NavMeshAgent _agente;
     private Vector3 _destino;
     private bool conGente;
+    private PlatosMesa _plato;
     public int ID { get; private set; }
     [field: SerializeField]
     public GameObject player { get; set; }
@@ -30,6 +31,7 @@ public class Camarero : MonoBehaviour, IInteractions
     {
         _agente = player.GetComponent<NavMeshAgent>();
         estado = estadoCamarero.Esperando;
+        _plato = null;
     }
 
     // Update is called once per frame
@@ -44,6 +46,9 @@ public class Camarero : MonoBehaviour, IInteractions
         }else if (estado == estadoCamarero.TomandoPedido)
         {
             AtenderMesa();
+        }else if (estado == estadoCamarero.EntregandoPedido)
+        {
+            entregandoElPedido();
         }
     }
 
@@ -90,6 +95,8 @@ public class Camarero : MonoBehaviour, IInteractions
                 conGente = false;
                 Vector3 destino = objeto2.transform.position + (Vector3.left * 4);
                 CamareroCamina(destino);
+                objeto1 = null;
+                objeto2 = null;
             }
         }
     }
@@ -111,6 +118,37 @@ public class Camarero : MonoBehaviour, IInteractions
             PlatosMesa encargo = objeto1.GetComponent<Mesa>().pedidos();
             _cocina.nuevoPlato(encargo);
             CamareroCamina(_cocina.transform.position);
+            objeto1 = null;
+        }
+    }
+
+    public void entregarPedido(GameObject mesa)
+    {
+        objeto1 = mesa;
+        estado = estadoCamarero.EntregandoPedido;
+    }
+
+    private void entregandoElPedido()
+    {
+        if (Vector3.Distance(transform.position, _cocina.transform.position) > _distancia && _plato == null)
+        {
+            _agente.SetDestination(_cocina.transform.position);
+        }
+        else if(Vector3.Distance(transform.position, _cocina.transform.position) <= _distancia &&
+                    _plato == null)
+        {
+            _plato = ControladorMesas.darPlato(objeto1.GetComponent<Mesa>().numeroMesa);
+
+        }
+        else if(_plato != null && Vector3.Distance(transform.position, objeto1.transform.position) > _distancia)
+        {
+            _agente.SetDestination(objeto1.transform.position);
+        }else if (Vector3.Distance(transform.position, objeto1.transform.position) <= _distancia)
+        {
+            objeto1.GetComponent<Mesa>()._plato = _plato;
+            objeto1.GetComponent<Mesa>().estado = estado_mesa.Comiendo;
+            CamareroCamina(_cocina.transform.position);
+            objeto1 = null;
         }
     }
     public void mostrarAcciones()

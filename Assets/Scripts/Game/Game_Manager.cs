@@ -151,6 +151,7 @@ public class Game_Manager : MonoBehaviour
 
     public void EntregarPedido()
     {
+        _target.GetComponent<Mesa>().mozo.GetComponent<Camarero>().entregarPedido(_target);
         _target.GetComponent<IInteractions>().ocultarAcciones();
     }
 

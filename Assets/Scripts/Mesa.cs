@@ -13,6 +13,7 @@ public class Mesa : MonoBehaviour, IInteractions
 
     [field: SerializeField]
     public List<GameObject> clientes { get; set; }
+    public PlatosMesa _plato;
     public GameObject mozo { get; set; }
     public bool ocupada { get; set; }
     public estado_mesa estado { get; set; }
@@ -144,7 +145,7 @@ public class Mesa : MonoBehaviour, IInteractions
             comida nuevaComida = new comida()
             {
                 nombre = "Pastas",
-                tiempoDeCoccion = 25f,
+                tiempoDeCoccion = 5f,
                 estado = foodState.cocinandose
             };
             platos.Add(nuevaComida);

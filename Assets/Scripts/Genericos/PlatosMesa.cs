@@ -19,10 +19,10 @@ public class PlatosMesa
         {
             plato.cocinar(tiempoTranscurrido);
         }
-        listo = revisarPlatos();
+        listo = revisarPlatos(tiempoTranscurrido, time);
     }
 
-    private bool revisarPlatos()
+    private bool revisarPlatos(float time1, float time2)
     {
         foreach (comida plato in platos)
         {
@@ -31,6 +31,12 @@ public class PlatosMesa
                 return false;
             }
         }
+        Debug.Log($"Empezo a las {startTime}, termino a los {time2} y pasaron {time1}");
         return true;
+    }
+
+    public override string ToString()
+    {
+        return $"Plato de la mesa {numero_mesa}";
     }
 }
