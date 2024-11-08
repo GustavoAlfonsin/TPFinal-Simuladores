@@ -94,7 +94,7 @@ public class Camarero : MonoBehaviour, IInteractions
             if (Vector3.Distance(_agente.transform.position, objeto2.transform.position) <= _distancia)
             {
                 objeto1.SetActive(false);
-                objeto2.GetComponent<Mesa>().ocuparMesa(Time.time);
+                objeto2.GetComponent<Mesa>().ocuparMesa(Time.time, objeto1);
                 conGente = false;
                 Vector3 destino = objeto2.transform.position + (Vector3.left * 4);
                 CamareroCamina(destino);
@@ -170,7 +170,7 @@ public class Camarero : MonoBehaviour, IInteractions
         else
         {
             Game_Manager.dineroActual += objeto1.GetComponent<Mesa>()._plato.costoTotal;
-            //desocupar la mesa
+            objeto1.GetComponent<Mesa>().desocuparMesa();
             CamareroCamina(_cocina.transform.position);
             objeto1 = null;
         }

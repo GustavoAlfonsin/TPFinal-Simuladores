@@ -8,6 +8,7 @@ public class Cliente : MonoBehaviour
 {
     public bool enMovimiento;
     public GameObject followObject;
+    public bool paraSalir;
     public float followDistance = 2.0f, stoppingDistance = 1.0f;
     private Vector3 posInic;
 
@@ -39,6 +40,11 @@ public class Cliente : MonoBehaviour
         if(Vector3.Distance(transform.position, followObject.gameObject.transform.position) <= stoppingDistance)
         {
             clientAgent.isStopped = true;
+            if (paraSalir)
+            {
+                paraSalir = false;
+                gameObject.SetActive(false);
+            }
         }
         else
         {

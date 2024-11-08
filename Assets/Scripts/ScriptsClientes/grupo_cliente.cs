@@ -8,6 +8,7 @@ public class grupo_cliente : MonoBehaviour
     public GameObject[] clientes = new GameObject[4];
     public Transform pos;
     private GameObject mesero;
+    public GameObject spaw;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +42,16 @@ public class grupo_cliente : MonoBehaviour
         foreach (GameObject go in clientes)
         {
             go.GetComponent<Cliente>().enMovimiento = true;
+        }
+    }
+
+    public void salir()
+    {
+        clientes[0].GetComponent<Cliente>().followObject = spaw;
+        foreach (GameObject go in clientes)
+        {
+            go.GetComponent<Cliente>().enMovimiento = true;
+            go.GetComponent<Cliente>().paraSalir = true;
         }
     }
 }

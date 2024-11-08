@@ -13,6 +13,7 @@ public class Mesa : MonoBehaviour, IInteractions
 
     [field: SerializeField]
     public List<GameObject> clientes { get; set; }
+    public GameObject _familia { get; set; }
     public PlatosMesa _plato;
     public GameObject mozo { get; set; }
     public bool ocupada { get; set; }
@@ -34,7 +35,7 @@ public class Mesa : MonoBehaviour, IInteractions
         numeroMesa = i;
     }
 
-    public void ocuparMesa(float time)
+    public void ocuparMesa(float time, GameObject family)
     {
         ocupada = true;
         foreach (GameObject c in clientes) 
@@ -42,7 +43,21 @@ public class Mesa : MonoBehaviour, IInteractions
             c.SetActive(true);
         }
         estado = estado_mesa.Pensando;
+        _familia = family;
         start_time = time;
+    }
+
+    public void desocuparMesa()
+    {
+        ocupada = false;
+        foreach (GameObject c in clientes)
+        {
+            c.SetActive(false);
+        }
+        estado = estado_mesa.Pensando;
+        _familia.SetActive(true);
+        _familia.GetComponent<grupo_cliente>().salir();
+        _familia = null;
     }
     public void mostrarAcciones()
     {
@@ -134,7 +149,7 @@ public class Mesa : MonoBehaviour, IInteractions
         }else if (tiempoT - time > 30f)
         {
             Debug.Log("Nos vamos");
-            //funcion para irse del restaurante
+            desocuparMesa();
         }
     }
 

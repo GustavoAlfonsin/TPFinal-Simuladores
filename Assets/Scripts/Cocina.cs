@@ -41,7 +41,6 @@ public class Cocina : MonoBehaviour
         //nuevoPlato(Plato);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (cocinando)

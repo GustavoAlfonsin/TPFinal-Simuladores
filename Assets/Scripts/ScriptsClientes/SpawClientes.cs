@@ -41,6 +41,7 @@ public class SpawClientes : MonoBehaviour
             GameObject nuevoCliente = Instantiate(prefab, posicionIn, Quaternion.identity);
 
             //nuevoCliente.GetComponent<grupo_cliente>().conectarClientes();
+            nuevoCliente.GetComponent<grupo_cliente>().spaw = spaw;
             clientes.Add(nuevoCliente);
             nuevoCliente.gameObject.SetActive(false);
         }
