@@ -24,24 +24,27 @@ public class Client : MonoBehaviour
         if (_state == Estados.customer.Entering)
         {
             goToTable();
-        }else if (_state == Estados.customer.leaving)
+        }
+        else if (_state == Estados.customer.leaving)
         {
             goToExit();
         }
-        
     }
-
+    
     public void readyToEnter(GameObject table)
     {
         _whereToGo = table;
         _state = Estados.customer.Entering;
+        _agent.isStopped = false;
     }
 
     private void goToTable()
     {
         Vector3 endPosition = _whereToGo.transform.position -
                                 (_whereToGo.transform.forward * followDistance);
-        _agent.SetDestination(endPosition);
+        Debug.Log($"Posición actual: {transform.position} -- Posición final: {endPosition}");
+        //_agent.SetDestination(endPosition);
+        _agent.destination = endPosition;
         moveFriends();
         if (Vector3.Distance(transform.position, _whereToGo.transform.position) <= stoppingDistance)
         {

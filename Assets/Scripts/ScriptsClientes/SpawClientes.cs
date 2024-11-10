@@ -10,7 +10,7 @@ public class SpawClientes : MonoBehaviour
 
     private float spawTime = 5.0f;
     private float _time = 0f;
-    private int maxClient = 10;
+    private int maxClient = 1;
     private float _spaceBetweenClients = 3.0f;
     private int _row = 1;
     private float _hor = 1;
