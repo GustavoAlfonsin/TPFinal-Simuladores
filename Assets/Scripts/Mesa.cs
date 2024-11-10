@@ -56,7 +56,7 @@ public class Mesa : MonoBehaviour, IInteractions
         }
         estado = estado_mesa.Pensando;
         _familia.SetActive(true);
-        _familia.GetComponent<grupo_cliente>().salir();
+        //_familia.GetComponent<Client>().readyToLeave();
         _familia = null;
     }
     public void mostrarAcciones()

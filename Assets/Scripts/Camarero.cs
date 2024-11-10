@@ -84,8 +84,7 @@ public class Camarero : MonoBehaviour, IInteractions
             if (Vector3.Distance(_agente.transform.position, objeto1.transform.position) <= _distancia)
             {
                 conGente = true;
-                objeto1.GetComponent<grupo_cliente>().asignarMesero(player);
-                objeto1.GetComponent<grupo_cliente>().aMoverse();
+                objeto1.GetComponent<Client>().readyToEnter(objeto2);
             }
         }
         else
