@@ -53,12 +53,16 @@ public class SpawClientes : MonoBehaviour
 
     private void NextClient()
     {
-        GameObject client = clients.FirstOrDefault(x => !x.activeInHierarchy && 
+        var waitingClients = activeClients.Where(c => c.GetComponent<Client>()._state == Estados.customer.Waiting).Count();
+        if(waitingClients <= 5)
+        {
+            GameObject client = clients.FirstOrDefault(x => !x.activeInHierarchy &&
                                 x.GetComponent<Client>()._state == Estados.customer.Waiting);
-        client.SetActive(true);
-        client.transform.position = whichPosition(activeClients.Count);
-        client.GetComponent<Client>().lineUpFriends();
-        activeClients.Add(client);
+            client.SetActive(true);
+            client.transform.position = whichPosition(activeClients.Count);
+            client.GetComponent<Client>().lineUpFriends();
+            activeClients.Add(client);
+        }
     }
 
     private Vector3 whichPosition(int indice)
