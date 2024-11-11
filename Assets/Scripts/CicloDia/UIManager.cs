@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI numberOfOrders;
     public TextMeshProUGUI amountEarned;
     public TextMeshProUGUI disstisfiedCustomers;
+    public static int numberOfClients;
     public static int numberOfDC; //numero de clientes insatisfechos
     public GameObject EndGamePanel;
 
@@ -50,7 +51,7 @@ public class UIManager : MonoBehaviour
     {
         Time.timeScale = 0f;
         EndGamePanel.SetActive(true);
-        numberOfOrders.text = ControladorMesas.getNumberOfOrders().ToString();
+        numberOfOrders.text = numberOfClients.ToString();
         amountEarned.text = Game_Manager.dineroActual.ToString();
         disstisfiedCustomers.text = numberOfDC.ToString();
     }

@@ -170,6 +170,7 @@ public class Camarero : MonoBehaviour, IInteractions
         {
             Game_Manager.dineroActual += objeto1.GetComponent<Mesa>()._plato.costoTotal;
             objeto1.GetComponent<Mesa>().desocuparMesa();
+            UIManager.numberOfClients++;
             CamareroCamina(_cocina.transform.position);
             objeto1 = null;
         }

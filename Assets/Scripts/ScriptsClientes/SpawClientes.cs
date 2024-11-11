@@ -13,7 +13,7 @@ public class SpawClientes : MonoBehaviour
     private float _time = 0f;
     private int maxClient = 24;
     private float _spaceBetweenClients = 3.0f;
-    private int _row = 1;
+    //private int _row = 1;
     private float _hor = 1;
 
     public List<GameObject> clients = new List<GameObject>();
