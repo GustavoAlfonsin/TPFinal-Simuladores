@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,8 +9,8 @@ public class CicloDeDia : MonoBehaviour
     private int horaInicio = 10;
     private float timeOfDay = 0;
     public int diaActual = 1;
-    
-    
+
+    public static Action finishDay;
     void Update()
     {
         timeOfDay += Time.deltaTime;
@@ -18,7 +19,7 @@ public class CicloDeDia : MonoBehaviour
         {
             timeOfDay = 0;
             diaActual++;
-            //terminarJuego
+            finishDay?.Invoke();
         }
     }
 

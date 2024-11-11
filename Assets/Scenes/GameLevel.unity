@@ -411,11 +411,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1463146872}
     m_Modifications:
+    - target: {fileID: 1290668801569084097, guid: 94a19c8d4f4b2344ab514125b78fa606,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3970878902780021554, guid: 94a19c8d4f4b2344ab514125b78fa606,
         type: 3}
       propertyPath: m_Name
-      value: Mesa (7)
+      value: Mesa 7
       objectReference: {fileID: 0}
+    - target: {fileID: 6170872588041461069, guid: 94a19c8d4f4b2344ab514125b78fa606,
+        type: 3}
+      propertyPath: <txtMesa>k__BackingField
+      value: 
+      objectReference: {fileID: 1681668011}
     - target: {fileID: 6170872588041461069, guid: 94a19c8d4f4b2344ab514125b78fa606,
         type: 3}
       propertyPath: <botones>k__BackingField.Array.data[0]
@@ -703,17 +713,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <mesas>k__BackingField:
+  - {fileID: 1536606325}
   - {fileID: 1403982672}
   - {fileID: 1268723886}
   - {fileID: 1791798996}
-  - {fileID: 1536606325}
-  - {fileID: 1285487812}
   - {fileID: 555362201}
   - {fileID: 1567660560}
+  - {fileID: 1285487812}
   - {fileID: 1446277674}
-  - {fileID: 989499004}
   - {fileID: 1536899253}
   - {fileID: 961572386}
+  - {fileID: 989499004}
   - {fileID: 1226189631}
   cocina: {fileID: 615612257}
   listaPlatosListos: {fileID: 1813234167}
@@ -985,11 +995,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1463146872}
     m_Modifications:
+    - target: {fileID: 1290668801569084097, guid: 94a19c8d4f4b2344ab514125b78fa606,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3970878902780021554, guid: 94a19c8d4f4b2344ab514125b78fa606,
         type: 3}
       propertyPath: m_Name
-      value: Mesa (6)
+      value: Mesa 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6170872588041461069, guid: 94a19c8d4f4b2344ab514125b78fa606,
+        type: 3}
+      propertyPath: <txtMesa>k__BackingField
+      value: 
+      objectReference: {fileID: 1323861806}
     - target: {fileID: 6170872588041461069, guid: 94a19c8d4f4b2344ab514125b78fa606,
         type: 3}
       propertyPath: <botones>k__BackingField.Array.data[0]
@@ -1448,13 +1468,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
-  m_LocalPosition: {x: 0, y: 9, z: -5.2}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2088171191}
-  m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1667,11 +1687,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1463146872}
     m_Modifications:
+    - target: {fileID: 1290668801569084097, guid: 94a19c8d4f4b2344ab514125b78fa606,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3970878902780021554, guid: 94a19c8d4f4b2344ab514125b78fa606,
         type: 3}
       propertyPath: m_Name
-      value: Mesa (3)
+      value: Mesa 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6170872588041461069, guid: 94a19c8d4f4b2344ab514125b78fa606,
+        type: 3}
+      propertyPath: <txtMesa>k__BackingField
+      value: 
+      objectReference: {fileID: 931578319}
     - target: {fileID: 6170872588041461069, guid: 94a19c8d4f4b2344ab514125b78fa606,
         type: 3}
       propertyPath: <botones>k__BackingField.Array.data[0]
@@ -1756,11 +1786,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1463146872}
     m_Modifications:
+    - target: {fileID: 1290668801569084097, guid: 94a19c8d4f4b2344ab514125b78fa606,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3970878902780021554, guid: 94a19c8d4f4b2344ab514125b78fa606,
         type: 3}
       propertyPath: m_Name
-      value: Mesa (1)
+      value: Mesa 2
       objectReference: {fileID: 0}
+    - target: {fileID: 6170872588041461069, guid: 94a19c8d4f4b2344ab514125b78fa606,
+        type: 3}
+      propertyPath: <txtMesa>k__BackingField
+      value: 
+      objectReference: {fileID: 1821924494}
     - target: {fileID: 6170872588041461069, guid: 94a19c8d4f4b2344ab514125b78fa606,
         type: 3}
       propertyPath: <botones>k__BackingField.Array.data[0]
@@ -1979,11 +2019,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1463146872}
     m_Modifications:
+    - target: {fileID: 1290668801569084097, guid: 94a19c8d4f4b2344ab514125b78fa606,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3970878902780021554, guid: 94a19c8d4f4b2344ab514125b78fa606,
         type: 3}
       propertyPath: m_Name
-      value: Mesa (8)
+      value: Mesa 10
       objectReference: {fileID: 0}
+    - target: {fileID: 6170872588041461069, guid: 94a19c8d4f4b2344ab514125b78fa606,
+        type: 3}
+      propertyPath: <txtMesa>k__BackingField
+      value: 
+      objectReference: {fileID: 799951564}
     - target: {fileID: 6170872588041461069, guid: 94a19c8d4f4b2344ab514125b78fa606,
         type: 3}
       propertyPath: <botones>k__BackingField.Array.data[0]
@@ -2321,6 +2371,7 @@ GameObject:
   - component: {fileID: 615612254}
   - component: {fileID: 615612253}
   - component: {fileID: 615612257}
+  - component: {fileID: 615612258}
   m_Layer: 6
   m_Name: Cocina
   m_TagString: Cocina
@@ -2428,6 +2479,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _position: {fileID: 0}
   cocinando: 0
+--- !u!208 &615612258
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 615612252}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1 &619652363
 GameObject:
   m_ObjectHideFlags: 0
@@ -2454,7 +2521,7 @@ Transform:
   m_GameObject: {fileID: 619652363}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.75, z: -28}
+  m_LocalPosition: {x: 0, y: 1.75, z: -15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2758,11 +2825,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1463146872}
     m_Modifications:
+    - target: {fileID: 1290668801569084097, guid: 94a19c8d4f4b2344ab514125b78fa606,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3970878902780021554, guid: 94a19c8d4f4b2344ab514125b78fa606,
         type: 3}
       propertyPath: m_Name
-      value: Mesa (4)
+      value: Mesa 6
       objectReference: {fileID: 0}
+    - target: {fileID: 6170872588041461069, guid: 94a19c8d4f4b2344ab514125b78fa606,
+        type: 3}
+      propertyPath: <txtMesa>k__BackingField
+      value: 
+      objectReference: {fileID: 839006557}
     - target: {fileID: 6170872588041461069, guid: 94a19c8d4f4b2344ab514125b78fa606,
         type: 3}
       propertyPath: <botones>k__BackingField.Array.data[0]
@@ -2991,6 +3068,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 778067891}
   m_CullTransparentMesh: 1
+--- !u!114 &799951564 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 205151277602365138, guid: 94a19c8d4f4b2344ab514125b78fa606,
+    type: 3}
+  m_PrefabInstance: {fileID: 503211003}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &819282041
 GameObject:
   m_ObjectHideFlags: 0
@@ -3138,12 +3227,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 835788099}
   m_CullTransparentMesh: 1
+--- !u!114 &839006557 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 205151277602365138, guid: 94a19c8d4f4b2344ab514125b78fa606,
+    type: 3}
+  m_PrefabInstance: {fileID: 712822912}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &914541120 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7105726058089559422, guid: ae847c4ed77020b43ba983bc207b3875,
     type: 3}
   m_PrefabInstance: {fileID: 2047305547}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &931578319 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 205151277602365138, guid: 94a19c8d4f4b2344ab514125b78fa606,
+    type: 3}
+  m_PrefabInstance: {fileID: 416402424}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &961572385 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6550092550134746071, guid: 94a19c8d4f4b2344ab514125b78fa606,
@@ -3447,6 +3560,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 998340070}
   m_CullTransparentMesh: 1
+--- !u!114 &1029566968 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 205151277602365138, guid: 94a19c8d4f4b2344ab514125b78fa606,
+    type: 3}
+  m_PrefabInstance: {fileID: 1136195996}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1061318025
 GameObject:
   m_ObjectHideFlags: 0
@@ -3819,11 +3944,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1463146872}
     m_Modifications:
+    - target: {fileID: 1290668801569084097, guid: 94a19c8d4f4b2344ab514125b78fa606,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3970878902780021554, guid: 94a19c8d4f4b2344ab514125b78fa606,
         type: 3}
       propertyPath: m_Name
-      value: Mesa (2)
+      value: Mesa 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6170872588041461069, guid: 94a19c8d4f4b2344ab514125b78fa606,
+        type: 3}
+      propertyPath: <txtMesa>k__BackingField
+      value: 
+      objectReference: {fileID: 1029566968}
     - target: {fileID: 6170872588041461069, guid: 94a19c8d4f4b2344ab514125b78fa606,
         type: 3}
       propertyPath: <botones>k__BackingField.Array.data[0]
@@ -3902,11 +4037,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1463146872}
     m_Modifications:
+    - target: {fileID: 1290668801569084097, guid: 94a19c8d4f4b2344ab514125b78fa606,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3970878902780021554, guid: 94a19c8d4f4b2344ab514125b78fa606,
         type: 3}
       propertyPath: m_Name
-      value: Mesa (5)
+      value: Mesa 4
       objectReference: {fileID: 0}
+    - target: {fileID: 6170872588041461069, guid: 94a19c8d4f4b2344ab514125b78fa606,
+        type: 3}
+      propertyPath: <txtMesa>k__BackingField
+      value: 
+      objectReference: {fileID: 1864877681}
     - target: {fileID: 6170872588041461069, guid: 94a19c8d4f4b2344ab514125b78fa606,
         type: 3}
       propertyPath: <botones>k__BackingField.Array.data[0]
@@ -4021,11 +4166,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1463146872}
     m_Modifications:
+    - target: {fileID: 1290668801569084097, guid: 94a19c8d4f4b2344ab514125b78fa606,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3970878902780021554, guid: 94a19c8d4f4b2344ab514125b78fa606,
         type: 3}
       propertyPath: m_Name
-      value: Mesa (9)
+      value: Mesa 8
       objectReference: {fileID: 0}
+    - target: {fileID: 6170872588041461069, guid: 94a19c8d4f4b2344ab514125b78fa606,
+        type: 3}
+      propertyPath: <txtMesa>k__BackingField
+      value: 
+      objectReference: {fileID: 2119952058}
     - target: {fileID: 6170872588041461069, guid: 94a19c8d4f4b2344ab514125b78fa606,
         type: 3}
       propertyPath: <botones>k__BackingField.Array.data[0]
@@ -4789,6 +4944,42 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1306479774}
   m_CullTransparentMesh: 1
+--- !u!114 &1323861806 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 205151277602365138, guid: 94a19c8d4f4b2344ab514125b78fa606,
+    type: 3}
+  m_PrefabInstance: {fileID: 283736941}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1332963495 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 205151277602365138, guid: 94a19c8d4f4b2344ab514125b78fa606,
+    type: 3}
+  m_PrefabInstance: {fileID: 2537463873053440211}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1334872361 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 205151277602365138, guid: 94a19c8d4f4b2344ab514125b78fa606,
+    type: 3}
+  m_PrefabInstance: {fileID: 2066492369}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1341656120
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4880,11 +5071,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1463146872}
     m_Modifications:
+    - target: {fileID: 1290668801569084097, guid: 94a19c8d4f4b2344ab514125b78fa606,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3970878902780021554, guid: 94a19c8d4f4b2344ab514125b78fa606,
         type: 3}
       propertyPath: m_Name
-      value: Mesa (10)
+      value: Mesa 9
       objectReference: {fileID: 0}
+    - target: {fileID: 6170872588041461069, guid: 94a19c8d4f4b2344ab514125b78fa606,
+        type: 3}
+      propertyPath: <txtMesa>k__BackingField
+      value: 
+      objectReference: {fileID: 1760056018}
     - target: {fileID: 6170872588041461069, guid: 94a19c8d4f4b2344ab514125b78fa606,
         type: 3}
       propertyPath: <botones>k__BackingField.Array.data[0]
@@ -5277,21 +5478,21 @@ Transform:
   m_GameObject: {fileID: 1463146871}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.876277, y: 1.0000018, z: -13.1876135}
+  m_LocalPosition: {x: -7.876277, y: 1, z: -13.1876135}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1536606324}
   - {fileID: 1403982671}
   - {fileID: 1268723885}
   - {fileID: 1791798995}
-  - {fileID: 1536606324}
-  - {fileID: 1285487811}
   - {fileID: 437557179}
   - {fileID: 1567660559}
+  - {fileID: 1285487811}
   - {fileID: 413169757}
-  - {fileID: 989499003}
   - {fileID: 32421882}
   - {fileID: 961572385}
+  - {fileID: 989499003}
   - {fileID: 57158375}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5594,7 +5795,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 8cf7b93c1fae4a84bac0b921db2c7c30, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 76f198771b53d784495da404f1c81900, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &1536606324 stripped
 Transform:
@@ -5944,6 +6145,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1634605767}
   m_CullTransparentMesh: 1
+--- !u!114 &1681668011 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 205151277602365138, guid: 94a19c8d4f4b2344ab514125b78fa606,
+    type: 3}
+  m_PrefabInstance: {fileID: 127316278}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1760056018 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 205151277602365138, guid: 94a19c8d4f4b2344ab514125b78fa606,
+    type: 3}
+  m_PrefabInstance: {fileID: 1354299915}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1771455314
 GameObject:
   m_ObjectHideFlags: 0
@@ -6293,6 +6518,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1813234165}
   m_CullTransparentMesh: 1
+--- !u!114 &1821924494 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 205151277602365138, guid: 94a19c8d4f4b2344ab514125b78fa606,
+    type: 3}
+  m_PrefabInstance: {fileID: 453108295}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1840502475
 GameObject:
   m_ObjectHideFlags: 0
@@ -6427,6 +6664,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1840502475}
   m_CullTransparentMesh: 1
+--- !u!114 &1864877681 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 205151277602365138, guid: 94a19c8d4f4b2344ab514125b78fa606,
+    type: 3}
+  m_PrefabInstance: {fileID: 1148424782}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1894170656
 GameObject:
   m_ObjectHideFlags: 0
@@ -6571,11 +6820,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1463146872}
     m_Modifications:
+    - target: {fileID: 1290668801569084097, guid: 94a19c8d4f4b2344ab514125b78fa606,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3970878902780021554, guid: 94a19c8d4f4b2344ab514125b78fa606,
         type: 3}
       propertyPath: m_Name
-      value: Mesa (11)
+      value: Mesa 11
       objectReference: {fileID: 0}
+    - target: {fileID: 6170872588041461069, guid: 94a19c8d4f4b2344ab514125b78fa606,
+        type: 3}
+      propertyPath: <txtMesa>k__BackingField
+      value: 
+      objectReference: {fileID: 1334872361}
     - target: {fileID: 6170872588041461069, guid: 94a19c8d4f4b2344ab514125b78fa606,
         type: 3}
       propertyPath: <botones>k__BackingField.Array.data[0]
@@ -6732,7 +6991,7 @@ Transform:
   m_GameObject: {fileID: 2088171189}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 6, z: -3}
+  m_LocalPosition: {x: 0, y: 20, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6873,6 +7132,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2099266934}
   m_CullTransparentMesh: 1
+--- !u!114 &2119952058 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 205151277602365138, guid: 94a19c8d4f4b2344ab514125b78fa606,
+    type: 3}
+  m_PrefabInstance: {fileID: 1201831323}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2537463873053440211
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6881,11 +7152,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1463146872}
     m_Modifications:
+    - target: {fileID: 1290668801569084097, guid: 94a19c8d4f4b2344ab514125b78fa606,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3970878902780021554, guid: 94a19c8d4f4b2344ab514125b78fa606,
         type: 3}
       propertyPath: m_Name
-      value: Mesa
+      value: Mesa 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6170872588041461069, guid: 94a19c8d4f4b2344ab514125b78fa606,
+        type: 3}
+      propertyPath: <txtMesa>k__BackingField
+      value: 
+      objectReference: {fileID: 1332963495}
     - target: {fileID: 6170872588041461069, guid: 94a19c8d4f4b2344ab514125b78fa606,
         type: 3}
       propertyPath: <botones>k__BackingField.Array.data[0]
@@ -6950,6 +7231,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8755886723678436035, guid: 94a19c8d4f4b2344ab514125b78fa606,
+        type: 3}
+      propertyPath: m_Carve
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

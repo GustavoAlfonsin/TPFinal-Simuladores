@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -16,15 +17,18 @@ public class UIManager : MonoBehaviour
 
     public CicloDeDia hora;
     private bool endGame;
-    // Start is called before the first frame update
+
     void Start()
     {
         endGame = false;
         EndGamePanel.SetActive(false);
         Time.timeScale = 1f;
+        if (CicloDeDia.finishDay == null)
+        {
+            CicloDeDia.finishDay += endDay;
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!endGame) 
@@ -54,5 +58,9 @@ public class UIManager : MonoBehaviour
     public void restartLevel()
     {
         SceneManager.LoadScene("GameLevel");
+    }
+    private void endDay()
+    {
+        endGame = true;
     }
 }

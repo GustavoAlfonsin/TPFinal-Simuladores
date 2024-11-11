@@ -52,7 +52,7 @@ public class Cocina : MonoBehaviour
                 plato.cocinarPlatos(time);
                 if (plato.listo)
                 {
-                    pasarAPlatosListos(plato);
+                    pasarAPlatosListos(plato); //Problemas cuando saco el plato de la lista
                 }
             }
         }

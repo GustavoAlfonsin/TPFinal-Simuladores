@@ -58,9 +58,9 @@ public class ControladorMesas : MonoBehaviour
             mesasParaServir.Add($"Platos mesa {p.numero_mesa}: Listo");
             platosListos.Add(p);
             var mesaDelPlato = mesas.FirstOrDefault(x => x.numeroMesa == p.numero_mesa);
-            if (mesaDelPlato != null && mesaDelPlato.estado != estado_mesa.ParaEntregar)
+            if (mesaDelPlato != null && mesaDelPlato._state != Estados.table.toDeliver)
             {
-                mesaDelPlato.estado = estado_mesa.ParaEntregar;
+                mesaDelPlato._state = Estados.table.toDeliver;
             }
         }
         listaPlatosListos.AddOptions(mesasParaServir);

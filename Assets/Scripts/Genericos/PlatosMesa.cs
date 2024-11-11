@@ -28,7 +28,7 @@ public class PlatosMesa
     {
         foreach (comida plato in platos)
         {
-            if (plato.estado != foodState.listoParaServir) 
+            if (plato.estado != Estados.food.Ready) 
             {
                 return false;
             }

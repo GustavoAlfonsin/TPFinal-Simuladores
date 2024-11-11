@@ -29,7 +29,7 @@ public static class Estados
         Waiting,
         toDeliver,
         Eating,
-        toReceivePayment
+        toCollect
     }
 
     public enum food

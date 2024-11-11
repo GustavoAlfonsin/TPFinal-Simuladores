@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,26 +14,19 @@ public class Mesa : MonoBehaviour, IInteractions
 
     [field: SerializeField]
     public List<GameObject> clientes { get; set; }
+    [field: SerializeField]
+    public TextMeshProUGUI txtMesa { get; set; }
     public GameObject _familia { get; set; }
     public PlatosMesa _plato;
     public GameObject mozo { get; set; }
     public bool ocupada { get; set; }
-    public estado_mesa estado { get; set; }
+    public Estados.table _state { get; set; }
 
     [SerializeField]private float start_time, thinking_time, order_time, wait_time, eating_time;
-
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
     public void asignarNumero(int i)
     {
         numeroMesa = i;
+        txtMesa.text = $"{numeroMesa}";
     }
 
     public void ocuparMesa(float time, GameObject family)
@@ -42,7 +36,7 @@ public class Mesa : MonoBehaviour, IInteractions
         {
             c.SetActive(true);
         }
-        estado = estado_mesa.Pensando;
+        _state = Estados.table.Thinking;
         _familia = family;
         start_time = time;
     }
@@ -54,9 +48,9 @@ public class Mesa : MonoBehaviour, IInteractions
         {
             c.SetActive(false);
         }
-        estado = estado_mesa.Pensando;
+        _state = Estados.table.Thinking;
         _familia.SetActive(true);
-        //_familia.GetComponent<Client>().readyToLeave();
+        _familia.GetComponent<Client>().readyToLeave(SpawClientes.spawPoint);
         _familia = null;
     }
     public void mostrarAcciones()
@@ -64,15 +58,15 @@ public class Mesa : MonoBehaviour, IInteractions
         if (ocupada)
         {
             Button btonIndicado;
-            switch (estado)
+            switch (_state)
             {
-                case estado_mesa.ParaOrdenar:
+                case Estados.table.toOrder:
                     btonIndicado = botones.FirstOrDefault(x => x.CompareTag("Bton_tomarPedido"));
                     break;
-                case estado_mesa.ParaEntregar:
+                case Estados.table.toDeliver:
                     btonIndicado = botones.FirstOrDefault(x => x.CompareTag("Bton_EntregarPedido"));
                     break;
-                case estado_mesa.ParaCobrar:
+                case Estados.table.toCollect:
                     btonIndicado = botones.FirstOrDefault(x => x.CompareTag("Bton_Cobrar"));
                     break;
                 default:
@@ -85,7 +79,7 @@ public class Mesa : MonoBehaviour, IInteractions
                 Vector3 posicion = Input.mousePosition + (Vector3.up * 3);
                 btonIndicado.gameObject.transform.position = posicion;
             }
-            else if (estado == estado_mesa.Pensando)
+            else if (_state == Estados.table.Thinking)
             {
                 Debug.Log("La mesa seleccionada no a hecho ningún llamado");
             }
@@ -109,34 +103,34 @@ public class Mesa : MonoBehaviour, IInteractions
     {
         float tiempoTranscurrido = timer - start_time;
         Debug.Log($"Tiempo transcurrido: {tiempoTranscurrido:00} ");
-        if (estado == estado_mesa.Pensando)
+        if (_state == Estados.table.Thinking)
         {
             Debug.Log("El cliente esta pensando");
             if (tiempoTranscurrido > thinking_time)
             {
-                estado = estado_mesa.ParaOrdenar;
+                _state = Estados.table.toOrder;
                 start_time = Time.time;
             }
-        }else if (estado == estado_mesa.ParaOrdenar)
+        }else if (_state == Estados.table.toOrder)
         {
             Debug.Log("El cliente quiere ordenar");
             if (tiempoTranscurrido > order_time)
             {
                 CalcularTardanza(tiempoTranscurrido, order_time);
             }
-        }else if (estado == estado_mesa.Esperando || estado == estado_mesa.ParaEntregar)
+        }else if (_state == Estados.table.Waiting || _state == Estados.table.toDeliver)
         {
             Debug.Log("Estamos esperando la orden");
             if (tiempoTranscurrido > wait_time)
             {
                 CalcularTardanza(tiempoTranscurrido, wait_time);
             }
-        }else if (estado == estado_mesa.Comiendo)
+        }else if (_state == Estados.table.Eating)
         {
             if (tiempoTranscurrido > eating_time)
             {
                 Debug.Log("Ya podemos pagar la comida");
-                estado = estado_mesa.ParaCobrar;
+                _state = Estados.table.toCollect;
             }
         }
     }
@@ -150,6 +144,7 @@ public class Mesa : MonoBehaviour, IInteractions
         {
             Debug.Log("Nos vamos");
             desocuparMesa();
+            UIManager.numberOfDC++;
         }
     }
 
@@ -161,8 +156,8 @@ public class Mesa : MonoBehaviour, IInteractions
             comida nuevaComida = new comida()
             {
                 nombre = "Pastas",
-                tiempoDeCoccion = 5f,
-                estado = foodState.cocinandose,
+                tiempoDeCoccion = 1f,
+                estado = Estados.food.cooking,
                 costo = 12f
             };
             platos.Add(nuevaComida);
@@ -175,18 +170,9 @@ public class Mesa : MonoBehaviour, IInteractions
             startTime = Time.time
         };
 
-        estado = estado_mesa.Esperando;
+        _state = Estados.table.Waiting;
         start_time = Time.time;
         return nuevoPlato;
     }
 }
 
-public enum estado_mesa
-{
-    Pensando,
-    ParaOrdenar,
-    Esperando,
-    ParaEntregar,
-    Comiendo,
-    ParaCobrar
-}

@@ -81,7 +81,7 @@ public class Game_Manager : MonoBehaviour
                     {
                         if (_target.CompareTag("Player"))
                         {
-                            if (_target.GetComponent<Camarero>().estado == estadoCamarero.Esperando)
+                            if (_target.GetComponent<Camarero>().estado == Estados.waiter.Waiting)
                             {
                                 Vector3 destino = infoRayoPrincipal.point;
                                 _target.GetComponent<Camarero>().CamareroCamina(destino);

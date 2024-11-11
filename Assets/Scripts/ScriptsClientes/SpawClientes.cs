@@ -7,10 +7,11 @@ public class SpawClientes : MonoBehaviour
 {
     public GameObject prefab;
     public GameObject spaw;
+    public static GameObject spawPoint;
 
     private float spawTime = 5.0f;
     private float _time = 0f;
-    private int maxClient = 1;
+    private int maxClient = 24;
     private float _spaceBetweenClients = 3.0f;
     private int _row = 1;
     private float _hor = 1;
@@ -20,6 +21,7 @@ public class SpawClientes : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        spawPoint = spaw;
         CreateClients();
     }
 
@@ -34,7 +36,7 @@ public class SpawClientes : MonoBehaviour
             spawTime = Random.Range(5,11);
         }
         
-        reorganizeClients();
+       // reorganizeClients();
     }
 
     private void CreateClients()

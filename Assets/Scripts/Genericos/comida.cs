@@ -7,25 +7,19 @@ public class comida
     public string nombre { get; set; }
     public float tiempoDeCoccion { get; set; }
     public float costo { get; set; }
-    public foodState estado { get; set; }
+    public Estados.food estado { get; set; }
 
     public void cocinar(float time)
     {
         if (time >= tiempoDeCoccion)
         {
-            estado = foodState.listoParaServir;
+            estado = Estados.food.Ready;
         }
     }
 
     public void terminarComida()
     {
-        estado = foodState.platoVacio;
+        estado = Estados.food.Empty;
     }
 }
 
-public enum foodState
-{
-    cocinandose,
-    listoParaServir,
-    platoVacio
-}

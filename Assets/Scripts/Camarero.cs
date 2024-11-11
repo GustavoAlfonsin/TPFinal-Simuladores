@@ -24,32 +24,32 @@ public class Camarero : MonoBehaviour, IInteractions
     [field: SerializeField]
     public Button bton_accion { get ; set; }
 
-    public estadoCamarero estado { get; set; }
+    public Estados.waiter estado { get; set; }
     
     // Start is called before the first frame update
     void Start()
     {
         _agente = player.GetComponent<NavMeshAgent>();
-        estado = estadoCamarero.Esperando;
+        estado = Estados.waiter.Waiting;
         _plato = null;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (estado == estadoCamarero.EnMovimiento)
+        if (estado == Estados.waiter.Walked)
         {
             mover();
-        } else if (estado == estadoCamarero.Atendiendo)
+        } else if (estado == Estados.waiter.Attending)
         {
             atenderClientes();
-        } else if (estado == estadoCamarero.TomandoPedido)
+        } else if (estado == Estados.waiter.TakingOrder)
         {
             AtenderMesa();
-        } else if (estado == estadoCamarero.EntregandoPedido)
+        } else if (estado == Estados.waiter.Delivering)
         {
             entregandoElPedido();
-        } else if (estado == estadoCamarero.CobrandoMesa)
+        } else if (estado == Estados.waiter.ReceivePayment)
         {
             cobrandoLaMesa();
         }
@@ -58,15 +58,15 @@ public class Camarero : MonoBehaviour, IInteractions
     public void CamareroCamina(Vector3 destino)
     {
         _destino = destino;
-        estado = estadoCamarero.EnMovimiento;
+        estado = Estados.waiter.Walked;
     }
 
     private void mover()
     {
         _agente.SetDestination(_destino);
-        if (Vector3.Distance(transform.position, _destino) == 0)
+        if (Vector3.Distance(transform.position, _destino) <= _distancia)
         {
-            estado = estadoCamarero.Esperando;
+            estado = Estados.waiter.Waiting;
         }
     }
     public void atender(GameObject obj1, GameObject obj2)
@@ -74,7 +74,7 @@ public class Camarero : MonoBehaviour, IInteractions
         objeto1 = obj1;
         objeto2 = obj2;
         objeto2.GetComponent<Mesa>().mozo = player;
-        estado = estadoCamarero.Atendiendo;
+        estado = Estados.waiter.Attending;
     }
     private void atenderClientes()
     {
@@ -106,7 +106,7 @@ public class Camarero : MonoBehaviour, IInteractions
     public void Llamando(GameObject mesa)
     {
         objeto1 = mesa;
-        estado = estadoCamarero.TomandoPedido;
+        estado = Estados.waiter.TakingOrder;
     }
 
     private void AtenderMesa()
@@ -127,7 +127,7 @@ public class Camarero : MonoBehaviour, IInteractions
     public void entregarPedido(GameObject mesa)
     {
         objeto1 = mesa;
-        estado = estadoCamarero.EntregandoPedido;
+        estado = Estados.waiter.Delivering;
     }
 
     private void entregandoElPedido()
@@ -148,7 +148,7 @@ public class Camarero : MonoBehaviour, IInteractions
         }else if (Vector3.Distance(transform.position, objeto1.transform.position) <= _distancia)
         {
             objeto1.GetComponent<Mesa>()._plato = _plato;
-            objeto1.GetComponent<Mesa>().estado = estado_mesa.Comiendo;
+            objeto1.GetComponent<Mesa>()._state = Estados.table.Eating;
             CamareroCamina(_cocina.transform.position);
             objeto1 = null;
         }
@@ -157,7 +157,7 @@ public class Camarero : MonoBehaviour, IInteractions
     public void LlamadaParaCobrar(GameObject mesa)
     {
         objeto1 = mesa;
-        estado = estadoCamarero.CobrandoMesa;
+        estado = Estados.waiter.ReceivePayment;
     }
 
     private void cobrandoLaMesa()
@@ -187,13 +187,5 @@ public class Camarero : MonoBehaviour, IInteractions
         bton_accion.GetComponent<ColorBotones>().cabiarColorOut();
     }
 }
-public enum estadoCamarero
-{
-    EnMovimiento,
-    Esperando,
-    Atendiendo,
-    TomandoPedido,
-    EntregandoPedido,
-    CobrandoMesa
-}
+
 
