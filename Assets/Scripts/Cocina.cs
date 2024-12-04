@@ -18,8 +18,11 @@ public class Cocina : MonoBehaviour
 
     public static Action actualizarLista;
     public Action<List<dinner>, int> whenRegisteringOrders;
+    public Func<dinner, bool> someoneWantsIt;
     void Start()
     {
+        _dishes = new List<dinner>();
+        barDishes = new List<Tray>();
         foreach (Tray dish in barDishes) //desactivo los platos en la barra
         {
             dish._cubo.SetActive(false);
@@ -55,6 +58,7 @@ public class Cocina : MonoBehaviour
                 if (readyFood != null)
                 {
                     barTray.assignOrder(readyFood);
+                    barTray.gameObject?.SetActive(true);
                 }
             }
         }
@@ -112,16 +116,21 @@ public class Cocina : MonoBehaviour
         }
     }
 
-    public void throwFood(List<TableFood> foods)
+    public bool throwFood(dinner food)
     {
-        foreach(TableFood d in foods)
+        if (someoneWantsIt != null && !someoneWantsIt.Invoke(food))
         {
-            dinner dish = _dishes.FirstOrDefault(x => x.ID == d.IDOrder);
-            if (dish != null)
+            foreach (dinner d in _dishes)
             {
-                dish.throwFood();
+                dinner dish = _dishes.FirstOrDefault(x => x.ID == food.ID);
+                if (dish != null)
+                {
+                    dish.throwFood();
+                    return true;
+                }
             }
         }
+        return false;  
     }
    
 }

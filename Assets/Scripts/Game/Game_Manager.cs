@@ -120,9 +120,11 @@ public class Game_Manager : MonoBehaviour
         {
             if (component is T)
             {
+                Debug.Log("Encontre un objeto interactuable");
                 return true;
             }
         }
+        Debug.Log("No encontre nada");
         return false;
     }
 
@@ -257,4 +259,9 @@ public class Game_Manager : MonoBehaviour
         _target.GetComponent<IInteractions>().ocultarAcciones();
     }
 
+    public void descartarPedido()
+    {
+        _target.GetComponent<Tray>().DiscardOrder();
+        _target.GetComponent<IInteractions>().ocultarAcciones();
+    }
 }

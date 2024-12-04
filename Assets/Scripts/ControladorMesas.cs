@@ -27,6 +27,31 @@ public class ControladorMesas : MonoBehaviour
     {
         timer += Time.deltaTime;
         aumentarTiempo(timer);
+        showAdvice();
+    }
+
+    public void showAdvice()
+    {
+        foreach (Mesa table in mesas)
+        {
+            if (table.ocupada)
+            {
+                switch (table._state)
+                {
+                    case Estados.table.toOrder:
+                        table.callWaiter();
+                        break;
+                    //case Estados.table.Waiting:
+                    //    break;
+                    case Estados.table.toCollect:
+                        table.callToPay();
+                        break;
+                    default:
+                        table.stateImage.gameObject.SetActive(false);
+                        break;
+                }
+            }
+        }
     }
     private void hideCustomers()
     {
@@ -42,7 +67,7 @@ public class ControladorMesas : MonoBehaviour
         {
             table.asignarNumero(i);
             table.whenDeliveringTheFood += cocina.foodDelivered;
-            table.whenLeavingThePlace += cocina.throwFood;
+            cocina.someoneWantsIt += reviewOrders;
             i++;
         }
     }
@@ -56,6 +81,21 @@ public class ControladorMesas : MonoBehaviour
                 m.pasarTiempo(time);
             }
         }
+    }
+
+    private bool reviewOrders(dinner food)
+    {
+        foreach(Mesa m in mesas)
+        {
+            if (m.ocupada)
+            {
+                if (m.someoneWants(food))
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
     private void registerTableOrders(List<dinner> orders, int tableId)
     {

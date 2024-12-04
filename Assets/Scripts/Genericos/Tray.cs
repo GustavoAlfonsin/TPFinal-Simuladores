@@ -6,10 +6,11 @@ using UnityEngine.UI;
 
 public class Tray : MonoBehaviour, IInteractions
 {
-    public Button deliverBtton;
+    public GameObject panelButtons;
     public GameObject _cubo;
     public GameObject PanelInfo;
     public TextMeshProUGUI _txtOrderName;
+    public Cocina _kitchen;
 
     private bool isEmpty;
     public bool IsEmpty
@@ -26,8 +27,9 @@ public class Tray : MonoBehaviour, IInteractions
     // Start is called before the first frame update
     void Start()
     {
-        _cubo = this.GetComponent<GameObject>();
+        //_cubo = this.GetComponent<GameObject>();
         isEmpty = true;
+        this.gameObject.SetActive(false);
     }
 
     public void assignOrder(dinner food)
@@ -45,6 +47,7 @@ public class Tray : MonoBehaviour, IInteractions
     {
         this._order = null;
         isEmpty = true;
+        this.gameObject.SetActive(false);
     }
 
     public void showInfo()
@@ -66,14 +69,30 @@ public class Tray : MonoBehaviour, IInteractions
     public void mostrarAcciones()
     {
         hideInfo();
-        deliverBtton.gameObject.SetActive(true);
+        panelButtons.SetActive(true);
         Vector3 posicion = Input.mousePosition + (Vector3.up * 3);
-        deliverBtton.gameObject.transform.position = posicion;
+        panelButtons.transform.position = posicion;
     }
 
     public void ocultarAcciones()
     {
-        deliverBtton.gameObject.SetActive(false);
-        deliverBtton.GetComponent<ColorBotones>().cabiarColorOut();
+        panelButtons.SetActive(false);
+        foreach (Button button in panelButtons.GetComponentsInChildren<Button>())
+        {
+            button.GetComponent<ColorBotones>().cabiarColorOut();
+        }
+    }
+
+    public void DiscardOrder()
+    {
+        if (_kitchen.throwFood(Order))
+        {
+            removeOrder();
+        }
+        else
+        {
+            PanelInfo.SetActive(true);
+            _txtOrderName.text = "Hay clientes que pueden querer esta comida";
+        }
     }
 }

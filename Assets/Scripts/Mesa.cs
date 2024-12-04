@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,9 +19,10 @@ public class Mesa : MonoBehaviour, IInteractions
     public GameObject infoPanel;
     public TextMeshProUGUI txtOrdenes;
     public GameObject _familia;
-    public List<TableFood> _dishes; 
+    public List<TableFood> _dishes = new List<TableFood>(); 
     public GameObject mozo;
     public Image stateImage;
+    private bool isAngry = false;
     public Sprite normalCall, angryCall, paycall;
     public bool ocupada { get; set; }
     public Estados.table _state { get; set; }
@@ -68,6 +70,7 @@ public class Mesa : MonoBehaviour, IInteractions
         foreach (GameObject c in clientes)
         {
             c.SetActive(false);
+            stateImage.gameObject.SetActive(false);
         }
     }
 
@@ -131,6 +134,7 @@ public class Mesa : MonoBehaviour, IInteractions
             Debug.Log("El cliente quiere ordenar");
             if (tiempoTranscurrido > order_time)
             {
+                isAngry = true;
                 CalcularTardanza(tiempoTranscurrido, order_time);
             }
         }else if (_state == Estados.table.Waiting)
@@ -138,6 +142,7 @@ public class Mesa : MonoBehaviour, IInteractions
             Debug.Log("Estamos esperando la orden");
             if (tiempoTranscurrido > wait_time)
             {
+                isAngry = true;
                 CalcularTardanza(tiempoTranscurrido, wait_time);
             }
         }
@@ -262,6 +267,37 @@ public class Mesa : MonoBehaviour, IInteractions
     public void hideInfo()
     {
         infoPanel?.SetActive(false);
+    }
+
+    public void callWaiter()
+    {
+        stateImage.gameObject?.SetActive(true);
+        if (!isAngry)
+        {
+            stateImage.sprite = normalCall;
+        }
+        else
+        {
+            stateImage.sprite = angryCall;
+        }
+    }
+
+    public void callToPay()
+    {
+        stateImage.gameObject?.SetActive(true);
+        stateImage.sprite = paycall;
+    }
+
+    public bool someoneWants(dinner food)
+    {
+        foreach (TableFood dish in _dishes)
+        {
+            if (dish.Name == food._name)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
 
