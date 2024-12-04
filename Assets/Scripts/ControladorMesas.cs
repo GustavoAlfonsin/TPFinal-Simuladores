@@ -14,12 +14,13 @@ public class ControladorMesas : MonoBehaviour
     private float timer = 0f;
     public Cocina cocina;
     public TMP_Dropdown listaPlatosListos;
-    private List<PlatosMesa> platosListos;
+    //private List<PlatosMesa> platosListos;
     void Start()
     {
         asignarNumeros();
-        platosListos = new List<PlatosMesa>();
-        Cocina.actualizarLista += mostrarPlatosListos;
+        hideCustomers();
+        cocina.whenRegisteringOrders += registerTableOrders;
+       // platosListos = new List<PlatosMesa>();
     }
 
     void Update()
@@ -27,13 +28,21 @@ public class ControladorMesas : MonoBehaviour
         timer += Time.deltaTime;
         aumentarTiempo(timer);
     }
-
+    private void hideCustomers()
+    {
+        foreach (Mesa table in mesas)
+        {
+            table.HideClients();
+        }
+    }
     private void asignarNumeros()
     {
         int i = 1;
         foreach (Mesa table in mesas)
         {
             table.asignarNumero(i);
+            table.whenDeliveringTheFood += cocina.foodDelivered;
+            table.whenLeavingThePlace += cocina.throwFood;
             i++;
         }
     }
@@ -48,34 +57,26 @@ public class ControladorMesas : MonoBehaviour
             }
         }
     }
-
-    private void mostrarPlatosListos()
+    private void registerTableOrders(List<dinner> orders, int tableId)
     {
-        listaPlatosListos.ClearOptions();
-        List<string> mesasParaServir = new List<string>();
-        foreach (PlatosMesa p in Cocina.platosListos)
+        foreach (Mesa table in mesas)
         {
-            mesasParaServir.Add($"Platos mesa {p.numero_mesa}: Listo");
-            platosListos.Add(p);
-            var mesaDelPlato = mesas.FirstOrDefault(x => x.numeroMesa == p.numero_mesa);
-            if (mesaDelPlato != null && mesaDelPlato._state != Estados.table.toDeliver)
+            if (table.numeroMesa == tableId)
             {
-                mesaDelPlato._state = Estados.table.toDeliver;
+                table.identifyOrders(orders);
             }
         }
-        listaPlatosListos.AddOptions(mesasParaServir);
     }
+    //public static PlatosMesa darPlato(int numeroMesa)
+    //{
+    //    var plato = Cocina.platosListos.FirstOrDefault(x => x.numero_mesa == numeroMesa);
+    //    Cocina.platosListos.Remove(plato);
+    //    Cocina.actualizarLista();
+    //    return plato;
+    //}
 
-    public static PlatosMesa darPlato(int numeroMesa)
-    {
-        var plato = Cocina.platosListos.FirstOrDefault(x => x.numero_mesa == numeroMesa);
-        Cocina.platosListos.Remove(plato);
-        Cocina.actualizarLista();
-        return plato;
-    }
-
-    public static int getNumberOfOrders()
-    {
-        return Cocina.platosListos.Count; 
-    } 
+    //public static int getNumberOfOrders()
+    //{
+    //    return Cocina.platosListos.Count; 
+    //} 
 }

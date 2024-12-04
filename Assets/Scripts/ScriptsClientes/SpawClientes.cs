@@ -21,6 +21,8 @@ public class SpawClientes : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        nameRandomizer.loadNames();
+        Debug.Log(nameRandomizer.getRamdonName());
         spawPoint = spaw;
         CreateClients();
     }

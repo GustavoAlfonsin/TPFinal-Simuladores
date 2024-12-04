@@ -5,6 +5,10 @@ using UnityEngine.AI;
 
 public class Client : MonoBehaviour
 {
+    // Datos del cliente 
+    public int ID_Client { get; private set; }
+    public string clientName { get; private set; }
+
     [SerializeField]
     private NavMeshAgent _agent;
     private GameObject _whereToGo;

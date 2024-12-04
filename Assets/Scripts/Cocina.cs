@@ -1,78 +1,127 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Cocina : MonoBehaviour
 {
-    public List<PlatosMesa> platosEnPreparacion;
-    public static List<PlatosMesa> platosListos;
+    public List<dinner> _dishes;
+    public List<Tray> barDishes;
     public Transform _position;
 
-    public bool cocinando;
+    public bool isCooking;
 
     private float time;
+    private int lastOrder;
 
     public static Action actualizarLista;
+    public Action<List<dinner>, int> whenRegisteringOrders;
     void Start()
     {
-        platosEnPreparacion = new List<PlatosMesa>();
-        platosListos = new List<PlatosMesa>();
-        cocinando = false;
+        foreach (Tray dish in barDishes) //desactivo los platos en la barra
+        {
+            dish._cubo.SetActive(false);
+        }
+        foodRandomizer.loadMenu();
+        isCooking = false;
         _position = this.transform;
-        //List<comida> platos = new List<comida>();
-        //for (int i = 0; i < 4; i++)
-        //{
-        //    comida nuevaComida = new comida()
-        //    {
-        //        nombre = "Pastas",
-        //        tiempoDeCoccion = 15f,
-        //        estado = foodState.cocinandose
-        //    };
-        //    platos.Add(nuevaComida);
-        //}
-        //PlatosMesa Plato = new PlatosMesa()
-        //{
-        //    numero_mesa = 12,
-        //    platos = platos,
-        //    listo = false,
-        //    startTime = Time.time
-        //};
-        //nuevoPlato(Plato);
+        lastOrder = 1;
+        
     }
 
     void Update()
     {
-        if (cocinando)
+        if (isCooking)
         {
-            Debug.Log("Estamos cocinando");
             time += Time.deltaTime;
-            foreach (PlatosMesa plato in platosEnPreparacion)
+            foreach (dinner food in _dishes)
             {
-                plato.cocinarPlatos(time);
-                if (plato.listo)
+                food.Cooking(time);
+            }
+        }
+
+        putOnTheBar();
+    }
+
+    private void putOnTheBar()
+    {
+        foreach(Tray barTray in barDishes)
+        {
+            if (barTray.IsEmpty)
+            {
+                dinner readyFood = searchForDish();
+                if (readyFood != null)
                 {
-                    pasarAPlatosListos(plato); //Problemas cuando saco el plato de la lista
+                    barTray.assignOrder(readyFood);
                 }
             }
         }
     }
 
-    private void pasarAPlatosListos(PlatosMesa plato)
+    private dinner searchForDish()
     {
-        platosEnPreparacion.Remove(plato);
-        platosListos.Add(plato);
-        if (platosEnPreparacion.Count == 0)
+        foreach (dinner food in _dishes)
         {
-            cocinando = false;
+            if (!isInBar(food) && food.State == Estados.foodInKitchen.Ready)
+            {
+                return food;
+            }
         }
-        actualizarLista?.Invoke();
+        return null;
     }
 
-    public void nuevoPlato(PlatosMesa plato)
+    private bool isInBar(dinner food)
     {
-        Debug.Log("Se agrego un nuevo plato a la cocina");
-        platosEnPreparacion.Add(plato);
-        cocinando = platosEnPreparacion.Count > 0;
+        foreach (Tray tray in barDishes)
+        {
+            if (tray.Order.ID == food.ID)
+            {
+                return true;
+            }
+        }
+        return false;
     }
+
+    public void getOrders(List<meal> orders, int tableId)
+    {
+        List<dinner> ordersList = new List<dinner>();
+        foreach (meal ord in orders)
+        {
+            dinner food = new dinner(lastOrder, ord._name, ord._cookingTime,
+                                 ord._cost, Time.time);
+            food.TableID = tableId;
+            lastOrder++;
+            _dishes.Add(food);
+            ordersList.Add(food);
+        }
+        whenRegisteringOrders?.Invoke(ordersList, tableId);
+        isCooking = _dishes.Count > 0;
+    }
+
+    public void foodDelivered(dinner food)
+    {
+        foreach (dinner d in _dishes)
+        {
+            if (d.ID == food.ID)
+            {
+                d.delivered();
+                return;
+            }
+        }
+    }
+
+    public void throwFood(List<TableFood> foods)
+    {
+        foreach(TableFood d in foods)
+        {
+            dinner dish = _dishes.FirstOrDefault(x => x.ID == d.IDOrder);
+            if (dish != null)
+            {
+                dish.throwFood();
+            }
+        }
+    }
+   
 }

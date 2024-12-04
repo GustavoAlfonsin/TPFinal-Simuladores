@@ -4,6 +4,13 @@ using UnityEngine;
 
 public static class Estados 
 {
+    public enum selection
+    {
+        toAttendTo,
+        toDeliver,
+        toReDeliver,
+        Nothing
+    }
     public enum customer
     {
         Waiting,
@@ -19,6 +26,7 @@ public static class Estados
         Attending,
         TakingOrder,
         Delivering,
+        incorrectDelivery,
         ReceivePayment
     }
 
@@ -27,15 +35,22 @@ public static class Estados
         Thinking,
         toOrder,
         Waiting,
-        toDeliver,
         Eating,
         toCollect
     }
 
-    public enum food
+    public enum foodInKitchen
     {
         cooking,
         Ready,
-        Empty
+        Delivered,
+        Discarded
+    }
+
+    public enum tableFood
+    {
+        NotYetDelivered,
+        Ontable,
+        Done
     }
 }

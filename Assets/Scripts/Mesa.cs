@@ -1,28 +1,34 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Mesa : MonoBehaviour, IInteractions
 {
-    public int numeroMesa { get; private set; }
-    
-    [field: SerializeField]
-    public List<Button> botones { get; set; }
+    public int numeroMesa;
 
-    [field: SerializeField]
-    public List<GameObject> clientes { get; set; }
-    [field: SerializeField]
-    public TextMeshProUGUI txtMesa { get; set; }
-    public GameObject _familia { get; set; }
-    public PlatosMesa _plato;
-    public GameObject mozo { get; set; }
+    public List<Button> botones;
+
+    public List<GameObject> clientes;
+    public TextMeshProUGUI txtMesa;
+    public GameObject infoPanel;
+    public TextMeshProUGUI txtOrdenes;
+    public GameObject _familia;
+    public List<TableFood> _dishes; 
+    public GameObject mozo;
+    public Image stateImage;
+    public Sprite normalCall, angryCall, paycall;
     public bool ocupada { get; set; }
     public Estados.table _state { get; set; }
 
     [SerializeField]private float start_time, thinking_time, order_time, wait_time, eating_time;
+
+    public Action<dinner> whenDeliveringTheFood;
+    public Action<List<TableFood>> whenLeavingThePlace;
     public void asignarNumero(int i)
     {
         numeroMesa = i;
@@ -32,27 +38,39 @@ public class Mesa : MonoBehaviour, IInteractions
     public void ocuparMesa(float time, GameObject family)
     {
         ocupada = true;
-        foreach (GameObject c in clientes) 
-        {
-            c.SetActive(true);
-        }
+        ShowClients();
         _state = Estados.table.Thinking;
         _familia = family;
         start_time = time;
     }
 
+    private void ShowClients()
+    {
+        foreach (GameObject c in clientes)
+        {
+            c.SetActive(true);
+        }
+    }
+
     public void desocuparMesa()
     {
         ocupada = false;
-        foreach (GameObject c in clientes)
-        {
-            c.SetActive(false);
-        }
+        HideClients();
         _state = Estados.table.Thinking;
         _familia.SetActive(true);
         _familia.GetComponent<Client>().readyToLeave(SpawClientes.spawPoint);
         _familia = null;
+        _dishes.Clear();
     }
+
+    public void HideClients()
+    {
+        foreach (GameObject c in clientes)
+        {
+            c.SetActive(false);
+        }
+    }
+
     public void mostrarAcciones()
     {
         if (ocupada)
@@ -62,9 +80,6 @@ public class Mesa : MonoBehaviour, IInteractions
             {
                 case Estados.table.toOrder:
                     btonIndicado = botones.FirstOrDefault(x => x.CompareTag("Bton_tomarPedido"));
-                    break;
-                case Estados.table.toDeliver:
-                    btonIndicado = botones.FirstOrDefault(x => x.CompareTag("Bton_EntregarPedido"));
                     break;
                 case Estados.table.toCollect:
                     btonIndicado = botones.FirstOrDefault(x => x.CompareTag("Bton_Cobrar"));
@@ -118,21 +133,35 @@ public class Mesa : MonoBehaviour, IInteractions
             {
                 CalcularTardanza(tiempoTranscurrido, order_time);
             }
-        }else if (_state == Estados.table.Waiting || _state == Estados.table.toDeliver)
+        }else if (_state == Estados.table.Waiting)
         {
             Debug.Log("Estamos esperando la orden");
             if (tiempoTranscurrido > wait_time)
             {
                 CalcularTardanza(tiempoTranscurrido, wait_time);
             }
-        }else if (_state == Estados.table.Eating)
+        }
+
+        foreach (TableFood food in _dishes)
         {
-            if (tiempoTranscurrido > eating_time)
+            food.eating(timer);
+        }
+        if (haveYouFinishedEating())
+        {
+            _state = Estados.table.toCollect;
+        }
+    }
+
+    private bool haveYouFinishedEating()
+    {
+        foreach (TableFood food in _dishes)
+        {
+            if (food.State == Estados.tableFood.Ontable || food.State == Estados.tableFood.NotYetDelivered)
             {
-                Debug.Log("Ya podemos pagar la comida");
-                _state = Estados.table.toCollect;
+                return false;
             }
         }
+        return true;
     }
 
     private void CalcularTardanza(float tiempoT, float time)
@@ -143,36 +172,96 @@ public class Mesa : MonoBehaviour, IInteractions
         }else if (tiempoT - time > 30f)
         {
             Debug.Log("Nos vamos");
+            whenLeavingThePlace?.Invoke(_dishes);
             desocuparMesa();
             UIManager.numberOfDC++;
         }
     }
 
-    public PlatosMesa pedidos()
+    public List<meal> pedidos()
     {
-        List<comida> platos = new List<comida>();
+        List<meal> orders = new List<meal>();
+        _dishes = new List<TableFood>();
         for (int i = 0; i < 4; i++)
         {
-            comida nuevaComida = new comida()
-            {
-                nombre = "Pastas",
-                tiempoDeCoccion = 1f,
-                estado = Estados.food.cooking,
-                costo = 12f
-            };
-            platos.Add(nuevaComida);
+            meal order = foodRandomizer.getRamdonMeal();
+            orders.Add(order);
+            TableFood newdish = new TableFood(order._name,7.5f,order._cost);
+            _dishes.Add(newdish);
         }
-        PlatosMesa nuevoPlato = new PlatosMesa()
-        {
-            numero_mesa = this.numeroMesa,
-            platos = platos,
-            listo = false,
-            startTime = Time.time
-        };
+        return orders;
+    }
 
-        _state = Estados.table.Waiting;
-        start_time = Time.time;
-        return nuevoPlato;
+    public bool deliverFood(dinner food)
+    {
+        foreach (TableFood dish in _dishes)
+        {
+            if (dish.Name == food._name)
+            {
+                dish.wasDelivered();
+                whenDeliveringTheFood?.Invoke(food);
+                if (allDelivered())
+                {
+                    _state = Estados.table.Eating;
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private bool allDelivered()
+    {
+        foreach (TableFood food in _dishes)
+        {
+            if (food.State == Estados.tableFood.NotYetDelivered)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void identifyOrders(List<dinner> orders)
+    {
+        foreach (TableFood food in _dishes)
+        {
+            dinner dish = orders.FirstOrDefault(o => o._name == food.Name);
+            if (dish != null)
+            {
+                food.IDOrder = dish.ID;
+            }
+        }
+    }
+
+    public float payForDinner()
+    {
+        float total = 0;
+        foreach (TableFood food in _dishes)
+        {
+            total += food.Cost;
+        }
+        return total;
+    }
+
+    public void showInfo()
+    {
+        if (ocupada && _dishes.Count > 0)
+        {
+            infoPanel.SetActive(true);
+            txtOrdenes.text = string.Empty;
+            foreach (TableFood food in _dishes)
+            {
+                txtOrdenes.text += food.Name + " \n";
+            }
+            Vector3 posicion = Input.mousePosition + (Vector3.up * 3) + (Vector3.right * 2);
+            infoPanel.transform.position = posicion;
+        }
+    }
+
+    public void hideInfo()
+    {
+        infoPanel?.SetActive(false);
     }
 }
 

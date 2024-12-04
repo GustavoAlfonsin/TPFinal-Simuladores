@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -28,7 +29,7 @@ public class Game_Manager : MonoBehaviour
     private GameObject objeto2;
     public TextMeshProUGUI txtAyuda;
     public GameObject panelAyuda;
-    private bool seleccionando = false;
+    public Estados.selection selection_state;
     private int objetosSeleccionados = 0;
    
     // Para poder tocar el boton
@@ -55,13 +56,21 @@ public class Game_Manager : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (!seleccionando)
+            if (selection_state == Estados.selection.toAttendTo)
             {
-                ObjetosYMovimiento();
+                seleccionarObjetos();
+            }
+            else if (selection_state == Estados.selection.toDeliver)
+            {
+                deliverySelection();
+            }
+            else if (selection_state == Estados.selection.toReDeliver)
+            {
+                //función para hacer la re-entrega
             }
             else
             {
-                seleccionarObjetos();
+                ObjetosYMovimiento();
             }
             
         }
@@ -94,14 +103,27 @@ public class Game_Manager : MonoBehaviour
                         _target.GetComponent<IInteractions>().ocultarAcciones();
                     }
                 }
-                else if (infoRayoPrincipal.collider.CompareTag("Player") ||
-                            infoRayoPrincipal.collider.CompareTag("Mesa"))
+                else if (hasTheInterface<IInteractions>(infoRayoPrincipal.collider.gameObject))
                 {
                     _target = infoRayoPrincipal.collider.gameObject;
                     _target.GetComponent<IInteractions>().mostrarAcciones();
                 }
             }
         }
+    }
+
+    private bool hasTheInterface<T>(GameObject obj) where T : class
+    {
+        var components = obj.GetComponents<MonoBehaviour>();
+
+        foreach (var component in components)
+        {
+            if (component is T)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void seleccionarObjetos()
@@ -126,7 +148,7 @@ public class Game_Manager : MonoBehaviour
                 {
                     objeto2 = infoRayoSecundario.collider.gameObject;
                     objetosSeleccionados++;
-                    seleccionando = false;
+                    selection_state = Estados.selection.Nothing;
                     _target.GetComponent<Camarero>().atender(objeto1, objeto2);
                     panelAyuda.SetActive(false);
                     Debug.Log("Objeto 2 seleccionado: " + objeto2.tag);
@@ -137,7 +159,7 @@ public class Game_Manager : MonoBehaviour
 
     public void IniciarSeleccion()
     {
-        seleccionando = true;
+        selection_state = Estados.selection.toAttendTo;
         objeto1 = null;
         objeto2 = null;
         objetosSeleccionados = 0;
@@ -156,8 +178,77 @@ public class Game_Manager : MonoBehaviour
 
     public void EntregarPedido()
     {
-        _target.GetComponent<Mesa>().mozo.GetComponent<Camarero>().entregarPedido(_target);
+        selection_state = Estados.selection.toDeliver;
+        objeto1 = null; objeto2 = null;
+        objetosSeleccionados = 0;
+        panelAyuda.SetActive(true);
+        txtAyuda.text = "Elija al mozo que entregara el pedido a la mesa";
         _target.GetComponent<IInteractions>().ocultarAcciones();
+    }
+
+    private void deliverySelection()
+    {
+        rayoSecundario = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(rayoSecundario, out infoRayoSecundario, 150, capaSeleccion))
+        {
+            if (objetosSeleccionados == 0 && infoRayoSecundario.collider.CompareTag("Player"))
+            {
+                objeto1 = infoRayoSecundario.collider.gameObject;
+                objetosSeleccionados++;
+                txtAyuda.text = "Elije la mesa donde quieres entregar la orden";
+                Debug.Log("Objeto 1 seleccionado: " + objeto1.tag);
+            }
+            else if (objetosSeleccionados == 1 && infoRayoSecundario.collider.CompareTag("Mesa"))
+            {
+                if (!infoRayoSecundario.collider.GetComponent<Mesa>().ocupada)
+                {
+                    txtAyuda.text = "La mesa está vacia \n elija una que este vacia";
+                }
+                else
+                {
+                    objeto2 = infoRayoSecundario.collider.gameObject;
+                    objetosSeleccionados++;
+                    selection_state = Estados.selection.Nothing;
+                    objeto1.GetComponent<Camarero>().entregarPedido(_target, objeto2);
+                    panelAyuda.SetActive(false);
+                    Debug.Log("Objeto 2 seleccionado: " + objeto2.tag);
+                }
+            }
+        }
+    }
+
+    public void reSelectTheTable()
+    {
+        selection_state = Estados.selection.toReDeliver;
+        objeto1 = null; objeto2 = null;
+        objetosSeleccionados = 0;
+        panelAyuda.SetActive(true);
+        txtAyuda.text = "Elija otra mesa donde quiera entregar la orden";
+        _target.GetComponent<IInteractions>().ocultarAcciones();
+    }
+
+    private void reDeliverySelection()
+    {
+        rayoSecundario = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(rayoSecundario, out infoRayoSecundario, 150, capaSeleccion))
+        {
+            if (objetosSeleccionados == 0 && infoRayoSecundario.collider.CompareTag("Mesa"))
+            {
+                if (!infoRayoSecundario.collider.GetComponent<Mesa>().ocupada)
+                {
+                    txtAyuda.text = "La mesa está vacia \n elija una que este vacia";
+                }
+                else
+                {
+                    objeto2 = infoRayoSecundario.collider.gameObject;
+                    objetosSeleccionados++;
+                    selection_state = Estados.selection.Nothing;
+                    objeto1.GetComponent<Camarero>().reEntregarElPedido(objeto2);
+                    panelAyuda.SetActive(false);
+                    Debug.Log("Objeto 2 seleccionado: " + objeto2.tag);
+                }
+            }
+        }
     }
 
     public void CobrarPedido()
