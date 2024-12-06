@@ -14,13 +14,11 @@ public class ControladorMesas : MonoBehaviour
     private float timer = 0f;
     public Cocina cocina;
     public TMP_Dropdown listaPlatosListos;
-    //private List<PlatosMesa> platosListos;
     void Start()
     {
         asignarNumeros();
         hideCustomers();
         cocina.whenRegisteringOrders += registerTableOrders;
-       // platosListos = new List<PlatosMesa>();
     }
 
     void Update()
@@ -66,6 +64,8 @@ public class ControladorMesas : MonoBehaviour
         foreach (Mesa table in mesas)
         {
             table.asignarNumero(i);
+            table._state = Estados.table.Waiting;
+            table.ocupada = false;
             table.whenDeliveringTheFood += cocina.foodDelivered;
             cocina.someoneWantsIt += reviewOrders;
             i++;
@@ -107,16 +107,4 @@ public class ControladorMesas : MonoBehaviour
             }
         }
     }
-    //public static PlatosMesa darPlato(int numeroMesa)
-    //{
-    //    var plato = Cocina.platosListos.FirstOrDefault(x => x.numero_mesa == numeroMesa);
-    //    Cocina.platosListos.Remove(plato);
-    //    Cocina.actualizarLista();
-    //    return plato;
-    //}
-
-    //public static int getNumberOfOrders()
-    //{
-    //    return Cocina.platosListos.Count; 
-    //} 
 }

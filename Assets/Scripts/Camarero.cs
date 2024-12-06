@@ -128,6 +128,7 @@ public class Camarero : MonoBehaviour, IInteractions
         {
             List<meal> encargos = objeto1.GetComponent<Mesa>().pedidos();
             int tableID = objeto1.GetComponent<Mesa>().numeroMesa;
+            objeto1.GetComponent<Mesa>().wasAttendedTo();
             _cocina.getOrders(encargos, tableID);
             CamareroCamina(_cocina.transform.position);
             objeto1 = null;
@@ -220,11 +221,12 @@ public class Camarero : MonoBehaviour, IInteractions
 
     public void ocultarAcciones()
     {
+        Game_Manager.enElBoton = false;
         bton_accion1.gameObject.SetActive(false);
-        bton_accion1.GetComponent<ColorBotones>().cabiarColorOut();
+        //bton_accion1.GetComponent<ColorBotones>().cabiarColorOut();
 
         bton_accion2.gameObject.SetActive(false);
-        bton_accion2.GetComponent<ColorBotones>().cabiarColorOut();
+        //bton_accion2.GetComponent<ColorBotones>().cabiarColorOut();
         if (estado == Estados.waiter.incorrectDelivery)
         {
             imagenError.gameObject.SetActive(true);

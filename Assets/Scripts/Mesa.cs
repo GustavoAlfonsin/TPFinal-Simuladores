@@ -112,7 +112,8 @@ public class Mesa : MonoBehaviour, IInteractions
     {
         foreach (Button bton in botones)
         {
-            bton.GetComponent<ColorBotones>().cabiarColorOut();
+            //bton.GetComponent<ColorBotones>().cabiarColorOut();
+            Game_Manager.enElBoton = false;
             bton.gameObject.SetActive(false);
         }
     }
@@ -151,7 +152,7 @@ public class Mesa : MonoBehaviour, IInteractions
         {
             food.eating(timer);
         }
-        if (haveYouFinishedEating())
+        if (haveYouFinishedEating() && _dishes.Count > 0)
         {
             _state = Estados.table.toCollect;
         }
@@ -195,6 +196,12 @@ public class Mesa : MonoBehaviour, IInteractions
             _dishes.Add(newdish);
         }
         return orders;
+    }
+
+    public void wasAttendedTo()
+    {
+        _state = Estados.table.Waiting;
+        start_time = Time.time;
     }
 
     public bool deliverFood(dinner food)
@@ -298,6 +305,22 @@ public class Mesa : MonoBehaviour, IInteractions
             }
         }
         return false;
+    }
+
+    private void OnMouseEnter()
+    {
+        if (infoPanel != null)
+        {
+            showInfo();
+        }
+    }
+
+    private void OnMouseExit()
+    {
+        if (infoPanel != null)
+        {
+            hideInfo();
+        }
     }
 }
 

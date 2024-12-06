@@ -22,7 +22,6 @@ public class SpawClientes : MonoBehaviour
     void Start()
     {
         nameRandomizer.loadNames();
-        Debug.Log(nameRandomizer.getRamdonName());
         spawPoint = spaw;
         CreateClients();
     }

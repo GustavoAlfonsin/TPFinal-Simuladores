@@ -46,7 +46,6 @@ public class Client : MonoBehaviour
     {
         Vector3 endPosition = _whereToGo.transform.position -
                                 (_whereToGo.transform.forward * followDistance);
-        Debug.Log($"Posición actual: {transform.position} -- Posición final: {endPosition}");
         _agent.SetDestination(endPosition);
         moveFriends();
         if (Vector3.Distance(transform.position, _whereToGo.transform.position) <= stoppingDistance)

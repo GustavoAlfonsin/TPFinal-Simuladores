@@ -15,12 +15,10 @@ public static class foodRandomizer
         {
             string data = File.ReadAllText(stringFilePath);
             _menuList = JsonUtility.FromJson<Menu>(data);
-            Debug.Log("Fue cargado el menu desde el archivo Json");
             meal food = getRamdonMeal();
         }
         else
         {
-            Debug.LogWarning("Archivo Json no encontrado. Creando lista por defecto");
             meal food = new meal("Milanesa", 15, 35);
             _menuList = new Menu();
             _menuList.dishes = new List<meal> { food };
@@ -32,7 +30,6 @@ public static class foodRandomizer
     {
         string JsonFile = JsonUtility.ToJson(_menuList);
         File.WriteAllText(stringFilePath, JsonFile);
-        Debug.Log("Menu guardado en un archivo Json");
     }
 
     public static meal getRamdonMeal()

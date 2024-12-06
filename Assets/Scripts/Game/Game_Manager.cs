@@ -42,7 +42,10 @@ public class Game_Manager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        selection_state = Estados.selection.Nothing;
+        dineroActual = 0;
+        objeto1 = null;
+        objeto2 = null;
     }
 
     // Update is called once per frame
@@ -66,7 +69,7 @@ public class Game_Manager : MonoBehaviour
             }
             else if (selection_state == Estados.selection.toReDeliver)
             {
-                //función para hacer la re-entrega
+                reDeliverySelection();
             }
             else
             {
@@ -120,11 +123,9 @@ public class Game_Manager : MonoBehaviour
         {
             if (component is T)
             {
-                Debug.Log("Encontre un objeto interactuable");
                 return true;
             }
         }
-        Debug.Log("No encontre nada");
         return false;
     }
 
@@ -168,12 +169,10 @@ public class Game_Manager : MonoBehaviour
         _target.GetComponent<IInteractions>().ocultarAcciones();
         panelAyuda.SetActive(true);
         txtAyuda.text = "Elije a los clientes que quieras atender";
-        Debug.Log("Modo de selección activado. Haz click en dos objetos");
     }
 
     public void AtenderMesa()
     {
-        Debug.Log("Estoy apretando el boton");
         _target.GetComponent<Mesa>().mozo.GetComponent<Camarero>().Llamando(_target);
         _target.GetComponent<IInteractions>().ocultarAcciones();
     }

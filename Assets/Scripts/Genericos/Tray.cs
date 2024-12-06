@@ -66,6 +66,22 @@ public class Tray : MonoBehaviour, IInteractions
         PanelInfo?.SetActive(false);
     }
 
+    private void OnMouseEnter()
+    {
+        if (PanelInfo != null)
+        {
+            showInfo();
+        }
+    }
+
+    private void OnMouseExit()
+    {
+        if (PanelInfo != null)
+        {
+            hideInfo();
+        }
+    }
+
     public void mostrarAcciones()
     {
         hideInfo();
@@ -77,10 +93,11 @@ public class Tray : MonoBehaviour, IInteractions
     public void ocultarAcciones()
     {
         panelButtons.SetActive(false);
-        foreach (Button button in panelButtons.GetComponentsInChildren<Button>())
-        {
-            button.GetComponent<ColorBotones>().cabiarColorOut();
-        }
+        Game_Manager.enElBoton = false;
+        //foreach (Button button in panelButtons.GetComponentsInChildren<Button>())
+        //{
+        //    button.GetComponent<ColorBotones>().cabiarColorOut();
+        //}
     }
 
     public void DiscardOrder()

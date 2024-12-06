@@ -16,11 +16,9 @@ public static class nameRandomizer
         {
             string data = File.ReadAllText(stringFilePath);
             _nameList = JsonUtility.FromJson<NameList>(data);
-            Debug.Log("Fueron cargados los nombres desde el archivo Json");
         }
         else
         {
-            Debug.LogWarning("Archivo Json no encontrado. Creando lista por defecto");
             _nameList = new NameList()
             {
                 _names = new List<string>()
@@ -41,7 +39,6 @@ public static class nameRandomizer
     {
         string JsonFile = JsonUtility.ToJson(_nameList);
         File.WriteAllText(stringFilePath, JsonFile);
-        Debug.Log("Nombre guardados en archivo Json");
     }
 
     public static string getRamdonName()
