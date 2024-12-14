@@ -19,13 +19,16 @@ public class Camarero : MonoBehaviour, IInteractions
     public GameObject player { get; set; }
     [field: SerializeField]
     public Cocina _cocina { get; set; }
+    [field: SerializeField]
     public GameObject objeto1 { get; set; }
+    [field: SerializeField]
     public GameObject objeto2 { get; set; }
     [field: SerializeField]
     public Button bton_accion1 { get ; set; }
 
     [field: SerializeField]
     public Button bton_accion2 { get; set; }
+    [field: SerializeField]
     public Estados.waiter estado { get; set; }
 
     public Image imagenError;
@@ -44,16 +47,20 @@ public class Camarero : MonoBehaviour, IInteractions
         if (estado == Estados.waiter.Walked)
         {
             mover();
-        } else if (estado == Estados.waiter.Attending)
+        } 
+        else if (estado == Estados.waiter.Attending)
         {
             atenderClientes();
-        } else if (estado == Estados.waiter.TakingOrder)
+        } 
+        else if (estado == Estados.waiter.TakingOrder)
         {
             AtenderMesa();
-        } else if (estado == Estados.waiter.Delivering)
+        } 
+        else if (estado == Estados.waiter.Delivering)
         {
             entregandoElPedido();
-        } else if (estado == Estados.waiter.ReceivePayment)
+        } 
+        else if (estado == Estados.waiter.ReceivePayment)
         {
             cobrandoLaMesa();
         }
@@ -104,7 +111,8 @@ public class Camarero : MonoBehaviour, IInteractions
                 objeto1.SetActive(false);
                 objeto2.GetComponent<Mesa>().ocuparMesa(Time.time, objeto1);
                 conGente = false;
-                Vector3 destino = _cocina.transform.position;
+                Vector3 destino = _cocina._position.position;
+                destino.y = transform.position.y;
                 CamareroCamina(destino);
                 objeto1 = null;
                 objeto2 = null;
@@ -120,8 +128,11 @@ public class Camarero : MonoBehaviour, IInteractions
 
     private void AtenderMesa()
     {
+        Debug.Log($"Hay un camino: {(_agente.hasPath ? "si" : "No")}");
         if (Vector3.Distance(transform.position, objeto1.transform.position) > _distancia)
         {
+            //Debug.Log("Yendo a la mesa");
+            //Debug.Log($"Estoy en : {transform.position} y voy a: {objeto1.transform.position}");
             _agente.SetDestination(objeto1.transform.position);
         }
         else
@@ -130,7 +141,7 @@ public class Camarero : MonoBehaviour, IInteractions
             int tableID = objeto1.GetComponent<Mesa>().numeroMesa;
             objeto1.GetComponent<Mesa>().wasAttendedTo();
             _cocina.getOrders(encargos, tableID);
-            CamareroCamina(_cocina.transform.position);
+            CamareroCamina(_cocina._position.position);
             objeto1 = null;
         }
     }
@@ -168,7 +179,7 @@ public class Camarero : MonoBehaviour, IInteractions
         {
             if (objeto2.GetComponent<Mesa>().deliverFood(_plato))
             {
-                CamareroCamina(_cocina.transform.position);
+                CamareroCamina(_cocina._position.position);
                 objeto1 = null;
                 objeto2 = null;
             }
@@ -197,7 +208,7 @@ public class Camarero : MonoBehaviour, IInteractions
             Game_Manager.dineroActual += objeto1.GetComponent<Mesa>().payForDinner();
             objeto1.GetComponent<Mesa>().desocuparMesa();
             UIManager.numberOfClients++;
-            CamareroCamina(_cocina.transform.position);
+            CamareroCamina(_cocina._position.position);
             objeto1 = null;
         }
     }

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7136488270392253586}
   - component: {fileID: 4577854878119061406}
   - component: {fileID: 9152590322263545689}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: ClientInTable 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 6274139021970731747}
   - component: {fileID: 6491163789907307283}
   - component: {fileID: 205151277602365138}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: NumeroMesa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -397,7 +397,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.5, y: 1, z: 1.75}
+  m_Size: {x: 1.25, y: 1, z: 1.75}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6170872588041461069
 MonoBehaviour:
@@ -444,10 +444,10 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 1
-  m_Extents: {x: 0.6, y: 0.5, z: 0.575}
+  m_Extents: {x: 0.625, y: 0.5, z: 0.875}
   m_MoveThreshold: 0.1
   m_Carve: 1
-  m_CarveOnlyStationary: 1
+  m_CarveOnlyStationary: 0
   m_Center: {x: 0, y: 0, z: 0}
   m_TimeToStationary: 0.5
 --- !u!1 &4690103885689873861
@@ -462,7 +462,7 @@ GameObject:
   - component: {fileID: 2487092428358394810}
   - component: {fileID: 1839771613243023833}
   - component: {fileID: 6802590619045793829}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -551,7 +551,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
 --- !u!1 &5934730054164463981
 GameObject:
   m_ObjectHideFlags: 0
@@ -566,7 +566,7 @@ GameObject:
   - component: {fileID: 1657249574353565572}
   - component: {fileID: 2037934189032201329}
   - component: {fileID: 2281762929853630957}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: ClientInTable 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -715,7 +715,7 @@ GameObject:
   - component: {fileID: 3845225595089925191}
   - component: {fileID: 7845553122990100297}
   - component: {fileID: 2352061817825528477}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: ImagenEstadoMesa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -793,7 +793,7 @@ GameObject:
   - component: {fileID: 8605849130938338759}
   - component: {fileID: 159877322306637807}
   - component: {fileID: 7996243741565784383}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: ClientInTable 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -943,7 +943,7 @@ GameObject:
   - component: {fileID: 2022354210124652173}
   - component: {fileID: 3437345198860271705}
   - component: {fileID: 450229116561761283}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1032,7 +1032,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 0
 --- !u!1 &9120628361273968917
 GameObject:
   m_ObjectHideFlags: 0
@@ -1047,7 +1047,7 @@ GameObject:
   - component: {fileID: 3268717720156685418}
   - component: {fileID: 1859976938323882081}
   - component: {fileID: 8082326582607052495}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: ClientInTable 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}

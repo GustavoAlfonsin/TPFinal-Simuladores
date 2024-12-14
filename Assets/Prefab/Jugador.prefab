@@ -335,7 +335,7 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 1
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 5
   m_ObstacleAvoidanceType: 4
 --- !u!114 &6087110607624995764
 MonoBehaviour:
@@ -352,6 +352,10 @@ MonoBehaviour:
   _distancia: 4
   <player>k__BackingField: {fileID: 7801208491510213789}
   <_cocina>k__BackingField: {fileID: 0}
+  <objeto1>k__BackingField: {fileID: 0}
+  <objeto2>k__BackingField: {fileID: 0}
   <bton_accion1>k__BackingField: {fileID: 0}
   <bton_accion2>k__BackingField: {fileID: 0}
+  <estado>k__BackingField: 0
   imagenError: {fileID: 8683710903948548015}
+  cam: {fileID: 0}

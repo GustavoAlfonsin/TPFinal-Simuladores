@@ -16,13 +16,21 @@ public class Cocina : MonoBehaviour
     private float time;
     private int lastOrder;
 
-    public static Action actualizarLista;
+    public Action actualizarLista;
     public Action<List<dinner>, int> whenRegisteringOrders;
     public Func<dinner, bool> someoneWantsIt;
     void Start()
     {
         _dishes = new List<dinner>();
         barDishes = new List<Tray>();
+        foreach (Transform child in transform)
+        {
+            Tray dish = child.GetComponent<Tray>();
+            if (dish != null)
+            {
+                barDishes.Add(dish);
+            }
+        }
         foreach (Tray dish in barDishes) //desactivo los platos en la barra
         {
             dish._cubo.SetActive(false);
