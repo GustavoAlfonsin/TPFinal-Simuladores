@@ -5,30 +5,48 @@ using UnityEngine;
 
 public class CicloDeDia : MonoBehaviour
 {
-    [SerializeField] private float duracionDiaEnSegundos = 840f;
-    private int horaInicio = 10;
-    private float timeOfDay = 0;
+    [SerializeField] private static float duracionDiaEnSegundos = 480f;
+    private static readonly TimeSpan workDayStartTime = new TimeSpan(10, 0, 0);
+    private static readonly TimeSpan workDayEndTime = new TimeSpan(24, 0, 0);
+
+    private static float elapsedTime;
+
     public int diaActual = 1;
 
     public static Action finishDay;
+
+    private void Start()
+    {
+        elapsedTime = 0f;
+    }
     void Update()
     {
-        timeOfDay += Time.deltaTime;
-
-        if (timeOfDay >= duracionDiaEnSegundos)
+        elapsedTime += Time.deltaTime;
+        if (elapsedTime > duracionDiaEnSegundos)
         {
-            timeOfDay = 0;
+            elapsedTime = 0f;
             diaActual++;
             finishDay?.Invoke();
         }
     }
 
-    public string GetTime()
+    private static TimeSpan getTime() 
     {
-        int hours = horaInicio + Mathf.FloorToInt((timeOfDay / duracionDiaEnSegundos) * 14);
-        int minutes = Mathf.FloorToInt(((timeOfDay/duracionDiaEnSegundos) * 1440f) % 60f);
-        int seconds = Mathf.FloorToInt(((timeOfDay / duracionDiaEnSegundos) * 86400f) % 60f);
+        float progress = elapsedTime / duracionDiaEnSegundos;
+        double totalWorkDaySeconds = (workDayEndTime - workDayStartTime).TotalSeconds;
+        double simulatedSeconds = totalWorkDaySeconds * progress;
+        return workDayStartTime.Add(TimeSpan.FromSeconds(simulatedSeconds));
+    }
 
-        return $"{hours:00}:{minutes:00}:{seconds:00}";
+    public static TimeSpan getCurrentTime()
+    {
+        TimeSpan currentTime = getTime();
+        return currentTime;
+    }
+
+    public static int howMuchTimePassed(TimeSpan time1)
+    {
+        TimeSpan difference = getCurrentTime() - time1;
+        return Math.Abs((int)difference.TotalMinutes);
     }
 }

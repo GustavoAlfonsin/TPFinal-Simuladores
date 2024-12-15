@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class TableFood
 {
-	private float start_time;
+	private TimeSpan start_time;
 	private string _name;
 	private int _idOrder;
 
@@ -48,14 +49,14 @@ public class TableFood
 	public void wasDelivered()
 	{
 		this._state = Estados.tableFood.Ontable;
-		start_time = Time.time;
+		start_time = CicloDeDia.getCurrentTime();
 	}
 
-	public void eating(float time)
+	public void eating()
 	{
 		if (_state == Estados.tableFood.Ontable)
 		{
-			float elapsedTime = time - start_time;
+			int elapsedTime = CicloDeDia.howMuchTimePassed(start_time);
 			if (elapsedTime >= _eatingTime)
 			{
 				_state = Estados.tableFood.Done;

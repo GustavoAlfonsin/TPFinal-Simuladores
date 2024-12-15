@@ -109,7 +109,7 @@ public class Camarero : MonoBehaviour, IInteractions
             if (Vector3.Distance(_agente.transform.position, objeto2.transform.position) <= _distancia)
             {
                 objeto1.SetActive(false);
-                objeto2.GetComponent<Mesa>().ocuparMesa(Time.time, objeto1);
+                objeto2.GetComponent<Mesa>().ocuparMesa(CicloDeDia.getCurrentTime(), objeto1);
                 conGente = false;
                 Vector3 destino = _cocina._position.position;
                 destino.y = transform.position.y;
@@ -128,11 +128,8 @@ public class Camarero : MonoBehaviour, IInteractions
 
     private void AtenderMesa()
     {
-        Debug.Log($"Hay un camino: {(_agente.hasPath ? "si" : "No")}");
         if (Vector3.Distance(transform.position, objeto1.transform.position) > _distancia)
         {
-            //Debug.Log("Yendo a la mesa");
-            //Debug.Log($"Estoy en : {transform.position} y voy a: {objeto1.transform.position}");
             _agente.SetDestination(objeto1.transform.position);
         }
         else

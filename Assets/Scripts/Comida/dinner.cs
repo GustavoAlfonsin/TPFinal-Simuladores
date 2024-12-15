@@ -1,10 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class dinner : meal
 {
-	private float startTime;
+	private TimeSpan startTime;
 	private int _id;
 
 	public int ID
@@ -28,16 +29,16 @@ public class dinner : meal
 	}
 
 
-	public dinner(int id, string name, float time, float cost, float start) : base(name, time, cost)
+	public dinner(int id, string name, float time, float cost, TimeSpan start) : base(name, time, cost)
     {
 		_id = id;
 		_state = Estados.foodInKitchen.cooking;
 		startTime = start;
     }
 
-	public void Cooking(float time)
+	public void Cooking()
 	{
-        float elapsedTime = time - startTime;
+		int elapsedTime = CicloDeDia.howMuchTimePassed(startTime);
         if (_state == Estados.foodInKitchen.cooking && elapsedTime >= _cookingTime)
 		{
 			_state = Estados.foodInKitchen.Ready;
@@ -52,4 +53,9 @@ public class dinner : meal
 	{
 		_state = Estados.foodInKitchen.Discarded;
 	}
+
+    public override string ToString()
+    {
+        return this._name;
+    }
 }

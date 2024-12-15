@@ -40,6 +40,7 @@ public class Tray : MonoBehaviour, IInteractions
 
     public dinner receiveOrder()
     {
+        removeOrder();
         return this._order;
     }
 

@@ -432,8 +432,8 @@ MonoBehaviour:
   start_time: 0
   thinking_time: 5
   order_time: 20
-  wait_time: 20
-  eating_time: 5
+  wait_time: 45
+  eating_time: 15
 --- !u!208 &8755886723678436035
 NavMeshObstacle:
   m_ObjectHideFlags: 0

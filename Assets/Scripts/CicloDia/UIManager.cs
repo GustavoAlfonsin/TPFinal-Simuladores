@@ -34,7 +34,7 @@ public class UIManager : MonoBehaviour
     {
         if (!endGame) 
         {
-            currentHourTxt.text = hora.GetTime();
+            currentHourTxt.text = CicloDeDia.getCurrentTime().ToString(@"hh\:mm\:ss");
             if (Input.GetKeyDown(KeyCode.T))
             {
                 endGame = true;

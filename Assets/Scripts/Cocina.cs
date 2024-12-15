@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,7 @@ public class Cocina : MonoBehaviour
     public List<Tray> barDishes;
     public Transform _position;
 
+    public TMP_Dropdown listaPlatosListos;
     public bool isCooking;
 
     private float time;
@@ -49,11 +51,20 @@ public class Cocina : MonoBehaviour
             time += Time.deltaTime;
             foreach (dinner food in _dishes)
             {
-                food.Cooking(time);
+                food.Cooking();
             }
         }
 
         putOnTheBar();
+
+        listaPlatosListos.ClearOptions();
+        List<string> comidas = new List<string>();
+        foreach (dinner food in _dishes)
+        {
+            string plato = food._name + " " + food.State.ToString();
+            comidas.Add(plato);
+        }
+        listaPlatosListos.AddOptions(comidas);
     }
 
     private void putOnTheBar()
@@ -88,7 +99,7 @@ public class Cocina : MonoBehaviour
     {
         foreach (Tray tray in barDishes)
         {
-            if (tray.Order.ID == food.ID)
+            if (!tray.IsEmpty && tray.Order.ID == food.ID)
             {
                 return true;
             }
@@ -102,7 +113,7 @@ public class Cocina : MonoBehaviour
         foreach (meal ord in orders)
         {
             dinner food = new dinner(lastOrder, ord._name, ord._cookingTime,
-                                 ord._cost, Time.time);
+                                 ord._cost, CicloDeDia.getCurrentTime());
             food.TableID = tableId;
             lastOrder++;
             _dishes.Add(food);

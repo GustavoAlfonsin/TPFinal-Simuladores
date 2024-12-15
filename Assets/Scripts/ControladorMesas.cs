@@ -13,7 +13,6 @@ public class ControladorMesas : MonoBehaviour
     public List<Mesa> mesas { get; set; }
     private float timer = 0f;
     public Cocina cocina;
-    public TMP_Dropdown listaPlatosListos;
     void Start()
     {
         asignarNumeros();
@@ -78,7 +77,7 @@ public class ControladorMesas : MonoBehaviour
         {
             if (m.ocupada)
             {
-                m.pasarTiempo(time);
+                m.pasarTiempo();
             }
         }
     }

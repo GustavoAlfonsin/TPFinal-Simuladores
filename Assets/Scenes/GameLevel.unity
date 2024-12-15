@@ -939,7 +939,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e839804092dd04945a5c8e5c52302e20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duracionDiaEnSegundos: 840
   diaActual: 1
 --- !u!1 &179497961
 GameObject:
@@ -2304,6 +2303,11 @@ PrefabInstance:
       propertyPath: txtOrdenes
       value: 
       objectReference: {fileID: 228502825}
+    - target: {fileID: 6170872588041461069, guid: 94a19c8d4f4b2344ab514125b78fa606,
+        type: 3}
+      propertyPath: eating_time
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 6170872588041461069, guid: 94a19c8d4f4b2344ab514125b78fa606,
         type: 3}
       propertyPath: botones.Array.data[0]

@@ -28,6 +28,7 @@ public class Mesa : MonoBehaviour, IInteractions
     public Estados.table _state { get; set; }
 
     [SerializeField]private float start_time, thinking_time, order_time, wait_time, eating_time;
+    private TimeSpan startTime;
 
     public Action<dinner> whenDeliveringTheFood;
     public Action<List<TableFood>> whenLeavingThePlace;
@@ -37,13 +38,13 @@ public class Mesa : MonoBehaviour, IInteractions
         txtMesa.text = $"{numeroMesa}";
     }
 
-    public void ocuparMesa(float time, GameObject family)
+    public void ocuparMesa(TimeSpan time, GameObject family)
     {
         ocupada = true;
         ShowClients();
         _state = Estados.table.Thinking;
         _familia = family;
-        start_time = time;
+        startTime = time;
     }
 
     private void ShowClients()
@@ -118,9 +119,9 @@ public class Mesa : MonoBehaviour, IInteractions
         }
     }
 
-    public void pasarTiempo(float timer)
+    public void pasarTiempo()
     {
-        float tiempoTranscurrido = timer - start_time;
+        int tiempoTranscurrido = CicloDeDia.howMuchTimePassed(startTime);
         Debug.Log($"Tiempo transcurrido: {tiempoTranscurrido:00} ");
         if (_state == Estados.table.Thinking)
         {
@@ -128,7 +129,7 @@ public class Mesa : MonoBehaviour, IInteractions
             if (tiempoTranscurrido > thinking_time)
             {
                 _state = Estados.table.toOrder;
-                start_time = Time.time;
+                startTime = CicloDeDia.getCurrentTime();
             }
         }else if (_state == Estados.table.toOrder)
         {
@@ -150,7 +151,7 @@ public class Mesa : MonoBehaviour, IInteractions
 
         foreach (TableFood food in _dishes)
         {
-            food.eating(timer);
+            food.eating();
         }
         if (haveYouFinishedEating() && _dishes.Count > 0)
         {
@@ -194,14 +195,16 @@ public class Mesa : MonoBehaviour, IInteractions
             orders.Add(order);
             TableFood newdish = new TableFood(order._name,7.5f,order._cost);
             _dishes.Add(newdish);
+            Debug.Log(order._name);
         }
+        startTime = CicloDeDia.getCurrentTime();
         return orders;
     }
 
     public void wasAttendedTo()
     {
         _state = Estados.table.Waiting;
-        start_time = Time.time;
+        startTime = CicloDeDia.getCurrentTime();
     }
 
     public bool deliverFood(dinner food)
@@ -215,6 +218,10 @@ public class Mesa : MonoBehaviour, IInteractions
                 if (allDelivered())
                 {
                     _state = Estados.table.Eating;
+                }
+                else
+                {
+                    startTime = CicloDeDia.getCurrentTime();
                 }
                 return true;
             }
