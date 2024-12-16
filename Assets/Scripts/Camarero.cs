@@ -8,7 +8,10 @@ using UnityEngine.UI;
 
 public class Camarero : MonoBehaviour, IInteractions
 {
-    
+    [SerializeField] private float floorWidth = 10f;
+    [SerializeField] private float floorLegth = 10f;
+    [SerializeField] private float checkRadius = 1.0f;
+    [SerializeField] private Vector3 areaCenter = new Vector3(0, 0, 0);
     [SerializeField] private float _distancia = 4f;
     private NavMeshAgent _agente;
     private Vector3 _destino;
@@ -85,6 +88,37 @@ public class Camarero : MonoBehaviour, IInteractions
             estado = Estados.waiter.Waiting;
         }
     }
+
+    private Vector3 GetRandomPositionOnFloor()
+    {
+        Vector3 randomPosition = Vector3.zero;
+        bool validPositionFound = false;
+        while (!validPositionFound) 
+        {
+            float randomX = Random.Range(-floorWidth / 2, floorWidth / 2);
+            float randomZ = Random.Range(-floorLegth / 2, floorLegth / 2);
+
+            randomPosition = areaCenter + new Vector3(randomX, 0, randomZ);
+
+            validPositionFound = NavMesh.SamplePosition(randomPosition, out NavMeshHit hit, checkRadius, NavMesh.AllAreas);
+
+            if (validPositionFound)
+            {
+                randomPosition = hit.position;
+            }
+        }
+        return randomPosition;
+    }
+
+    //private void OnDrawGizmos()
+    //{
+    //    Vector3 sizeVector = new Vector3(floorWidth, 0, floorLegth);
+    //    Gizmos.color = new Color(0, 1, 0, 0.3f);
+    //    Gizmos.DrawCube(areaCenter, sizeVector);
+
+    //    Gizmos.color = Color.green;
+    //    Gizmos.DrawWireCube(areaCenter, sizeVector);
+    //}
     public void atender(GameObject obj1, GameObject obj2)
     {
         objeto1 = obj1;
@@ -111,7 +145,7 @@ public class Camarero : MonoBehaviour, IInteractions
                 objeto1.SetActive(false);
                 objeto2.GetComponent<Mesa>().ocuparMesa(CicloDeDia.getCurrentTime(), objeto1);
                 conGente = false;
-                Vector3 destino = _cocina._position.position;
+                Vector3 destino = GetRandomPositionOnFloor();
                 destino.y = transform.position.y;
                 CamareroCamina(destino);
                 objeto1 = null;
@@ -138,7 +172,7 @@ public class Camarero : MonoBehaviour, IInteractions
             int tableID = objeto1.GetComponent<Mesa>().numeroMesa;
             objeto1.GetComponent<Mesa>().wasAttendedTo();
             _cocina.getOrders(encargos, tableID);
-            CamareroCamina(_cocina._position.position);
+            CamareroCamina(GetRandomPositionOnFloor());
             objeto1 = null;
         }
     }
@@ -153,6 +187,7 @@ public class Camarero : MonoBehaviour, IInteractions
     public void reEntregarElPedido(GameObject mesa)
     {
         objeto2 = mesa;
+        imagenError.gameObject?.SetActive(false);
         estado = Estados.waiter.Delivering;
     }
 
@@ -177,7 +212,7 @@ public class Camarero : MonoBehaviour, IInteractions
             if (objeto2.GetComponent<Mesa>().deliverFood(_plato))
             {
                 _plato = null;
-                CamareroCamina(_cocina._position.position);
+                CamareroCamina(GetRandomPositionOnFloor());
                 objeto1 = null;
                 objeto2 = null;
             }
@@ -208,7 +243,7 @@ public class Camarero : MonoBehaviour, IInteractions
             Game_Manager.tipsTotales += tips;
             objeto1.GetComponent<Mesa>().desocuparMesa();
             UIManager.numberOfClients++;
-            CamareroCamina(_cocina._position.position);
+            CamareroCamina(GetRandomPositionOnFloor());
             objeto1 = null;
         }
     }

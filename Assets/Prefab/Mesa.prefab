@@ -430,10 +430,9 @@ MonoBehaviour:
   normalCall: {fileID: 21300000, guid: 71e4db6d92d18e143a86f5e8c503c235, type: 3}
   angryCall: {fileID: 21300000, guid: e0d1e999a27217044ba18b5e115932cd, type: 3}
   paycall: {fileID: 21300000, guid: 3b1e0aacb4533de4dac95772f2bb5608, type: 3}
-  start_time: 0
-  thinking_time: 5
-  order_time: 20
-  wait_time: 45
+  thinking_time: 15
+  order_time: 40
+  wait_time: 60
   eating_time: 15
 --- !u!208 &8755886723678436035
 NavMeshObstacle:

@@ -1,43 +1,40 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class SpawClientes : MonoBehaviour
 {
+    [SerializeField] private Vector3 spawnAreaCenter, spawnAreaSize;
     public GameObject prefab;
     public GameObject spaw;
     public static GameObject spawPoint;
 
     private float spawTime = 5.0f;
-    private float _time = 0f;
-    private int maxClient = 2;
-    private float _spaceBetweenClients = 3.0f;
-    //private int _row = 1;
-    private float _hor = 1;
+    private TimeSpan lastSpaw;
+    private int maxClient = 24;
+    private float _spaceBetweenClients = 1.5f;
 
     public List<GameObject> clients = new List<GameObject>();
-    private List<GameObject> activeClients = new List<GameObject>();
-    // Start is called before the first frame update
     void Start()
     {
         nameRandomizer.loadNames();
         spawPoint = spaw;
+        lastSpaw = CicloDeDia.getCurrentTime();
         CreateClients();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        _time += Time.deltaTime;
-        if (_time >= spawTime && activeClients.Count < clients.Count)
+        int passedTime = CicloDeDia.howMuchTimePassed(lastSpaw);
+        if (passedTime > spawTime)
         {
             NextClient();
-            _time = 0;
-            spawTime = Random.Range(5,11);
+            lastSpaw = CicloDeDia.getCurrentTime();
+            spawTime = UnityEngine.Random.Range(5, 9);
         }
-        
-       // reorganizeClients();
     }
 
     private void CreateClients()
@@ -54,42 +51,50 @@ public class SpawClientes : MonoBehaviour
 
     private void NextClient()
     {
-        var waitingClients = activeClients.Where(c => c.GetComponent<Client>()._state == Estados.customer.Waiting).Count();
-        if(waitingClients <= 5)
+        var waitingClients = clients.Where(c => c.activeInHierarchy &&
+                                            c.GetComponent<Client>()._state == Estados.customer.Waiting).Count();
+        if(waitingClients < 5)
         {
             GameObject client = clients.FirstOrDefault(x => !x.activeInHierarchy &&
                                 x.GetComponent<Client>()._state == Estados.customer.Waiting);
-            client.SetActive(true);
-            client.transform.position = whichPosition(activeClients.Count);
-            client.GetComponent<Client>().lineUpFriends();
-            activeClients.Add(client);
-        }
-    }
-
-    private Vector3 whichPosition(int indice)
-    {
-        Vector3 basePosition = transform.position;
-        Vector3 offset = Vector3.right * _hor * _spaceBetweenClients * indice;
-        return basePosition + offset;
-    }
-
-    private void reorganizeClients()
-    {
-        if (activeClients.Count == 0) return;
-
-        // Saco de la lista los clientes que se fueron a la mesa
-        for (int i = 0; i < activeClients.Count; i++)
-        {
-            Vector3 expectedPosition = whichPosition(i);
-            if (Vector3.Distance(activeClients[i].transform.position, expectedPosition) > 1f)
+            if (client != null)
             {
-                activeClients.RemoveAt(i);
+                Vector3 position;
+                do
+                {
+                    position = GetRandomPositionInArea();
+                } while (isPositionValid(position));
+                client.SetActive(true);
+                client.transform.position = position;
+                client.GetComponent<Client>().lineUpFriends();
             }
         }
-        // Reorganizo la posición de los clientes en la fila
-        for (int j = 0; j < activeClients.Count; j++) 
+    }
+
+    private Vector3 GetRandomPositionInArea()
+    {
+        float randomX = UnityEngine.Random.Range(-spawnAreaSize.x / 2, spawnAreaSize.x / 2);
+        float randomZ = UnityEngine.Random.Range(-spawnAreaSize.z / 2, spawnAreaSize.z / 2);
+
+        return spawnAreaCenter + new Vector3(randomX, 0, randomZ);
+    }
+
+    private bool isPositionValid(Vector3 position)
+    {
+        if (!NavMesh.SamplePosition(position, out NavMeshHit hit, 1.0f, NavMesh.AllAreas))
         {
-            activeClients[j].transform.position = whichPosition(j);
+            return false;
         }
+
+        return !Physics.CheckSphere(position,_spaceBetweenClients);
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = new Color(0, 1, 0, 0.3f);
+        Gizmos.DrawCube(spawnAreaCenter, spawnAreaSize);
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(spawnAreaCenter, spawnAreaSize);
     }
 }

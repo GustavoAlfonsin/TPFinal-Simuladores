@@ -274,7 +274,7 @@ public class Game_Manager : MonoBehaviour
                     objeto2 = infoRayoSecundario.collider.gameObject;
                     objetosSeleccionados++;
                     selection_state = Estados.selection.Nothing;
-                    objeto1.GetComponent<Camarero>().reEntregarElPedido(objeto2);
+                    _target.GetComponent<Camarero>().reEntregarElPedido(objeto2);
                     panelAyuda.SetActive(false);
                     Debug.Log("Objeto 2 seleccionado: " + objeto2.tag);
                 }

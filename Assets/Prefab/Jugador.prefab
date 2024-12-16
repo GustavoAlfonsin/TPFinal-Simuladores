@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &928034200864048323
 RectTransform:
   m_ObjectHideFlags: 0
@@ -336,7 +336,7 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 1
-  m_WalkableMask: 5
+  m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!114 &6087110607624995764
 MonoBehaviour:
@@ -350,6 +350,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 688aa24f84ea5eb4da6ef4b603db62e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  floorWidth: 36
+  floorLegth: 33
+  checkRadius: 1
+  areaCenter: {x: 0, y: 0, z: 2.5}
   _distancia: 4
   <player>k__BackingField: {fileID: 7801208491510213789}
   <_cocina>k__BackingField: {fileID: 0}
