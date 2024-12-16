@@ -62,6 +62,11 @@ public class UIManager : MonoBehaviour
     {
         SceneManager.LoadScene("Game_level");
     }
+
+    public void volverAInicio()
+    {
+        SceneManager.LoadScene("Intro_scene");
+    }
     private void endDay()
     {
         endGame = true;
