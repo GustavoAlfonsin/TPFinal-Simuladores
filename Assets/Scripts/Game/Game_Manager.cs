@@ -46,6 +46,7 @@ public class Game_Manager : MonoBehaviour
     {
         selection_state = Estados.selection.Nothing;
         dineroActual = 0;
+        tipsTotales = 0;
         objeto1 = null;
         objeto2 = null;
     }

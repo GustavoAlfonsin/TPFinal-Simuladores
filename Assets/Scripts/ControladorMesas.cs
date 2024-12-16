@@ -38,8 +38,9 @@ public class ControladorMesas : MonoBehaviour
                     case Estados.table.toOrder:
                         table.callWaiter();
                         break;
-                    //case Estados.table.Waiting:
-                    //    break;
+                    case Estados.table.Waiting:
+                        table.isGettingAngry();
+                        break;
                     case Estados.table.toCollect:
                         table.callToPay();
                         break;

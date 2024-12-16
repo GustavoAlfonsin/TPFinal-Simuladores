@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
 
     public TextMeshProUGUI numberOfOrders;
     public TextMeshProUGUI amountEarned;
+    public TextMeshProUGUI tipsEarned;
     public TextMeshProUGUI disstisfiedCustomers;
     public static int numberOfClients;
     public static int numberOfDC; //numero de clientes insatisfechos
@@ -53,12 +54,13 @@ public class UIManager : MonoBehaviour
         EndGamePanel.SetActive(true);
         numberOfOrders.text = numberOfClients.ToString();
         amountEarned.text = Game_Manager.dineroActual.ToString();
+        tipsEarned.text = Game_Manager.tipsTotales.ToString();
         disstisfiedCustomers.text = numberOfDC.ToString();
     }
 
     public void restartLevel()
     {
-        SceneManager.LoadScene("GameLevel");
+        SceneManager.LoadScene("Game_level");
     }
     private void endDay()
     {

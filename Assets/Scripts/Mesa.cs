@@ -26,7 +26,7 @@ public class Mesa : MonoBehaviour, IInteractions
     public GameObject mozo;
     public Image stateImage;
     private bool isAngry = false;
-    public Sprite normalCall, angryCall, paycall;
+    public Sprite normalCall, angryCall, paycall, angrywait;
     public bool ocupada { get; set; }
     public Estados.table _state { get; set; }
 
@@ -208,6 +208,7 @@ public class Mesa : MonoBehaviour, IInteractions
     public void wasAttendedTo()
     {
         checkTip(startTime, order_time);
+        stateImage.gameObject?.SetActive(false);
         _state = Estados.table.Waiting;
         startTime = CicloDeDia.getCurrentTime();
     }
@@ -340,6 +341,15 @@ public class Mesa : MonoBehaviour, IInteractions
         else
         {
             stateImage.sprite = angryCall;
+        }
+    }
+
+    public void isGettingAngry()
+    {
+        if (isAngry)
+        {
+            stateImage.gameObject?.SetActive(true);
+            stateImage.sprite = angrywait;
         }
     }
 

@@ -430,6 +430,7 @@ MonoBehaviour:
   normalCall: {fileID: 21300000, guid: 71e4db6d92d18e143a86f5e8c503c235, type: 3}
   angryCall: {fileID: 21300000, guid: e0d1e999a27217044ba18b5e115932cd, type: 3}
   paycall: {fileID: 21300000, guid: 3b1e0aacb4533de4dac95772f2bb5608, type: 3}
+  angrywait: {fileID: 21300000, guid: 16e6066d2d4d71a46b2a78d43572dd25, type: 3}
   thinking_time: 15
   order_time: 40
   wait_time: 60
@@ -729,13 +730,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7090995978275868063}
-  m_LocalRotation: {x: 0.5506055, y: -0, z: -0, w: 0.8347657}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1485281324714798252}
-  m_LocalEulerAnglesHint: {x: 66.817, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
