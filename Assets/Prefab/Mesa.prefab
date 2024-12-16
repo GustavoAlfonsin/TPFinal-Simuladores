@@ -134,7 +134,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 126
   m_CollisionDetection: 1
 --- !u!208 &9152590322263545689
 NavMeshObstacle:
@@ -422,6 +422,7 @@ MonoBehaviour:
   - {fileID: 9120628361273968917}
   txtMesa: {fileID: 205151277602365138}
   infoPanel: {fileID: 0}
+  txtTitulo: {fileID: 0}
   txtOrdenes: {fileID: 0}
   _familia: {fileID: 0}
   mozo: {fileID: 0}
@@ -686,7 +687,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 126
   m_CollisionDetection: 1
 --- !u!208 &2281762929853630957
 NavMeshObstacle:
@@ -729,13 +730,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7090995978275868063}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.5506055, y: -0, z: -0, w: 0.8347657}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1485281324714798252}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 66.817, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -913,7 +914,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 126
   m_CollisionDetection: 1
 --- !u!208 &7996243741565784383
 NavMeshObstacle:
@@ -1167,7 +1168,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 126
   m_CollisionDetection: 1
 --- !u!208 &8082326582607052495
 NavMeshObstacle:

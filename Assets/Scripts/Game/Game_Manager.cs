@@ -37,7 +37,9 @@ public class Game_Manager : MonoBehaviour
 
     //otros
     public static float dineroActual;
+    public static float tipsTotales;
     public TextMeshProUGUI txtDinero;
+    public TextMeshProUGUI txtTips;
 
     // Start is called before the first frame update
     void Start()
@@ -53,6 +55,7 @@ public class Game_Manager : MonoBehaviour
     {
         interaccionesDelMouse();
         txtDinero.text = "Dinero acumulado: $" + dineroActual;
+        txtTips.text = "Propinas generadas: $" + tipsTotales;
     }
 
     private void interaccionesDelMouse()
@@ -108,6 +111,10 @@ public class Game_Manager : MonoBehaviour
                 }
                 else if (hasTheInterface<IInteractions>(infoRayoPrincipal.collider.gameObject))
                 {
+                    if (_target != null)
+                    {
+                        _target.GetComponent<IInteractions>().ocultarAcciones();
+                    }
                     _target = infoRayoPrincipal.collider.gameObject;
                     _target.GetComponent<IInteractions>().mostrarAcciones();
                 }
@@ -162,18 +169,32 @@ public class Game_Manager : MonoBehaviour
 
     public void IniciarSeleccion()
     {
-        selection_state = Estados.selection.toAttendTo;
-        objeto1 = null;
-        objeto2 = null;
-        objetosSeleccionados = 0;
-        _target.GetComponent<IInteractions>().ocultarAcciones();
-        panelAyuda.SetActive(true);
-        txtAyuda.text = "Elije a los clientes que quieras atender";
+        if (_target.GetComponent<Camarero>().estado == Estados.waiter.Waiting ||
+            _target.GetComponent<Camarero>().estado == Estados.waiter.Walked)
+        {
+            selection_state = Estados.selection.toAttendTo;
+            objeto1 = null;
+            objeto2 = null;
+            objetosSeleccionados = 0;
+            _target.GetComponent<IInteractions>().ocultarAcciones();
+            panelAyuda.SetActive(true);
+            txtAyuda.text = "Elije a los clientes que quieras atender";
+        }
+        else
+        {
+            panelAyuda.SetActive(true);
+            txtAyuda.text = "El mozo que seleccionaste esta ocupado";
+        }
+        
     }
 
     public void AtenderMesa()
     {
-        _target.GetComponent<Mesa>().mozo.GetComponent<Camarero>().Llamando(_target);
+        if (!_target.GetComponent<Mesa>().llamarAlMozo())
+        {
+            panelAyuda.SetActive(true);
+            txtAyuda.text = "El mozo esta ocupado";
+        }
         _target.GetComponent<IInteractions>().ocultarAcciones();
     }
 
@@ -194,10 +215,19 @@ public class Game_Manager : MonoBehaviour
         {
             if (objetosSeleccionados == 0 && infoRayoSecundario.collider.CompareTag("Player"))
             {
-                objeto1 = infoRayoSecundario.collider.gameObject;
-                objetosSeleccionados++;
-                txtAyuda.text = "Elije la mesa donde quieres entregar la orden";
-                Debug.Log("Objeto 1 seleccionado: " + objeto1.tag);
+                if (infoRayoSecundario.collider.GetComponent<Camarero>().estado == Estados.waiter.Walked ||
+                    infoRayoSecundario.collider.GetComponent<Camarero>().estado == Estados.waiter.Waiting)
+                {
+                    objeto1 = infoRayoSecundario.collider.gameObject;
+                    objetosSeleccionados++;
+                    txtAyuda.text = "Elije la mesa donde quieres entregar la orden";
+                    Debug.Log("Objeto 1 seleccionado: " + objeto1.tag);
+                }
+                else
+                {
+                    txtAyuda.text = "El mozo que elegiste esta ocupado \n elija a otro para hacer la entrega";
+                }
+                
             }
             else if (objetosSeleccionados == 1 && infoRayoSecundario.collider.CompareTag("Mesa"))
             {
@@ -254,7 +284,11 @@ public class Game_Manager : MonoBehaviour
 
     public void CobrarPedido()
     {
-        _target.GetComponent<Mesa>().mozo.GetComponent<Camarero>().LlamadaParaCobrar(_target);
+        if (!_target.GetComponent<Mesa>().llamarParaPagar())
+        {
+            panelAyuda.SetActive(true);
+            txtAyuda.text = "El mozo esta ocupado";
+        }
         _target.GetComponent<IInteractions>().ocultarAcciones();
     }
 

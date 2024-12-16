@@ -15,8 +15,11 @@ public class Mesa : MonoBehaviour, IInteractions
     public List<Button> botones;
 
     public List<GameObject> clientes;
+    //número de la mesa
     public TextMeshProUGUI txtMesa;
+    // Panel de info que indica los pedidos de la mesa
     public GameObject infoPanel;
+    public TextMeshProUGUI txtTitulo;
     public TextMeshProUGUI txtOrdenes;
     public GameObject _familia;
     public List<TableFood> _dishes = new List<TableFood>(); 
@@ -27,11 +30,12 @@ public class Mesa : MonoBehaviour, IInteractions
     public bool ocupada { get; set; }
     public Estados.table _state { get; set; }
 
-    [SerializeField]private float start_time, thinking_time, order_time, wait_time, eating_time;
+    [SerializeField]private float thinking_time, order_time, wait_time, eating_time;
+    
     private TimeSpan startTime;
+    private float tipPercentage;
 
     public Action<dinner> whenDeliveringTheFood;
-    public Action<List<TableFood>> whenLeavingThePlace;
     public void asignarNumero(int i)
     {
         numeroMesa = i;
@@ -45,6 +49,7 @@ public class Mesa : MonoBehaviour, IInteractions
         _state = Estados.table.Thinking;
         _familia = family;
         startTime = time;
+        tipPercentage = 10f;
     }
 
     private void ShowClients()
@@ -64,6 +69,7 @@ public class Mesa : MonoBehaviour, IInteractions
         _familia.GetComponent<Client>().readyToLeave(SpawClientes.spawPoint);
         _familia = null;
         _dishes.Clear();
+        tipPercentage = 0f;
     }
 
     public void HideClients()
@@ -179,7 +185,6 @@ public class Mesa : MonoBehaviour, IInteractions
         }else if (tiempoT - time > 30f)
         {
             Debug.Log("Nos vamos");
-            whenLeavingThePlace?.Invoke(_dishes);
             desocuparMesa();
             UIManager.numberOfDC++;
         }
@@ -197,23 +202,48 @@ public class Mesa : MonoBehaviour, IInteractions
             _dishes.Add(newdish);
             Debug.Log(order._name);
         }
-        startTime = CicloDeDia.getCurrentTime();
         return orders;
     }
 
     public void wasAttendedTo()
     {
+        checkTip(startTime, order_time);
         _state = Estados.table.Waiting;
         startTime = CicloDeDia.getCurrentTime();
     }
 
+    private void checkTip(TimeSpan time, float refTime)
+    {
+        int howMuchTime = CicloDeDia.howMuchTimePassed(time);
+        if (howMuchTime < refTime)
+        {
+            tipPercentage += 2;
+        } else if (howMuchTime - refTime < 15) 
+        {
+            tipPercentage += 0.5f;
+        }else if (howMuchTime - refTime > 15 && howMuchTime - refTime < 30)
+        {
+            tipPercentage -= 2f;
+        }
+
+        if (tipPercentage < 5f)
+        {
+            tipPercentage = 5;
+        }else if (tipPercentage > 25f)
+        {
+            tipPercentage = 25;
+        }
+    }
+
     public bool deliverFood(dinner food)
     {
+        TimeSpan tenMinutesLess = new TimeSpan(0,20,0);
         foreach (TableFood dish in _dishes)
         {
-            if (dish.Name == food._name)
+            if (dish.Name == food._name && dish.State == Estados.tableFood.NotYetDelivered)
             {
                 dish.wasDelivered();
+                checkTip(startTime, wait_time);
                 whenDeliveringTheFood?.Invoke(food);
                 if (allDelivered())
                 {
@@ -221,10 +251,18 @@ public class Mesa : MonoBehaviour, IInteractions
                 }
                 else
                 {
-                    startTime = CicloDeDia.getCurrentTime();
+                    startTime += tenMinutesLess;
                 }
                 return true;
             }
+        }
+        tipPercentage -= 2;
+        if (tipPercentage < 5f)
+        {
+            tipPercentage = 5f;
+        }else if (tipPercentage > 25)
+        {
+            tipPercentage = 25f;
         }
         return false;
     }
@@ -253,13 +291,14 @@ public class Mesa : MonoBehaviour, IInteractions
         }
     }
 
-    public float payForDinner()
+    public float payForDinner(out float tips)
     {
         float total = 0;
         foreach (TableFood food in _dishes)
         {
             total += food.Cost;
         }
+        tips = (total * tipPercentage) / 100;
         return total;
     }
 
@@ -267,20 +306,28 @@ public class Mesa : MonoBehaviour, IInteractions
     {
         if (ocupada && _dishes.Count > 0)
         {
-            infoPanel.SetActive(true);
+            txtTitulo.gameObject.SetActive(true);
+            txtTitulo.text = $"Platos de la mesa: {numeroMesa}";
+            txtOrdenes.gameObject.SetActive(true);
             txtOrdenes.text = string.Empty;
             foreach (TableFood food in _dishes)
             {
-                txtOrdenes.text += food.Name + " \n";
+                if(food.State == Estados.tableFood.Ontable || food.State == Estados.tableFood.Done)
+                {
+                    txtOrdenes.text += $"<s>{food.Name}</s> \n";
+                }
+                else
+                {
+                    txtOrdenes.text += food.Name + " \n";
+                }
             }
-            Vector3 posicion = Input.mousePosition + (Vector3.up * 3) + (Vector3.right * 2);
-            infoPanel.transform.position = posicion;
         }
     }
 
     public void hideInfo()
     {
-        infoPanel?.SetActive(false);
+        txtTitulo.gameObject.SetActive(false);
+        txtOrdenes.gameObject.SetActive(false);
     }
 
     public void callWaiter()
@@ -327,6 +374,34 @@ public class Mesa : MonoBehaviour, IInteractions
         if (infoPanel != null)
         {
             hideInfo();
+        }
+    }
+
+    public bool llamarAlMozo()
+    {
+        if (mozo.GetComponent<Camarero>().estado == Estados.waiter.Walked ||
+            mozo.GetComponent<Camarero>().estado == Estados.waiter.Waiting)
+        {
+            mozo.GetComponent<Camarero>().Llamando(this.gameObject);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public bool llamarParaPagar()
+    {
+        if (mozo.GetComponent<Camarero>().estado == Estados.waiter.Walked ||
+            mozo.GetComponent<Camarero>().estado == Estados.waiter.Waiting)
+        {
+            mozo.GetComponent<Camarero>().LlamadaParaCobrar(this.gameObject);
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }

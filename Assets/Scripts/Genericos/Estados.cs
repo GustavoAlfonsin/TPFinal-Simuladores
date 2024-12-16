@@ -43,6 +43,7 @@ public static class Estados
     {
         cooking,
         Ready,
+        Delivering,
         Delivered,
         Discarded
     }

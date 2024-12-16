@@ -11,7 +11,7 @@ public class Tray : MonoBehaviour, IInteractions
     public GameObject PanelInfo;
     public TextMeshProUGUI _txtOrderName;
     public Cocina _kitchen;
-
+    [field : SerializeField]
     private bool isEmpty;
     public bool IsEmpty
     {
@@ -36,19 +36,22 @@ public class Tray : MonoBehaviour, IInteractions
     {
         this._order = food;
         isEmpty = false;
+        _cubo.gameObject?.SetActive(true);
     }
 
     public dinner receiveOrder()
     {
+        this.Order.isDelivering();
+        dinner dish = this._order;
         removeOrder();
-        return this._order;
+        return dish;
     }
 
     public void removeOrder()
     {
         this._order = null;
         isEmpty = true;
-        this.gameObject.SetActive(false);
+        _cubo.SetActive(false);
     }
 
     public void showInfo()
@@ -57,7 +60,7 @@ public class Tray : MonoBehaviour, IInteractions
         {
             PanelInfo.SetActive(true);
             _txtOrderName.text = "Plato pedido: " + _order._name;
-            Vector3 posicion = Input.mousePosition + (Vector3.up * 3) + (Vector3.right * 2);
+            Vector3 posicion = Input.mousePosition + (Vector3.up * 7) + (Vector3.right * 3);
             PanelInfo.transform.position = posicion;
         }
     }
@@ -87,8 +90,6 @@ public class Tray : MonoBehaviour, IInteractions
     {
         hideInfo();
         panelButtons.SetActive(true);
-        Vector3 posicion = Input.mousePosition + (Vector3.up * 3);
-        panelButtons.transform.position = posicion;
     }
 
     public void ocultarAcciones()

@@ -53,7 +53,10 @@ public class dinner : meal
 	{
 		_state = Estados.foodInKitchen.Discarded;
 	}
-
+	public void isDelivering()
+	{
+		_state = Estados.foodInKitchen.Delivering;
+	}
     public override string ToString()
     {
         return this._name;

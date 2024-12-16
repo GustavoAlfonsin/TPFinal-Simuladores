@@ -12,7 +12,6 @@ public class Cocina : MonoBehaviour
     public List<Tray> barDishes;
     public Transform _position;
 
-    public TMP_Dropdown listaPlatosListos;
     public bool isCooking;
 
     private float time;
@@ -56,15 +55,6 @@ public class Cocina : MonoBehaviour
         }
 
         putOnTheBar();
-
-        listaPlatosListos.ClearOptions();
-        List<string> comidas = new List<string>();
-        foreach (dinner food in _dishes)
-        {
-            string plato = food._name + " " + food.State.ToString();
-            comidas.Add(plato);
-        }
-        listaPlatosListos.AddOptions(comidas);
     }
 
     private void putOnTheBar()
@@ -77,7 +67,6 @@ public class Cocina : MonoBehaviour
                 if (readyFood != null)
                 {
                     barTray.assignOrder(readyFood);
-                    barTray.gameObject?.SetActive(true);
                 }
             }
         }

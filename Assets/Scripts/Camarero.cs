@@ -176,6 +176,7 @@ public class Camarero : MonoBehaviour, IInteractions
         {
             if (objeto2.GetComponent<Mesa>().deliverFood(_plato))
             {
+                _plato = null;
                 CamareroCamina(_cocina._position.position);
                 objeto1 = null;
                 objeto2 = null;
@@ -202,7 +203,9 @@ public class Camarero : MonoBehaviour, IInteractions
         }
         else
         {
-            Game_Manager.dineroActual += objeto1.GetComponent<Mesa>().payForDinner();
+            float tips;
+            Game_Manager.dineroActual += objeto1.GetComponent<Mesa>().payForDinner(out tips);
+            Game_Manager.tipsTotales += tips;
             objeto1.GetComponent<Mesa>().desocuparMesa();
             UIManager.numberOfClients++;
             CamareroCamina(_cocina._position.position);
